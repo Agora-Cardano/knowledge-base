@@ -7,6 +7,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Agora Knowledge Base',
+      
+      logo: {
+        light: '/agora-dark-logo-no-background.png',
+        dark: '/agora-light-logo-no-background.png',
+        alt: 'Agora',
+      },
+
       description:
         'An educational and reference resource focused on Cardano governance and its institutional environment.',
       social: [
