@@ -9,8 +9,8 @@ export default defineConfig({
       title: 'Agora Knowledge Base',
       
       logo: {
-        light: '/agora-dark-logo-no-background.png',
-        dark: '/agora-light-logo-no-background.png',
+        light: '/src/assets/agora-dark-logo-no-background.png',
+        dark: '/src/assets/agora-light-logo-no-background.png',
         alt: 'Agora',
       },
 
