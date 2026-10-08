@@ -34,7 +34,24 @@ export default defineConfig({
           href: 'https://github.com/Agora-Cardano/knowledge-base',
         },
       ],
-      sidebar: [],
+
+      sidebar: [
+        {
+          label: 'Cardano Governance',
+          translations: {
+            'pt-br': 'Governança Cardano',
+          },
+          link: '/cardano-governance/',
+        },
+        {
+          label: 'Institutions & Organizations',
+          translations: {
+            'pt-br': 'Instituições e Organizações',
+          },
+          link: '/institutions-organizations/',
+        },
+      ],
+
     }),
   ],
 });
