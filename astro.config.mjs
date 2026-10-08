@@ -1,57 +1,56 @@
-
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+import mdx from '@astrojs/mdx';
+
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'Agora Knowledge Base',
+  integrations: [starlight({
+    title: 'Agora Knowledge Base',
 
-      defaultLocale: 'root',
-      locales: {
-        root: {
-          label: 'English',
-          lang: 'en',
-        },
-        'pt-br': {
-          label: 'Português (Brasil)',
-          lang: 'pt-BR',
-        },
+    defaultLocale: 'root',
+    locales: {
+      root: {
+        label: 'English',
+        lang: 'en',
       },
-      logo: {
-        light: './src/assets/agora-dark-logo-no-background.png',
-        dark: './src/assets/agora-light-logo-no-background.png',
-        alt: 'Agora',
+      'pt-br': {
+        label: 'Português (Brasil)',
+        lang: 'pt-BR',
       },
-      customCss: ['./src/styles/custom.css'],
-      description:
-        'An educational and reference resource focused on Cardano governance and its institutional environment.',
-      social: [
-        {
-          icon: 'github',
-          label: 'GitHub',
-          href: 'https://github.com/Agora-Cardano/knowledge-base',
-        },
-      ],
+    },
+    logo: {
+      light: './src/assets/agora-dark-logo-no-background.png',
+      dark: './src/assets/agora-light-logo-no-background.png',
+      alt: 'Agora',
+    },
+    customCss: ['./src/styles/custom.css'],
+    description:
+      'An educational and reference resource focused on Cardano governance and its institutional environment.',
+    social: [
+      {
+        icon: 'github',
+        label: 'GitHub',
+        href: 'https://github.com/Agora-Cardano/knowledge-base',
+      },
+    ],
 
-      sidebar: [
-        {
-          label: 'Cardano Governance',
-          translations: {
-            'pt-br': 'Governança Cardano',
-          },
-          link: '/cardano-governance/',
+    sidebar: [
+      {
+        label: 'Cardano Governance',
+        translations: {
+          'pt-br': 'Governança Cardano',
         },
-        {
-          label: 'Institutions & Organizations',
-          translations: {
-            'pt-br': 'Instituições e Organizações',
-          },
-          link: '/institutions-organizations/',
+        link: '/cardano-governance/',
+      },
+      {
+        label: 'Institutions & Organizations',
+        translations: {
+          'pt-br': 'Instituições e Organizações',
         },
-      ],
+        link: '/institutions-organizations/',
+      },
+    ],
 
-    }),
-  ],
+  }), mdx()],
 });
