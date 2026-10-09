@@ -5,6 +5,8 @@ import starlight from '@astrojs/starlight';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
+  site: 'https://agora-cardano.github.io',
+  base: '/knowledge-base',
   integrations: [starlight({
     title: 'Agora Knowledge Base',
 
