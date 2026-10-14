@@ -1,0 +1,646 @@
+---
+title: "CIP-1694: The Foundations of Cardano's On-Chain Governance"
+description: "Understanding the origins, architecture, design decisions, and implementation of Cardano's decentralized governance framework."
+sidebar:
+  label: "CIP-1694"
+---
+
+import { Image } from 'astro:assets';
+import infographic1 from '../../../../assets/cip-1694/en/cip1694-01-governance-overview.jpeg';
+import infographic2 from '../../../../assets/cip-1694/en/cip1694-02-direct-voting.jpeg';
+import infographic3 from '../../../../assets/cip-1694/en/cip1694-03-governance-delegation.jpeg';
+import infographic4 from '../../../../assets/cip-1694/en/cip1694-04-governance-action-lifecycle.jpeg';
+import infographic5 from '../../../../assets/cip-1694/en/cip1694-05-governance-action-types.jpeg';
+import infographic6 from '../../../../assets/cip-1694/en/cip1694-06-voting-transactions.jpeg';
+import infographic7 from '../../../../assets/cip-1694/en/cip1694-07-ratification-outcomes.jpeg';
+
+*Understanding the origins, architecture, design decisions, and implementation of Cardano's decentralized governance framework.*
+
+## 1. What Is CIP-1694?
+
+### Understanding Cardano Improvement Proposals
+
+A **Cardano Improvement Proposal (CIP)** is a formal design document used to propose, discuss, and document changes to the Cardano blockchain and ecosystem. CIPs provide a structured way for contributors to present technical solutions, gather community feedback, and record the reasoning behind important design decisions.
+
+The process is defined by [CIP-0001](https://cips.cardano.org/cip/CIP-0001), which establishes how proposals are submitted, reviewed, and maintained.
+
+Importantly, **the CIP process is not itself a governance mechanism**. Acceptance of a CIP does not automatically authorize a protocol change, allocate funding, or require its implementation. Those decisions depend on the governance and implementation procedures applicable to the proposed change.
+
+CIPs also serve as a historical record. Their discussions, revisions, and technical justifications help explain how Cardano's infrastructure and standards have evolved.
+
+### Introducing CIP-1694
+
+[CIP-1694: A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cips/cip1694) was created on November 18, 2022, to establish a new governance framework for Cardano's Voltaire development phase.
+
+Its central objective was to replace the earlier governance model, in which important protocol decisions depended on a limited set of governance keys, with a system that would allow ADA holders to participate in decision-making through representation and voting recorded *on-chain*.
+
+The proposal introduced three governance bodies:
+
+- **Delegated Representatives (DReps)**, who exercise voting power delegated by ADA holders.
+- **Stake Pool Operators (SPOs)**, who maintain the network's block production infrastructure and participate in specific governance decisions.
+- **The Constitutional Committee (CC)**, which evaluates governance actions against the Cardano Constitution.
+
+It also introduced seven categories of governance actions, mechanisms for submitting and recording votes, and rules governing ratification and enactment.
+
+A central principle of the proposed model was **one Lovelace, one vote**. Because one ADA contains one million Lovelaces, voting influence is fundamentally weighted by stake rather than by the number of individuals or accounts participating.
+
+The proposal was developed over several years through technical work, community discussions, and workshops. Its main features were subsequently introduced through the **Chang hard fork in September 2024** and the **Plomin hard fork in January 2025**.
+
+CIP-1694 is therefore no longer merely a proposal for future governance. It is the foundational specification behind Cardano's implemented *on-chain* governance architecture.
+
+> **Historical context:** This article explains CIP-1694 as both an original design proposal and the foundation of Cardano's current governance framework. Some passages in the original document describe plans, alternatives, and implementation stages that were still under development at the time. Where relevant, this article distinguishes those historical intentions from the mechanisms subsequently implemented.
+
+## 2. Why Was CIP-1694 Necessary?
+
+### Governance before Voltaire
+
+Before CIP-1694, Cardano's *on-chain* governance mechanisms were based primarily on rules introduced during the Shelley era.
+
+These mechanisms supported two main kinds of decisions:
+
+1. Updating protocol parameters, including changes that could initiate hard forks.
+2. Moving funds from reserves or the Cardano Treasury through existing ledger mechanisms.
+
+On the Cardano mainnet, these decisions relied on a fixed set of seven governance keys, with authorization requiring a quorum of five keys.
+
+This approach provided a comparatively simple mechanism for managing protocol changes during Cardano's early development. However, the CIP's authors regarded it as a transitional arrangement rather than a suitable long-term governance system for an increasingly decentralized blockchain.
+
+The Voltaire phase required a framework in which governance responsibilities could move beyond the founding organizations and become accessible to the broader community.
+
+### Limitations of the Shelley governance model
+
+The original CIP identified four principal shortcomings.
+
+**Limited participation by ADA holders**
+
+The previous governance architecture did not provide an effective mechanism for ADA holders to participate directly in formal *on-chain* decisions.
+
+Although protocol changes could be discussed with community members and other stakeholders, their formal authorization remained concentrated among a limited number of governance key holders.
+
+This created a distinction between participating in discussions about Cardano's development and possessing recognized authority within the protocol itself.
+
+The new framework aimed to reduce that gap by allowing ADA holders to delegate voting power, register as representatives, and participate in a formal decision-making process.
+
+**Insufficient transparency and oversight of Treasury movements**
+
+Treasury withdrawals can have substantial consequences for the ecosystem, particularly as the Treasury becomes an important source of funding for network development and community initiatives.
+
+Under the earlier system, these movements did not benefit from the same public governance procedures, distributed voting responsibilities, and structured scrutiny envisaged by CIP-1694.
+
+The proposal therefore sought to introduce additional layers of authorization and publicly verifiable decision-making around Treasury withdrawals.
+
+**Hard forks were not treated as a distinct governance decision**
+
+Under the Shelley model, a hard fork could be initiated through a protocol parameter update.
+
+However, hard forks differ significantly from ordinary parameter changes. They may introduce incompatible protocol rules and require network participants, particularly SPOs, to upgrade their software.
+
+CIP-1694 recognized that such decisions deserve separate treatment, including an explicit role for SPOs in their authorization.
+
+**No formally recognized constitutional framework**
+
+Cardano's founding organizations and community had developed various principles, expectations, and shared values concerning the network.
+
+However, those principles had not been consolidated into a formally recognized constitutional document linked to the blockchain's governance process.
+
+CIP-1694 introduced the concept of a **Cardano Constitution** to establish a common reference for evaluating governance decisions and protecting the network's long-term interests.
+
+### The objective of the proposal
+
+CIP-1694 was intended as a first achievable step toward decentralized governance, rather than a complete solution to every organizational and political question facing Cardano.
+
+Its authors recognized that governance would continue to develop through community participation, future proposals, and experience gained from operating the system.
+
+The resulting framework needed to combine several objectives: broader participation, transparent decision-making, technical feasibility, network security, and mechanisms for adapting governance rules over time.
+
+These objectives shaped the architecture introduced in the following sections.
+
+## 3. The Governance Framework Introduced by CIP-1694
+
+CIP-1694 established a governance model in which ADA holders can influence network decisions through voting rights assigned to different governance participants.
+
+Rather than concentrating all authority in a single organization or committee, the framework distributes responsibilities among DReps, SPOs, and the Constitutional Committee.
+
+The required combination of approvals depends on the type of governance action being considered.
+
+<Image src={infographic1} alt="Overview of decision-making under CIP-1694 and the roles of ADA holders, DReps, SPOs, and the Constitutional Committee" loading="lazy" />
+
+*Overview of governance participation and the relationship between ADA holders, representatives, SPOs, and the Constitutional Committee.*
+
+### ADA holders and delegated voting power
+
+ADA holders are the underlying source of stake-based voting power in Cardano governance.
+
+A holder may delegate voting rights to a registered DRep without transferring ownership of their ADA. Governance delegation is also distinct from delegation to a stake pool for block production and staking rewards.
+
+The same ADA can therefore contribute to network consensus through stake pool delegation while being represented separately in governance decisions.
+
+An ADA holder who wants to vote on governance actions directly may register as a DRep and delegate their voting power to themselves.
+
+For most participants, however, delegating to another representative offers a way to participate without personally reviewing and voting on every proposal.
+
+### Delegated Representatives (DReps)
+
+DReps are registered governance participants who vote on behalf of the ADA holders delegating voting power to them.
+
+Their voting weight depends on the amount of ADA delegated to them, subject to the protocol's rules for determining active voting stake.
+
+The original CIP established registration and retirement mechanisms, delegation certificates, and activity requirements intended to distinguish active representatives from those who have stopped participating.
+
+DReps may represent themselves, other ADA holders, or both. Their responsibilities include evaluating governance actions and participating in decisions concerning protocol changes, Treasury withdrawals, constitutional updates, and other governance matters.
+
+The framework does not require DReps to be SPOs, although the same individual or organization may exercise both roles.
+
+### Stake Pool Operators (SPOs)
+
+SPOs operate the infrastructure responsible for producing blocks and maintaining Cardano's proof-of-stake network.
+
+CIP-1694 assigns them governance responsibilities in matters where their participation is particularly relevant to network operation and security.
+
+These include hard fork initiations, motions of no-confidence, Constitutional Committee updates, and certain security-relevant protocol parameter changes.
+
+SPO voting is based on stake associated with their pools, according to the applicable rules. Their role in governance is distinct from their responsibility for producing blocks.
+
+### The Constitutional Committee
+
+The Constitutional Committee evaluates whether governance actions comply with the Cardano Constitution.
+
+Its role differs from that of DReps and SPOs. Rather than representing voting stake, the committee is responsible for assessing constitutional compatibility.
+
+Committee members vote individually, with each eligible member having one vote.
+
+CIP-1694 also introduced mechanisms for changing the committee's membership, voting threshold, and terms, as well as declaring a state of no-confidence.
+
+These mechanisms were intended to make the committee accountable and replaceable rather than permanently entrenched.
+
+The Constitution itself is maintained as an *off-chain* document linked to the blockchain through cryptographic references. The committee evaluates its provisions, while applicable *guardrails* scripts can impose additional technical constraints on certain governance actions.
+
+The original CIP deliberately left the Constitution's substantive content outside its scope. That document was developed and ratified subsequently.
+
+For an explanation of its principles, amendment procedures, and history, see the [Cardano Constitution](https://agora-cardano.github.io/knowledge-base/cardano-governance/governance-framework/cardano-constitution/).
+
+<Image src={infographic2} alt="CIP-1694 infographic explaining how community members can vote directly on governance actions" loading="lazy" />
+
+*The three principal routes through which community members may become recognized governance voters.*
+
+### Delegation and predefined voting options
+
+CIP-1694 introduced two predefined delegation options in addition to registered DReps:
+
+**Abstain**
+
+ADA holders may delegate their voting rights to the predefined *Abstain* option.
+
+This records a deliberate choice not to participate in governance voting through a conventional DRep. Stake delegated to this option is excluded from the active voting stake used for relevant voting thresholds.
+
+**No Confidence**
+
+The predefined *No Confidence* option expresses opposition to the current Constitutional Committee.
+
+Under the original design, this option contributes a Yes position to motions of no-confidence and a No position to other relevant governance actions, according to protocol rules.
+
+Both alternatives provide an explicit, protocol-recognized governance choice without requiring the holder to select an individual representative.
+
+<Image src={infographic3} alt="CIP-1694 infographic explaining governance delegation and predefined voting options" loading="lazy" />
+
+*Delegation alternatives, representative voting power, and predefined governance choices.*
+
+## 4. Governance Actions and Decision-Making
+
+The central operational innovation of CIP-1694 was the introduction of governance actions that could be submitted, voted upon, and tracked directly on the Cardano blockchain.
+
+The proposal defined **seven categories of governance actions**.
+
+### The seven governance action types
+
+| Governance action | Purpose |
+|---|---|
+| **Motion of No Confidence** | Establishes a state of no-confidence in the Constitutional Committee. |
+| **Update Committee** | Changes the committee's membership, voting threshold, or members' terms. |
+| **New Constitution or Guardrails Script** | Introduces or updates the constitutional document or applicable technical *guardrails*. |
+| **Hard Fork Initiation** | Authorizes a network upgrade involving a new major protocol version. |
+| **Protocol Parameter Changes** | Modifies supported protocol parameters, excluding changes to the major protocol version. |
+| **Treasury Withdrawals** | Authorizes transfers of ADA from the Cardano Treasury. |
+| **Info Action** | Records a non-binding expression of governance participation without directly modifying the protocol. |
+
+Each type serves a different purpose and may require approval from a different combination of governance bodies.
+
+Hard fork initiations require participation from DReps, SPOs, and the Constitutional Committee. Motions of no-confidence and committee updates instead involve DReps and SPOs, since the committee does not approve changes to its own legitimacy or composition.
+
+Constitutional changes and Treasury withdrawals ordinarily involve the Constitutional Committee and DReps.
+
+Protocol parameter changes generally follow the same arrangement, but changes to security-relevant parameters also require SPO approval.
+
+Info Actions serve a different purpose. They allow votes to be recorded *on-chain* without producing binding changes to the protocol. Their voting results are informative rather than binding ratification decisions.
+
+<Image src={infographic5} alt="CIP-1694 infographic showing seven governance action types and the corresponding voting bodies" loading="lazy" />
+
+*The seven types of governance actions and the governance bodies involved in each.*
+
+### From submission to enactment
+
+CIP-1694 introduced a structured lifecycle for governance actions.
+
+**Submission**
+
+A governance action is introduced through a transaction recorded on the Cardano blockchain.
+
+The submitter provides information identifying the action and its purpose, along with a refundable deposit whose amount is determined by a governance protocol parameter.
+
+The deposit helps discourage excessive or frivolous submissions that could overwhelm governance participants.
+
+Each governance action also includes an *anchor*, consisting of a URL and an integrity hash referencing off-chain metadata. This mechanism allows voters to access supporting information and verify its integrity, although it does not guarantee that the referenced content is accessible or sufficiently informative.
+
+**Voting**
+
+Eligible governance participants submit votes associated with the action.
+
+Votes may express Yes, No, or Abstain, and are recorded *on-chain*.
+
+Voting rights depend on the participant's governance role and the action type. DRep and SPO voting is stake-weighted, while Constitutional Committee members each have one vote.
+
+The system supports changes to previously submitted votes while the action remains open for voting.
+
+**Ratification**
+
+Governance actions are evaluated against their applicable approval requirements.
+
+These requirements may include multiple governance bodies and different voting thresholds. A favorable vote from one body is not sufficient when another body's approval is also required.
+
+DRep voting thresholds are calculated using the applicable active voting stake. SPO voting follows separate stake-distribution rules, with particular treatment for hard forks.
+
+The ledger evaluates governance actions at epoch boundaries. Because voting stake can change through delegation, the stake supporting a vote may also change between evaluations.
+
+**Enactment**
+
+Once an action satisfies the required conditions, it may be ratified and subsequently enacted according to the protocol's sequencing and timing rules.
+
+Actions that conflict with prior governance decisions may be subject to restrictions, and certain important actions can affect the processing of other pending proposals.
+
+An action that fails to satisfy its requirements before its deadline expires without being enacted.
+
+Info Actions are an exception: they do not undergo binding enactment, since their purpose is to record governance participation rather than change the protocol.
+
+<Image src={infographic4} alt="CIP-1694 infographic outlining the governance action voting process" loading="lazy" />
+
+*Submission, voting, evaluation at epoch boundaries, ratification, and expiration.*
+
+### Ratification thresholds and protocol parameter groups
+
+CIP-1694 did not establish a single voting threshold applicable to every governance decision.
+
+Instead, it introduced governance parameters that determine the approval requirements for different types of actions.
+
+Protocol parameter changes were divided into four groups:
+
+- **Network parameters**, relating to network operation and limits.
+- **Economic parameters**, including transaction fees and monetary parameters.
+- **Technical parameters**, relating to aspects of consensus and execution.
+- **Governance parameters**, including voting thresholds, deposits, and governance activity requirements.
+
+Different groups may have different approval thresholds. Additionally, changes to parameters considered relevant to network security require SPO participation.
+
+This distinction was intended to align decision-making requirements with the consequences of the proposed changes.
+
+The specific thresholds are adjustable governance parameters, not immutable values established permanently by CIP-1694.
+
+### Additional visual guide: Voting and ratification
+
+The following two infographics provide a more technical explanation of how votes are submitted and how their results are evaluated.
+
+They complement the preceding overview and are intended as optional supporting material.
+
+<Image src={infographic6} alt="CIP-1694 voting infographic illustrating voting transactions, governance credentials, and voting weights" loading="lazy" />
+
+*Voting transactions, governance credentials, voting weights, and information recorded on the blockchain.*
+
+<Image src={infographic7} alt="CIP-1694 voting infographic illustrating ratification thresholds and possible governance action outcomes" loading="lazy" />
+
+*Voting thresholds, approval requirements, epoch-boundary evaluations, and possible outcomes.*
+
+## 5. Key Design Decisions and Trade-offs
+
+Beyond specifying governance mechanisms, CIP-1694 documented the reasoning behind several important institutional and technical choices.
+
+These explanations remain valuable because they reveal the challenges the designers sought to address and the compromises involved.
+
+### Why use stake-weighted voting?
+
+Cardano already relies on proof-of-stake for network consensus, making stake a familiar basis for assigning influence within the system.
+
+CIP-1694 extended this principle to governance through a model summarized as **one Lovelace, one vote**.
+
+The approach allows voting power to be measured and verified using information available to the ledger without requiring a separate system for establishing individual identities.
+
+However, stake-weighted voting also creates an important limitation: participants with larger ADA holdings can exercise greater influence.
+
+The CIP considered alternatives such as quadratic voting but noted that mechanisms designed to reduce the influence of large holders are difficult to enforce when participants can divide stake among multiple accounts.
+
+Without a reliable method of verifying distinct individuals or entities, dividing voting rights among accounts could undermine the intended protections.
+
+The selected approach therefore favored a measurable, protocol-native basis for voting power, while leaving questions about concentration and representation open to continuing governance development.
+
+### Why was identity verification not required?
+
+CIP-1694 intentionally avoided requiring formal identity verification for DReps and Constitutional Committee members.
+
+The authors recognized that identity information could help delegators evaluate representatives and hold them accountable.
+
+However, enforcing identity verification at the protocol level would introduce additional institutional and technical dependencies.
+
+In particular, a system that determines which identities are valid could require trusted authorities or identity-verification services, introducing centralization concerns.
+
+The proposal therefore allowed representatives to establish credibility through voluntary disclosure and other mechanisms rather than mandating identity verification as a condition of participation.
+
+This design reduces formal barriers to entry, but leaves responsibility for evaluating representatives largely with the community and individual delegators.
+
+### Why distinguish DReps from SPOs?
+
+SPOs are selected primarily to produce blocks and maintain network infrastructure.
+
+Those responsibilities do not necessarily imply an interest in evaluating budgets, constitutional changes, institutional proposals, or other governance matters.
+
+Similarly, an ADA holder may trust a stake pool's operational reliability without agreeing with its operator's governance positions.
+
+CIP-1694 therefore separated governance delegation from stake pool delegation.
+
+This allows ADA holders to choose representatives based on their judgment, positions, and governance performance independently of their choice of block producer.
+
+SPOs may also register as DReps, but the roles remain distinct.
+
+The separation creates the possibility of distributing operational and governance responsibilities among different participants.
+
+### Why reuse existing stake credentials?
+
+The proposal introduced governance delegation using Cardano's existing stake credential infrastructure instead of creating an entirely separate identity and delegation system.
+
+This reduced implementation complexity and allowed wallet developers to build upon mechanisms already familiar to ADA holders.
+
+It also made governance delegation conceptually similar to stake pool delegation.
+
+However, the approach inherited limitations from the existing credential model, including the challenges of dividing voting power across multiple representatives when wallet functionality is limited.
+
+The authors judged that the benefits of interoperability, familiarity, and lower implementation costs justified this compromise.
+
+### Why establish a Constitutional Committee?
+
+The Constitutional Committee was introduced partly to address the difficulties of transitioning from centralized governance arrangements to a system relying on distributed representatives.
+
+At the beginning of the transition, there was no guarantee that enough DReps would register and attract delegations immediately.
+
+The committee could provide an institutional component capable of participating in governance while the new representative system developed.
+
+Its longer-term purpose was to evaluate actions against the Constitution and provide an additional constitutional safeguard.
+
+The CIP also recognized the risks associated with granting authority to a relatively small group.
+
+For this reason, the committee was designed to be replaceable, its composition subject to governance decisions, and its authority limited by the constitutional framework.
+
+These arrangements do not eliminate the political and institutional questions surrounding committee independence or accountability, but they provide formal mechanisms for addressing some of those concerns.
+
+### Why separate hard forks from ordinary parameter changes?
+
+A hard fork can require substantial coordination among network participants.
+
+Unlike many parameter changes, a major protocol upgrade may require SPOs, wallet providers, applications, and other infrastructure operators to adopt compatible software.
+
+Successful activation depends not only on formal authorization but also on operational readiness.
+
+CIP-1694 therefore established Hard Fork Initiation as a distinct governance action and explicitly required SPO participation in its approval.
+
+This acknowledges the difference between deciding that a protocol upgrade is desirable and ensuring that the network can safely implement it.
+
+### Why link staking reward withdrawals to governance delegation?
+
+One concern raised during the development of CIP-1694 was how to achieve sufficient participation in the new governance system.
+
+An earlier approach considered an **Active Voting Stake Threshold (AVST)**, intended to prevent decisions from being approved with very limited participation.
+
+However, this mechanism introduced difficulties, including potentially undesirable incentives associated with low voting registration.
+
+The final proposal instead adopted a different participation incentive.
+
+Following the initial bootstrap period, withdrawing staking rewards would require the associated stake credential to be delegated for governance, either to a registered DRep or to a predefined option.
+
+Importantly, rewards would continue to accumulate even if the holder had not selected a governance delegation. The restriction concerned withdrawal, not the earning of rewards.
+
+This mechanism was implemented with the Conway governance framework.
+
+Its effectiveness and desirability remain subjects of discussion. A later proposal, [CIP-181](https://cips.cardano.org/cip/CIP-0181), seeks to remove the requirement, but it remains a proposal rather than an implemented change.
+
+### How should DReps be compensated?
+
+CIP-1694 acknowledged that DRep responsibilities could require substantial work and that some form of compensation might be appropriate.
+
+However, its authors did not attempt to define a permanent compensation model as part of the initial governance framework.
+
+Among the possibilities discussed were Treasury-based funding arrangements and subsequent governance decisions concerning representative compensation.
+
+**CIP-1694 did not establish automatic protocol payments to DReps.**
+
+The issue has continued to evolve through later discussions and proposals, including [CIP-149: Optional DRep Compensation](https://cips.cardano.org/cip/CIP-0149), which describes a voluntary mechanism for delegators to allocate part of their staking rewards to DReps.
+
+CIP-149 remains a proposed standard and does not establish universal compensation for representatives.
+
+### How should governance actions be documented?
+
+Governance actions can require substantial supporting information, including technical explanations, financial details, and justifications.
+
+Storing all of this content directly on the blockchain would be expensive and impractical.
+
+CIP-1694 therefore introduced references to *off-chain* metadata through URLs and cryptographic hashes. These references, known as *anchors*, allow extensive supporting information to remain outside the ledger while enabling verification that the retrieved metadata matches the content originally referenced.
+
+However, the authors recognized an important limitation: cryptographic hashes can verify content integrity, but they cannot guarantee that the referenced information remains accessible.
+
+An important development addressing this concern is the use of decentralized, content-addressed storage systems such as the **InterPlanetary File System (IPFS)**. The subsequent [CIP-100: Governance Metadata](https://cips.cardano.org/cip/CIP-100) recommends such systems for preserving governance metadata.
+
+In IPFS, content is identified through a Content Identifier (CID), derived from its contents. Modifying a document produces a different identifier, allowing the original version to remain independently identifiable and verifiable.
+
+However, content-addressing does not guarantee permanent availability. Files must still be retained and made accessible by storage providers, for example through *pinning* and replication. Supporting documents referenced by the metadata also require appropriate preservation arrangements.
+
+These mechanisms improve the integrity, traceability, and long-term preservation of governance records. Nevertheless, unavailable files, inaccessible supporting documents, and inadequate information can still undermine practical transparency, even when the associated governance transactions are correctly recorded *on-chain*.
+
+
+### How can governance avoid proposal overload?
+
+Allowing broad participation in proposal submission creates the possibility of large numbers of concurrent governance actions.
+
+While an open submission process reduces barriers to participation, it can also impose substantial demands on representatives and other voters.
+
+CIP-1694 introduced refundable deposits as one mechanism for discouraging excessive submissions.
+
+The authors also recognized the trade-off: high deposits may deter frivolous proposals but can simultaneously exclude legitimate participants with fewer resources.
+
+Alternative approaches discussed in the CIP included community coordination and prioritization through *off-chain* processes.
+
+These considerations illustrate a recurring governance challenge: maintaining openness without making participation or informed decision-making unmanageable.
+
+## 6. From Proposal to Implementation
+
+### 2022: The original proposal
+
+CIP-1694 was created on November 18, 2022, as part of Cardano's preparation for the Voltaire development phase.
+
+Its initial purpose was to outline a practical transition from the governance arrangements established in earlier ledger eras toward a broader, stake-based governance system.
+
+The proposal was not intended to define every institutional process or resolve every question concerning decentralized decision-making.
+
+Instead, it established the technical foundations upon which additional governance structures and practices could be developed.
+
+### 2023: Community workshops and revisions
+
+Throughout 2023, CIP-1694 underwent extensive discussion and revision.
+
+Workshops and community consultations examined questions such as Constitutional Committee responsibilities, voting thresholds, representative participation, Treasury governance, and the treatment of different governance actions.
+
+The proposal evolved through an extensive international consultation process, with in-person and virtual workshops held across the Americas, Africa, Asia, and Europe. Its changelog documents revisions arising from this process, while the acknowledgements recognize the many community workshops and contributors involved.
+
+These discussions contributed to features such as:
+
+- Terms for Constitutional Committee members.
+- The predefined Abstain and No Confidence delegation options.
+- Info Governance Actions.
+- The grouping of protocol parameters.
+- Revised rules governing ratification and enactment.
+- Technical *guardrails* for certain types of proposals.
+- Adjustments to delegation, voting, and representative activity mechanisms.
+
+The development process illustrates that the final architecture was not simply defined at the outset. It evolved through technical review, practical considerations, and community feedback.
+
+During this period, **SanchoNet** provided a test environment for experimenting with the governance capabilities under development, allowing tools and participants to explore the new mechanisms before their deployment to mainnet.
+
+### 2024: The Chang hard fork
+
+On September 1, 2024, Cardano activated the first stage of its new governance architecture through the **Chang hard fork**.
+
+Chang introduced the Conway ledger era and enabled foundational governance functionality, including DRep registration and governance delegation.
+
+The initial period used an Interim Constitutional Committee and restricted the available governance actions while the broader representative system was being established.
+
+This transitional arrangement was intended to provide time for governance participants, applications, and institutions to prepare for the activation of the complete framework.
+
+### 2025: The Plomin hard fork
+
+On January 29, 2025, Cardano enacted the **Plomin hard fork**, completing the principal governance functionality introduced by CIP-1694.
+
+Plomin enabled the complete set of governance action types and activated DRep participation in their ratification.
+
+It also marked an important milestone in the transition from governance controlled through earlier protocol mechanisms toward community-directed *on-chain* decision-making.
+
+The hard fork itself was approved through the transitional governance arrangements, involving SPOs and the Interim Constitutional Committee.
+
+From this point, the system described by CIP-1694 became operational as Cardano's primary *on-chain* governance architecture.
+
+### The Constitution and subsequent development
+
+CIP-1694 introduced the constitutional framework without defining the Constitution's contents.
+
+That work continued separately through drafting, community participation, ratification, and subsequent amendments.
+
+The Cardano Constitution became a functioning part of the governance system, providing principles and constraints against which governance actions could be evaluated.
+
+The framework has also supported subsequent governance decisions concerning Treasury withdrawals, committee composition, protocol upgrades, and constitutional changes.
+
+These developments demonstrate the distinction between **implementing a governance architecture** and **continuing to develop the institutions and rules operating within it**.
+
+CIP-1694 established the foundation, but Cardano's governance remains capable of evolving through the mechanisms it introduced.
+
+## 7. Scope, Limitations, and Continuing Evolution
+
+CIP-1694 was deliberately limited in scope.
+
+Its purpose was to establish the basic *on-chain* governance framework, not to prescribe every institution, administrative process, or political convention necessary for a decentralized ecosystem.
+
+Several topics were explicitly outside its scope.
+
+### Constitutional content and committee selection
+
+Although CIP-1694 introduced the Constitutional Committee and the concept of a Cardano Constitution, it did not define the Constitution's substantive provisions.
+
+It also did not specify the *off-chain* processes through which candidates should be identified, evaluated, or nominated to the committee.
+
+These subjects required subsequent community decisions and institutional development.
+
+### Legal interpretation and enforcement
+
+The proposal did not attempt to establish the legal status or enforceability of the Constitution or Cardano's protocol governance rules.
+
+Its focus was on technical mechanisms and *on-chain* decision-making.
+
+Legal obligations, jurisdictional questions, and the relationship between protocol governance and external institutions remained outside the specification.
+
+### Off-chain governance practices
+
+CIP-1694 established how governance actions could be submitted and evaluated by the protocol, but it did not prescribe a complete process for preparing proposals.
+
+Questions concerning consultation, drafting standards, independent evaluation, community coordination, and the quality of supporting documentation were largely left to subsequent practices and institutions.
+
+The original CIP explicitly left the role of Project Catalyst in creating Treasury withdrawal actions outside its scope.
+
+### Governance remains adaptable
+
+Some choices introduced through CIP-1694 can be modified through subsequent governance decisions, including voting thresholds and other governance parameters.
+
+Other institutional questions require new standards, policies, or amendments.
+
+This flexibility was intentional: the proposal was conceived as a first step toward decentralized governance rather than a final and unchangeable model.
+
+At the same time, the existence of *on-chain* voting does not, by itself, resolve questions such as the concentration of voting power, representative accountability, voter participation, or the accessibility and quality of governance information.
+
+These remain relevant considerations for the continued development of Cardano governance.
+
+## 8. Official Documentation, Credits, and Licensing
+
+### Primary source
+
+**CIP-1694: A First Step Towards On-Chain Decentralized Governance**
+
+Authors: Jared Corduan, Andre Knispel, Matthias Benkort, Kevin Hammond, Charles Hoskinson, and Samuel Leathers.
+
+Created: November 18, 2022.
+
+Status: Active.
+
+Original document: [Cardano Improvement Proposals, CIP-1694](https://cips.cardano.org/cips/cip1694).
+
+The original CIP is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+### Complementary official documentation
+
+- [Cardano Governance Overview](https://docs.cardano.org/about-cardano/governance-overview), explaining the governance architecture and its participants.
+- [Chang Hard Fork](https://docs.cardano.org/about-cardano/evolution/upgrades/chang), documenting the initial governance implementation.
+- [Plomin Hard Fork](https://docs.cardano.org/about-cardano/evolution/upgrades/plomin), documenting the activation of the full governance framework.
+- [CIP-0001: CIP Process](https://cips.cardano.org/cip/CIP-0001), defining the Cardano Improvement Proposal process.
+- [CIP-100: Governance Metadata](https://cips.cardano.org/cip/CIP-100), defining standards and recommendations for off-chain governance metadata, including content-addressed storage.
+- [CIP-120: Constitution Specification](https://cips.cardano.org/cip/CIP-0120), describing a proposed technical format for the constitutional document.
+- [CIP-149: Optional DRep Compensation](https://cips.cardano.org/cip/CIP-0149), a subsequent proposal addressing voluntary representative compensation.
+- [CIP-181: Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181), a subsequent proposal concerning the relationship between governance delegation and staking reward withdrawals.
+
+### Related Articles
+
+- [The Cardano Constitution](https://agora-cardano.github.io/knowledge-base/cardano-governance/governance-framework/cardano-constitution/) — An overview of Cardano's constitutional principles, amendment procedures, and historical development.
+
+### Infographic credits
+
+The seven infographics accompanying this article were created in 2023 as part of educational materials explaining CIP-1694.
+
+**Visual design:** Jonathan Smith.
+
+**Collaboration:** Input Output (IOHK/IOG) and Mike Hornan (ABLE Stake Pool).
+
+Original publications:
+
+- [CIP-1694 in a Nutshell, Cardano Forum](https://forum.cardano.org/t/cip-1694-in-a-nutshell-made-by-iog-in-collaboration-with-able-pool/118592).
+- [CIP-1694 educational carousel, IOHK official Instagram](https://www.instagram.com/p/CuHpEzsA4Z-/?img_index=5).
+
+The diagrams represent the governance proposal as explained in 2023. They are presented for educational and historical reference, alongside text that contextualizes the subsequent implementation of the framework.
+
+### About this adaptation
+
+This article is an educational adaptation of CIP-1694 prepared for the Agora Knowledge Base.
+
+It reorganizes, summarizes, and explains selected material from the original proposal while adding historical context concerning Chang, Plomin, and subsequent governance developments.
+
+It is not an official replacement for CIP-1694 or an authoritative specification of the Cardano ledger. The original CIP and current protocol documentation should be consulted for precise technical requirements.
+
+The source CIP retains its **CC BY 4.0** licensing. The Agora Knowledge Base is published under **CC BY-NC-SA 4.0**, with attribution to the original authors and identification of this adaptation. Third-party infographics remain subject to their own applicable permissions and licensing terms.
