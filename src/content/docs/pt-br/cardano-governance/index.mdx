@@ -1,39 +1,33 @@
-
 ---
 title: Governança Cardano
-description: Explore a estrutura, os atores, os mecanismos, as ferramentas, as dimensões e as pesquisas sobre a governança Cardano.
+description: Explore a estrutura de governança da Cardano, seus papéis, mecanismos, ferramentas, dimensões analíticas e pesquisas.
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Conheça o sistema de governança da Cardano, desde sua estrutura institucional e seus mecanismos de decisão até os conceitos e dimensões que caracterizam seu funcionamento.
+Explore o sistema de governança da Cardano, desde sua estrutura institucional e seus mecanismos de tomada de decisão até os conceitos e as dimensões que caracterizam seu funcionamento.
 
 Esta seção reúne conteúdos educacionais, pesquisas e recursos relevantes organizados em seis áreas.
 
 <CardGrid>
+  <Card title="Estrutura de Governança">
+    Os fundamentos constitucionais e técnicos da Cardano, incluindo a Constituição, a CIP-1694 e a estrutura da governança on-chain.
+  </Card>
   <LinkCard
-    title="Estrutura de Governança"
-    description="Fundamentos constitucionais, regras e estruturas formais, incluindo a Constituição da Cardano e a CIP-1694."
-    href={`${import.meta.env.BASE_URL}/pt-br/cardano-governance/governance-framework/`}
+    title="Papéis de Governança"
+    href="./governance-roles/"
+    description="As responsabilidades e competências dos detentores de ADA e delegadores, DReps, SPOs e do Comitê Constitucional."
   />
-
-  <Card title="Atores da Governança">
-    Papéis e responsabilidades dos detentores de ADA, DReps, operadores de stake pools e Comitê Constitucional.
-  </Card>
-
   <Card title="Mecanismos de Governança">
-    Ações de governança on-chain, procedimentos de votação e mecanismos de consulta e tomada de decisão off-chain.
+    Governance Actions, votação on-chain, ratificação, enactment e procedimentos de consulta e tomada de decisão off-chain.
   </Card>
-
   <Card title="Ferramentas de Governança">
-    Ferramentas e plataformas para explorar a atividade de governança, participar das decisões e monitorar o sistema.
+    Plataformas e recursos técnicos para participar da governança, examinar propostas e acompanhar a atividade de votação.
   </Card>
-
   <Card title="Dimensões da Governança">
-    Conceitos analíticos como responsabilização, sustentabilidade, descentralização e participação.
+    Conceitos analíticos como accountability, sustentabilidade, descentralização e participação.
   </Card>
-
   <Card title="Pesquisas e Referências">
-    Relatórios de pesquisa, estudos, conjuntos de dados e outros recursos para aprofundar o conhecimento sobre a governança Cardano.
+    Relatórios, estudos, conjuntos de dados e referências para aprofundar a compreensão da governança Cardano.
   </Card>
 </CardGrid>
