@@ -1,0 +1,242 @@
+---
+title: "Stake Pool Operators (SPOs)"
+description: "Technical role, governance voting powers, voting procedures, and operational security for SPOs on Cardano."
+---
+
+**Stake Pool Operators (SPOs)** are participants in Cardano's Proof-of-Stake consensus mechanism who operate the infrastructure responsible for producing blocks and helping maintain the network's security and decentralization.
+
+Unlike Delegated Representatives (DReps), whose role is specifically associated with governance representation, SPOs primarily perform a technical and operational function within the Cardano protocol. Cardano's governance framework also assigns them voting responsibilities on a defined subset of governance actions.
+
+This article explains the role of SPOs, their participation in Cardano governance, and the methods available for casting governance votes.
+
+## 1. Understanding Stake Pool Operators
+
+### What Are Stake Pool Operators?
+
+Cardano uses a Proof-of-Stake consensus mechanism in which stake pools participate in block production and transaction validation.
+
+A **stake pool** combines the stake delegated by ADA holders with the infrastructure operated by a Stake Pool Operator. The protocol uses stake distribution and other consensus rules to determine opportunities for block production.
+
+SPOs are responsible for configuring, maintaining, and monitoring the infrastructure needed for their pools to operate. Their activities include managing nodes, maintaining operational credentials, applying software updates, and supporting the reliable production of blocks.
+
+A distinction exists between a **stake pool operator**, who manages the pool's operational credentials and infrastructure, and a **stake pool owner**, whose pledged ADA contributes to the pool. These roles are often exercised by the same individual or organization but are not necessarily identical.
+
+Stake pools must be registered on-chain to participate in block production. SPOs do not need a separate DRep registration to exercise the governance voting rights associated with their registered pools.
+
+### Stake Delegation and Voting Power
+
+ADA holders can delegate their stake to a pool without transferring ownership of their ADA.
+
+This delegation contributes to the stake associated with the pool, which is relevant to both block production and the SPO's voting power in governance.
+
+Unlike DReps, SPOs do not receive a separate delegation of governance voting power. Their governance voting weight is derived from the existing distribution of stake delegated to their pools.
+
+This distinction reflects the independence of Cardano's two delegation mechanisms:
+
+- **Stake delegation:** Determines which stake pool is supported for block production and contributes to SPO voting power.
+- **Governance delegation:** Determines which DRep receives voting power for governance decisions.
+
+An ADA holder may delegate stake to one pool while assigning governance voting power to an unrelated DRep.
+
+### Why SPOs Participate in Governance
+
+Cardano's governance framework incorporates SPOs as one of its three voting groups, alongside DReps and the Constitutional Committee.
+
+Their inclusion builds upon an existing network role rather than creating an additional registration or representation system.
+
+The rationale is particularly relevant to decisions affecting the technical operation of Cardano.
+
+For example, a *Hard Fork Initiation* may require stake pool operators to upgrade their nodes to software compatible with a new protocol version. Security-relevant protocol parameter changes may also affect the conditions under which the network operates.
+
+Requiring SPO approval for these actions provides an additional layer of governance participation from the operators responsible for maintaining the underlying network infrastructure.
+
+However, their responsibilities are not exclusively technical. SPOs also participate in selected decisions concerning the Constitutional Committee and the governance system itself.
+
+Their voting authority is therefore narrower than that of DReps, but extends beyond matters directly related to block production.
+
+## 2. SPO Participation in Governance
+
+### Eligible Governance Actions
+
+The Cardano Constitution and CIP-1694 establish the governance action types in which SPOs participate.
+
+| Governance Action | SPO Participation |
+|---|---|
+| **Motion of No Confidence** | Votes on a proposal expressing no confidence in the Constitutional Committee. |
+| **Update Committee** | Votes on changes to the Constitutional Committee's membership or approval threshold. |
+| **Hard Fork Initiation** | Votes on proposals to initiate a change to the network's major protocol version. |
+| **Security-Relevant Protocol Parameter Changes** | Votes on parameter updates affecting designated security-relevant properties of the network. |
+| **Info Actions** | May record a voting position on non-binding actions without directly enacting a protocol change. |
+
+SPO approval is not required for treasury withdrawals, constitutional amendments, or ordinary protocol parameter changes that do not affect security-relevant parameters.
+
+Examples of security-relevant parameters include maximum block and transaction sizes, certain transaction fee parameters, block execution limits, and other parameters identified by the governance framework.
+
+The applicable parameter classifications and ratification requirements are defined by the protocol and its governance rules.
+
+For additional information about governance action types, see [CIP-1694](https://cips.cardano.org/cip/CIP-1694) and the [Cardano Constitution](https://cardano.org/constitution/).
+
+### Voting Power and Ratification
+
+SPO governance voting follows a stake-weighted model.
+
+Each pool's voting power is determined by the stake associated with that pool under the protocol's applicable stake distribution rules. Consequently, votes are not counted as one vote per operator or one vote per pool.
+
+A pool representing more delegated stake generally carries greater voting weight than a pool representing less stake.
+
+For governance actions requiring SPO approval, the proportion of supporting stake must meet the applicable ratification threshold.
+
+These thresholds are defined by governance-controlled protocol parameters and may change over time.
+
+SPO approval is only one part of the ratification process. Depending on the governance action type, approval from DReps and, where applicable, the Constitutional Committee may also be required.
+
+**Hard Fork Initiations** have a particular requirement: the SPO threshold is evaluated against the stake associated with all registered pools, reflecting the importance of broad network support for protocol upgrades.
+
+Voting in favor of a hard fork does not, by itself, upgrade a pool's software. Operators must separately ensure that their infrastructure supports the relevant protocol version.
+
+### Voting, Abstention, and Non-Participation
+
+SPOs can cast three types of votes on eligible governance actions:
+
+- **Yes:** Expresses support for the action.
+- **No:** Expresses opposition to the action.
+- **Abstain:** Records an explicit decision not to support either outcome.
+
+An explicit *Abstain* vote is different from failing to submit a vote.
+
+Under the default governance rules, stake associated with an SPO who does not vote is generally treated as opposing ratification. This means that non-participation can reduce the likelihood of an action reaching its required approval threshold.
+
+Two predefined governance delegation options can modify this behavior through the pool's registered reward account:
+
+- **Abstain:** If the pool's reward account is delegated to the predefined *Abstain* option, the pool's missing votes on applicable actions are treated as abstentions.
+- **No Confidence:** If the reward account is delegated to the predefined *No Confidence* option, missing votes are treated as supporting *Motion of No Confidence* actions and opposing other actions.
+
+These default behaviors do not override explicit votes submitted by the SPO.
+
+**Hard Fork Initiations are an important exception.** Their ratification calculations include the stake associated with all registered pools. An SPO who does not vote on a hard fork cannot use the predefined delegation options to remove that stake from the calculation.
+
+SPOs may also replace a previously submitted vote while the governance action remains open. The most recent valid vote for that action supersedes the earlier one.
+
+## 3. Casting Governance Votes
+
+### Voting Process
+
+SPO voting is performed through transactions recorded on the Cardano blockchain.
+
+Unlike DRep voting, which may be supported directly by compatible governance wallets, an SPO vote must be authorized using the governance credentials associated with the stake pool.
+
+A typical voting process involves:
+
+1. **Identifying an eligible governance action:** Locate the proposal and review its contents, supporting metadata, and voting status.
+2. **Selecting a voting position:** Choose Yes, No, or Abstain.
+3. **Preparing the vote:** Generate the voting data associated with the selected governance action and the pool's credentials.
+4. **Constructing the transaction:** Include the vote, required transaction inputs, and any optional supporting metadata.
+5. **Signing:** Authorize the vote using the pool's appropriate signing credentials and provide any additional signatures required to fund the transaction.
+6. **Submitting:** Send the signed transaction to the network.
+7. **Verifying:** Confirm that the vote has been recorded on-chain.
+
+A vote may also include an optional **vote rationale**, explaining the reasons supporting the decision.
+
+Governance metadata standards such as [CIP-100](https://cips.cardano.org/cip/CIP-100) provide a format for associating supporting documentation with on-chain votes.
+
+The protocol also allows multiple votes on different governance actions to be included in a single transaction, which can reduce repeated signing operations.
+
+### Voting Tools and Methods
+
+Several tools support SPO governance voting through different technical interfaces.
+
+**Cardano CLI**
+
+[SPO Governance — Developer Portal](https://developers.cardano.org/docs/operate-a-stake-pool/governance/spo-governance/)
+
+The `cardano-cli` provides a command-line method for creating governance votes, constructing transactions, signing them, submitting them, and verifying their inclusion on-chain.
+
+This approach gives operators direct control over the voting procedure and supports workflows that keep sensitive signing credentials isolated from internet-connected systems.
+
+The Developer Portal provides instructions covering the complete process, including transaction preparation, offline signing, and vote verification.
+
+**Cardano Governance Voting Tool**
+
+[Web Application](https://voting.cardanofoundation.org/) | [GitHub Repository](https://github.com/cardano-foundation/cardano-governance-voting-tool)
+
+An open-source application developed by the Cardano Foundation to assist SPOs, DReps, and Constitutional Committee members with governance voting.
+
+The application provides a graphical workflow for selecting governance actions, preparing votes, generating and publishing optional rationales, and constructing transactions.
+
+It also supports workflows in which transaction preparation and signing occur separately, allowing signatures to be collected through compatible external arrangements.
+
+For SPOs maintaining their cold signing keys in isolated environments, external signing tools may still be required. The application therefore does not necessarily eliminate every command-line operation.
+
+**SPO Scripts**
+
+[Governance Scripts — GitHub](https://github.com/gitmachtl/scripts/blob/master/cardano/mainnet/usage_governance.md)
+
+A collection of community-developed scripts that assists operators with governance voting operations.
+
+These scripts provide an alternative to manually entering the complete sequence of `cardano-cli` commands and support workflows involving separate transaction preparation and signing steps.
+
+The availability and compatibility of specific features depend on the scripts and their supported configurations.
+
+**CNTools**
+
+[CNTools Documentation — Guild Operators](https://github.com/cardano-community/guild-operators/blob/alpha/docs/Scripts/cntools.md)
+
+A terminal-based operational toolset for Cardano stake pool management.
+
+Its menu-driven interface offers an alternative to manually constructing commands for supported operations, including governance-related procedures.
+
+Although it provides a more guided interaction, CNTools remains a terminal-based tool rather than a conventional browser application.
+
+### Signing Credentials and Operational Security
+
+SPO governance votes require authorization associated with the pool's **cold credentials**.
+
+These credentials are also used for sensitive stake pool operations, making their protection an important part of governance voting.
+
+A common security arrangement separates transaction preparation, signing, and submission:
+
+- **Online environment:** Retrieve proposals, prepare voting data, and construct unsigned transactions.
+- **Offline environment:** Review and sign transactions using the pool's cold signing key.
+- **Online environment:** Submit signed transactions and verify their inclusion on-chain.
+
+This approach is commonly described as an *air-gapped signing workflow*.
+
+The purpose is to prevent sensitive signing keys from being exposed to internet-connected systems.
+
+The credentials authorizing an SPO's vote are also distinct from those used to pay transaction fees. A separate payment credential may therefore be needed when constructing and signing the transaction.
+
+Regardless of the tool used, operators should understand which credentials are required, how transaction contents are verified, and which parts of the signing process remain under their control.
+
+For detailed procedures, consult the [SPO Governance documentation](https://developers.cardano.org/docs/operate-a-stake-pool/governance/spo-governance/).
+
+### Verifying Submitted Votes
+
+After submitting a governance vote, operators can verify that it has been recorded on-chain.
+
+The `cardano-cli` supports querying governance proposals and their associated voting records.
+
+Governance explorers and analytics platforms may also display SPO votes, including the relevant pool identifier, voting position, and any published rationale.
+
+A transaction being submitted does not necessarily mean it has been successfully included in the blockchain. Confirmation should therefore be based on an on-chain record rather than submission alone.
+
+Votes remain associated with their governance actions and can be examined through public blockchain data.
+
+---
+
+## References
+
+### Governance Framework and Protocol Documentation
+
+- [Cardano Constitution](https://cardano.org/constitution/) — Constitutional provisions defining SPO governance participation, eligible governance actions, and technical guardrails.
+- [CIP-1694 — A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694) — Technical specification of governance roles, voting mechanisms, stake-weighted ratification, and governance action types.
+- [CIP-100 — Governance Metadata](https://cips.cardano.org/cip/CIP-100) — Metadata format for governance-related information, including vote rationales.
+- [Cardano Docs — About Stake Pools, Operators, and Owners](https://docs.cardano.org/stake-pool-operators/about-stake-pools) — Introduction to stake pool infrastructure and the distinctions between operators and owners.
+
+### Voting Documentation and Tools
+
+- [Cardano Developer Portal — SPO Governance](https://developers.cardano.org/docs/operate-a-stake-pool/governance/spo-governance/) — Technical procedures for identifying governance actions, preparing SPO votes, signing transactions, and verifying results.
+- [DRepTalk — How to Vote on Governance Actions as an SPO](https://dreptalk.com/help/voting-as-an-spo/) — Educational guide covering eligible actions, non-participation, voting credentials, and available methods.
+- [Cardano Foundation — Governance Voting Tool](https://github.com/cardano-foundation/cardano-governance-voting-tool) — Open-source application supporting graphical vote preparation and transaction-signing workflows.
+- [Cardano Foundation — Voting Tool Architecture](https://github.com/cardano-foundation/cardano-governance-voting-tool/blob/production/frontend/ARCHITECTURE.md) — Description of the application's vote preparation, signing, and submission stages.
+- [SPO Scripts — Governance Operations](https://github.com/gitmachtl/scripts/blob/master/cardano/mainnet/usage_governance.md) — Community-maintained scripts assisting with SPO voting operations.
+- [Guild Operators — CNTools](https://github.com/cardano-community/guild-operators/blob/alpha/docs/Scripts/cntools.md) — Documentation for terminal-based stake pool administration and supported governance operations.
