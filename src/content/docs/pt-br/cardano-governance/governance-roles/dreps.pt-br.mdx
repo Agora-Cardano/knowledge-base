@@ -1,0 +1,457 @@
+---
+title: "DReps — Representantes Delegados"
+description: "Papéis, registro, delegação de poder de voto, ferramentas e responsabilidades dos DReps na governança da Cardano."
+---
+
+Os **Delegated Representatives (DReps)**, ou representantes delegados, são participantes da governança da Cardano responsáveis por votar em ações de governança utilizando o poder de voto que os detentores de ADA lhes delegam.
+
+Este artigo aborda o papel dos DReps na governança da Cardano, os procedimentos de registro e delegação, os recursos disponíveis para encontrar e avaliar representantes, além das responsabilidades e práticas associadas à função.
+
+## 1. Compreendendo os DReps
+
+### O que são DReps?
+
+Os DReps constituem um dos três órgãos de governança definidos pela CIP-1694, ao lado dos **Stake Pool Operators (SPOs)**, operadores de *stake pools*, e do **Constitutional Committee (CC)**, ou Comitê Constitucional.
+
+Sua função é participar das decisões sobre aspectos importantes da Cardano, incluindo alterações nos parâmetros do protocolo, retiradas de recursos do tesouro, emendas constitucionais e outras ações de governança.
+
+Qualquer pessoa ou organização pode se registrar como DRep, desde que cumpra os requisitos técnicos do protocolo.
+
+### Representação e poder de voto
+
+Os detentores de ADA podem delegar seu poder de voto a um DRep, permitindo que esse representante participe das decisões de governança em seu nome.
+
+O poder de voto de um DRep é proporcional à quantidade de ADA delegada a ele, incluindo suas próprias ADA, caso também delegue para si mesmo.
+
+A delegação não transfere a propriedade das ADA. Os recursos permanecem sob o controle de seus proprietários.
+
+É importante distinguir dois mecanismos independentes:
+
+- **Delegação de *stake* (*stake delegation*):** delegação a uma *stake pool*, relacionada à produção de blocos e às recompensas de *staking*.
+- **Delegação de voto (*vote delegation*):** delegação do poder de voto para participação nas decisões de governança.
+
+Um usuário pode delegar suas ADA a uma *stake pool* e, simultaneamente, delegar seu poder de voto a um DRep diferente.
+
+### Participação nas decisões de governança
+
+Os DReps podem votar ***Yes***, ***No*** ou ***Abstain*** (Sim, Não ou Abstenção) nas ações de governança para as quais são elegíveis.
+
+Diferentes tipos de ações de governança possuem requisitos distintos de aprovação. Nem todas exigem a participação dos mesmos órgãos de governança.
+
+Os DReps também podem publicar ***vote rationales***, ou justificativas de voto, para explicar suas decisões. Essas justificativas ajudam delegadores e outros participantes a compreender os argumentos que fundamentam cada voto.
+
+### Inatividade
+
+Os DReps registrados estão sujeitos às regras de atividade definidas pelo protocolo.
+
+Um DRep que deixe de votar durante determinado período pode se tornar inativo, conforme o parâmetro `drepActivity`. Esse período não é permanente e pode ser alterado por decisões de governança.
+
+A inatividade afeta a forma como o poder de voto delegado a esse representante é considerado nos cálculos de governança.
+
+## 2. Tornando-se um DRep
+
+### Registro de DRep
+
+Para se tornar um DRep, uma pessoa ou organização deve registrar uma credencial de governança (*governance credential*) na blockchain Cardano.
+
+O registro é realizado por meio de uma transação que contém um **certificado de registro de DRep (*DRep registration certificate*)**.
+
+Esse certificado identifica a credencial do DRep, inclui o depósito exigido pelo protocolo e pode conter uma referência externa aos seus metadados.
+
+Não existe um processo de seleção nem a necessidade de aprovação institucional para realizar o registro.
+
+### Requisitos e depósito
+
+O registro exige um **depósito reembolsável de 500 ADA**, estabelecido quando o registro de DReps foi introduzido com o *Chang Hard Fork*, em setembro de 2024. Até outubro de 2026, esse valor permanece inalterado.
+
+O depósito é definido pelo parâmetro do protocolo `drepDeposit` e é separado da taxa da transação. Ele pode ser recuperado quando o DRep encerra seu registro.
+
+Como o depósito é um parâmetro do protocolo controlado pela governança, seu valor pode mudar no futuro. Os usuários devem verificar a quantia vigente antes de se registrarem.
+
+### DRep ID
+
+Cada DRep registrado possui um identificador derivado de sua credencial de governança, conhecido como **DRep ID**.
+
+As credenciais podem utilizar chaves criptográficas ou *scripts*. Isso permite diferentes configurações operacionais, incluindo registros individuais e estruturas que envolvem múltiplas assinaturas.
+
+O DRep ID é utilizado para identificar o representante em operações como delegação, votação e consultas a informações públicas.
+
+### Metadados de DRep — CIP-119
+
+A [CIP-119](https://cips.cardano.org/cip/CIP-0119) define um padrão para organizar e publicar informações sobre DReps.
+
+Essas informações podem incluir nome, objetivos, motivações, qualificações e referências externas.
+
+Os metadados geralmente são armazenados *off-chain* (fora da blockchain), enquanto uma referência ao documento e seu *hash* podem ser associados ao registro *on-chain* (na blockchain).
+
+O padrão facilita a interoperabilidade entre *wallets*, exploradores e plataformas de governança que exibem perfis de DReps.
+
+Os metadados não são necessários para que uma credencial registrada exista no nível do protocolo. Entretanto, ferramentas específicas podem solicitar determinadas informações durante o registro.
+
+### Atualizações e encerramento do registro
+
+Após o registro, um DRep pode atualizar a referência aos seus metadados por meio de uma nova transação.
+
+Ele também pode encerrar seu registro como DRep (*retirement*) e recuperar o depósito correspondente.
+
+O registro e o encerramento no protocolo são independentes da manutenção de perfis e contas em plataformas externas.
+
+## 3. Delegando poder de voto
+
+### Como funciona a delegação?
+
+A delegação de poder de voto permite que detentores de ADA escolham um DRep para representá-los nas decisões de governança.
+
+Ela é realizada por meio de uma transação que associa a credencial de *staking* (*stake credential*) do usuário à credencial do representante escolhido.
+
+O poder de voto é proporcional ao *stake* associado à credencial do delegador, de acordo com as regras do protocolo.
+
+As ADA não são transferidas nem bloqueadas em decorrência da delegação de governança.
+
+### Como escolher um DRep
+
+Os detentores de ADA podem escolher um DRep de acordo com suas próprias prioridades, valores e expectativas em relação à governança da Cardano.
+
+Os DReps podem publicar informações sobre seus objetivos, motivações, qualificações e posicionamentos sobre questões de governança. Seu histórico de votações *on-chain* e as justificativas de voto disponibilizadas publicamente também podem ajudar delegadores a compreender como participaram de decisões anteriores.
+
+Diversos exploradores de governança e diretórios de DReps oferecem ferramentas para pesquisar representantes. Dependendo da plataforma, os usuários podem pesquisar, filtrar ou comparar DReps utilizando critérios como:
+
+- **Participação nas votações:** proporção de ações de governança nas quais um DRep votou.
+- **Histórico de votos:** votos anteriores de ***Yes***, ***No*** e ***Abstain***, incluindo posicionamentos sobre ações de governança específicas.
+- **Justificativas de voto (*vote rationales*):** se o DRep publica explicações para suas decisões.
+- **Poder de voto:** quantidade de ADA delegada ao DRep.
+- **Número de delegadores:** quantidade de delegadores que apoiam o representante.
+- **Status de atividade:** se o DRep está ativo, inativo ou com registro encerrado.
+- **Posicionamentos de governança:** grau de alinhamento entre as decisões históricas do DRep e as preferências do delegador.
+- **Informações do perfil:** objetivos, motivações, qualificações e referências externas declarados publicamente.
+
+As plataformas oferecem diferentes combinações desses recursos e podem calcular métricas semelhantes utilizando metodologias distintas.
+
+### Exploradores e diretórios de DReps
+
+As plataformas a seguir oferecem ferramentas para encontrar DReps, examinar seus perfis e explorar suas atividades na governança.
+
+**DRepTalk**
+
+[DRep Directory](https://dreptalk.com/dreps/) | [Find Your DRep](https://dreptalk.com/match/)
+
+Oferece um diretório de DReps com informações sobre poder de voto delegado, número de delegadores, histórico de votações, justificativas e atividade de governança.
+
+O recurso *Find Your DRep* permite que os usuários indiquem como teriam votado em determinadas ações de governança anteriores e identifiquem representantes cujos votos efetivos estejam alinhados com essas respostas.
+
+**CardanoCube**
+
+[DRep Explorer](https://www.cardanocube.com/governance/dreps)
+
+Oferece um diretório pesquisável com filtros por status de atividade, status de reivindicação do perfil, poder de voto, número de delegadores e *rationale ratio* (proporção de votos acompanhados de justificativas).
+
+Os filtros de poder de voto também permitem explorar resultados por percentis, possibilitando analisar DReps com diferentes níveis de influência delegada.
+
+**CGOV — Cardano Governance Platform**
+
+[DRep Dashboard](https://app.cgov.io/drep) | [DRep Charts](https://app.cgov.io/drep/charts)
+
+Desenvolvida por Nomos, Mesh e SIDAN Lab, a CGOV oferece informações sobre DReps e análises de governança (*governance analytics*).
+
+Seu *dashboard* reúne dados de atividade dos DReps, ADA delegadas, número de delegadores, estatísticas de votação e indicadores de concentração. Gráficos adicionais permitem visualizar a distribuição do poder de voto e dos delegadores.
+
+A plataforma também inclui uma interface chamada *DRep Picker* para explorar representantes.
+
+**Cardano GovTool**
+
+[DRep Directory](https://gov.tools/) | [Delegation Guide](https://docs.gov.tools/cardano-govtool/using-govtool/delegating/delegate-to-a-drep/)
+
+Disponibiliza um diretório no qual os usuários podem procurar DReps por nome ou identificador e examinar as informações disponíveis em seus perfis, incluindo objetivos, motivações, qualificações, poder de voto e status de registro.
+
+Os usuários também podem delegar poder de voto pela própria plataforma.
+
+**DAVEgov — Cardano Governance Visualisation**
+
+[Governance Explorer](https://governance.cardano-visualisation.com/)
+
+Oferece análises detalhadas do comportamento de votação de DReps individuais, incluindo taxas de participação, distribuição de votos ***Yes/No/Abstain***, tempos de resposta, cobertura de justificativas e atividade de votação por tipo de ação de governança.
+
+Também apresenta informações sobre votos relacionados a retiradas do tesouro (*treasury withdrawals*), distinguindo propostas que resultaram em retiradas daquelas que não tiveram esse resultado.
+
+**Cardanoscan**
+
+[DRep Explorer](https://cardanoscan.io/dreps) | [Governance Overview](https://cardanoscan.io/gov/overview)
+
+Disponibiliza informações registradas na blockchain sobre DReps, incluindo identificadores, datas de registro, status de atividade, depósitos e registros *on-chain* relacionados.
+
+Sua visão geral de governança também apresenta informações agregadas sobre a participação dos DReps e a distribuição do poder de voto.
+
+### Interpretando informações sobre DReps
+
+A disponibilidade dessas métricas permite que delegadores pesquisem representantes de acordo com suas preferências individuais.
+
+Entretanto, indicadores isolados não necessariamente oferecem uma visão completa da atividade ou do processo de decisão de um DRep. Por exemplo, uma justificativa publicada demonstra que uma explicação foi fornecida, mas não comprova a qualidade dessa explicação. Da mesma forma, a participação nas votações mede atividade, e não o mérito das decisões individuais.
+
+As métricas também podem variar entre plataformas devido a diferenças na abrangência dos dados, nos métodos de cálculo e na frequência das atualizações.
+
+Os delegadores podem consultar múltiplas fontes e examinar os registros de votação e as explicações que sustentam as decisões quando buscarem contexto adicional.
+
+A escolha de um DRep não impede que os delegadores acompanhem suas atividades posteriores. Os mesmos exploradores e diretórios podem ser utilizados para monitorar decisões, participação, justificativas publicadas e mudanças no poder de voto delegado ao longo do tempo. Os delegadores podem reavaliar sua escolha e mudar de representante quando desejarem.
+
+### Alterando uma delegação
+
+Os detentores de ADA podem mudar o DRep ao qual delegaram seu poder de voto.
+
+A alteração é realizada por meio de uma nova transação de delegação, que substitui a associação anterior.
+
+Não é necessário retirar ADA da *wallet* nem alterar a delegação de *staking* existente para trocar de DRep.
+
+### *Abstain* e *No Confidence*
+
+Além de delegar a um DRep registrado, o protocolo disponibiliza duas opções predefinidas.
+
+***Abstain***
+
+Permite que os usuários registrem uma preferência permanente pela abstenção, sem delegar poder de voto a um representante específico.
+
+O *stake* associado a essa opção é excluído do poder de voto ativo utilizado nos cálculos de aprovação das ações de governança.
+
+***No Confidence***
+
+Expressa falta de confiança no Comitê Constitucional.
+
+O *stake* associado a essa opção é considerado favorável às ações de governança do tipo *Motion of No Confidence* (moção de desconfiança) e contrário às demais ações, conforme as regras estabelecidas pela CIP-1694.
+
+Essas opções são diferentes de um voto individual ***Abstain*** que um DRep pode registrar em determinada ação de governança.
+
+### Delegação e recompensas de *staking*
+
+Pelas regras de governança vigentes, a retirada de recompensas de *staking* exige que a credencial de *stake* associada possua uma delegação de governança, seja para um DRep registrado, seja para uma das opções predefinidas: ***Abstain*** ou ***No Confidence***.
+
+Entretanto, esse requisito pode mudar. A [CIP-181 — Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181), proposta em março de 2026, busca remover essa condição, permitindo que detentores de ADA retirem suas recompensas de *staking* sem delegar poder de voto.
+
+Até outubro de 2026, a proposta não foi implementada, e o requisito existente continua em vigor.
+
+## 4. Métodos de registro e delegação
+
+O registro de DReps e a delegação de poder de voto podem ser realizados por diferentes métodos.
+
+Embora as ferramentas utilizem interfaces e procedimentos distintos, essas operações produzem transações registradas na blockchain Cardano.
+
+As opções a seguir são exemplos dos métodos disponíveis. A lista não pretende ser exaustiva e não indica preferência por nenhuma ferramenta específica.
+
+### Método 1 — Plataformas de governança baseadas na web
+
+As plataformas de governança permitem que os usuários se registrem ou deleguem por meio de uma interface web.
+
+Normalmente, o usuário conecta uma *wallet* compatível, seleciona a operação desejada, fornece as informações necessárias e confirma a transação utilizando sua *wallet*.
+
+Algumas plataformas também oferecem recursos para criar, hospedar e atualizar metadados de DReps.
+
+**Ferramentas e documentação:**
+
+**GovTool**
+- [Using GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/)
+- [Register as a DRep](https://docs.gov.tools/cardano-govtool/using-govtool/dreps/register-as-a-drep/)
+- [Delegate to a DRep](https://docs.gov.tools/cardano-govtool/using-govtool/delegating/delegate-to-a-drep/)
+- [Compatible Wallets](https://docs.gov.tools/cardano-govtool/using-govtool/getting-started/compatible-wallets/)
+
+**DRepTalk**
+- [Help & Guides](https://dreptalk.com/help/)
+- [Managing Your DRep](https://dreptalk.com/help/managing-your-drep/)
+- [How to Delegate to a DRep](https://dreptalk.com/help/delegate-to-a-drep)
+
+**Tempo**
+- [User Guides](https://tempo.vote/user-guides)
+
+### Método 2 — Governança integrada a *wallets*
+
+Algumas *wallets* da Cardano incluem funcionalidades de governança diretamente em suas interfaces.
+
+Dependendo da *wallet*, esses recursos podem permitir registrar DReps, delegar poder de voto, acompanhar representantes ou participar de votações de governança.
+
+É importante distinguir as funcionalidades nativas da *wallet* das operações que exigem sua conexão a uma plataforma web externa.
+
+Nem todas as *wallets* oferecem suporte às mesmas operações.
+
+**Carteiras (*wallets*) e documentação:**
+
+**Eternl**
+- [Eternl Wiki - Updates and Governance Features](https://wiki.eternl.io/eternl-updates-release-notes) — Documentação sobre funcionalidades de governança, incluindo operações de DRep.
+
+**Begin Wallet**
+- [Governance Vote Delegation](https://begin.is/blog/governance-vote-delegation) — Tutorial sobre como delegar diretamente pela *wallet*.
+
+**GeroWallet**
+- [Cardano Governance Features](https://gerowallet.io/wallet/governance/) — Documentação sobre recursos de registro de DReps, delegação e consulta de informações.
+
+**Outras *wallets***
+- [GovTool - Compatible Wallets](https://docs.gov.tools/cardano-govtool/using-govtool/getting-started/compatible-wallets/) — Lista de *wallets* compatíveis, incluindo informações sobre algumas que possuem funcionalidades nativas de delegação de governança.
+
+### Método 3 — Interface de linha de comando (CLI)
+
+Usuários com conhecimento técnico podem registrar DReps e delegar poder de voto por meio de ferramentas de linha de comando (*Command-Line Interface*, CLI).
+
+O `cardano-cli` permite criar certificados de registro e delegação, construir transações, assiná-las com as credenciais apropriadas e enviá-las à blockchain.
+
+Esse método não depende das interfaces gráficas disponibilizadas pelas plataformas de governança, mas exige conhecimento de gerenciamento de chaves e dos procedimentos de construção de transações.
+
+**Documentação:**
+
+- [Cardano Developer Portal - DReps & Vote Delegation](https://developers.cardano.org/docs/developers/curriculum/staking-governance/drep-and-delegation/) — Exemplos de registro e delegação utilizando `cardano-cli`, incluindo credenciais baseadas em chaves e em *scripts*.
+- [CoinCashew - Delegating to a Representative](https://www.coincashew.com/coins/overview-ada/guide-how-to-build-a-haskell-stakepool-node/part-iv-administration/delegating-to-a-representative) — Procedimento de delegação por CLI voltado a operadores técnicos.
+
+### Método 4 — Kits de desenvolvimento de software (SDKs)
+
+Desenvolvedores também podem implementar operações de registro e delegação utilizando bibliotecas e *Software Development Kits* (SDKs) compatíveis com Cardano.
+
+Essas ferramentas oferecem componentes para construir transações e certificados de governança, permitindo que desenvolvedores integrem tais funcionalidades às suas próprias aplicações.
+
+**Documentação:**
+
+- [Mesh SDK - Governance Transactions](https://meshjs.dev/apis/txbuilder/governance) — Implementação programática do registro de DReps, delegação e outras transações de governança.
+- [Cardano Developer Portal - DReps & Vote Delegation](https://developers.cardano.org/docs/developers/curriculum/staking-governance/drep-and-delegation/) — Exemplos utilizando Evolution SDK e Mesh SDK.
+
+### Considerações gerais
+
+Independentemente do método utilizado, algumas características devem ser consideradas:
+
+- O registro de DRep exige um depósito reembolsável definido pelo protocolo.
+- Registro e delegação são operações distintas, embora algumas ferramentas possam combiná-las.
+- A delegação de governança não transfere a propriedade das ADA.
+- As operações envolvem transações assinadas com as credenciais apropriadas.
+- A disponibilidade das funcionalidades depende da ferramenta, de sua versão e da compatibilidade com a *wallet* utilizada.
+- Os usuários nunca precisam fornecer a frase de recuperação (*recovery phrase*) de sua *wallet* a um site para delegar poder de voto.
+
+A documentação indicada acima apresenta instruções específicas para cada ferramenta. Como interfaces e funcionalidades podem mudar, os usuários devem consultar as orientações mais recentes antes de realizar operações *on-chain*.
+
+## 5. Responsabilidades e práticas dos DReps
+
+Os DReps desempenham um papel representativo na governança da Cardano, participando de decisões que podem afetar o desenvolvimento e a operação da rede, bem como a utilização dos recursos do tesouro.
+
+Suas obrigações formais são estabelecidas pela Constituição da Cardano e pelas regras do protocolo. Expectativas e práticas adicionais surgiram por meio de iniciativas comunitárias e compromissos assumidos voluntariamente por representantes individuais.
+
+Essa distinção é importante, pois nem todos os padrões ou expectativas são obrigatórios ou fiscalizados pelo protocolo.
+
+### Disposições constitucionais
+
+A [Constituição da Cardano](https://cardano.org/constitution/), em seu Artigo II, estabelece diversas disposições relativas aos DReps e à sua participação na governança.
+
+Entre elas estão:
+
+- **Direitos de voto:** os DReps podem votar em todos os tipos de ações de governança.
+- **Transparência sobre remuneração:** os DReps devem divulgar publicamente, em tempo hábil, qualquer remuneração recebida em conexão com suas atividades como DRep.
+- **Restrições à remuneração:** os DReps não podem oferecer nem fornecer compensação a detentores de ADA em troca de sua nomeação como representantes ou do exercício do voto em nome desses detentores.
+- **Divulgação de múltiplas funções de governança:** participantes que desempenhem funções em mais de um dos três órgãos de governança — DReps, SPOs e Comitê Constitucional — devem divulgar publicamente essas funções simultâneas antes de participar de ações de governança *on-chain*.
+
+Essas disposições constitucionais são distintas das regras técnicas aplicadas diretamente pelo *ledger* da Cardano. Sua existência não implica necessariamente fiscalização automática *on-chain* nem aplicação automática de penalidades.
+
+### Participação e atividade
+
+Os DReps podem analisar ações de governança e registrar votos ***Yes***, ***No*** ou ***Abstain***.
+
+O protocolo não exige que os DReps votem em todas as ações de governança. Entretanto, os DReps registrados estão sujeitos a regras de inatividade determinadas pelo parâmetro `drepActivity`.
+
+Um DRep inativo pode reativar seu status votando em uma ação de governança ou submetendo um certificado de atualização de DRep (*DRep update certificate*), conforme especificado na CIP-1694.
+
+Como as ações de governança possuem períodos de votação definidos, os DReps precisam submeter seus votos dentro da janela aplicável para que sejam considerados na decisão.
+
+Os DReps também podem alterar um voto enviado anteriormente enquanto a ação de governança permanecer aberta. O voto válido mais recente substitui o anterior para aquela ação.
+
+### Justificativas de voto
+
+Uma justificativa de voto (*vote rationale*) é uma explicação do raciocínio que fundamenta a decisão de um DRep.
+
+Embora a publicação de justificativas não seja obrigatória pelo protocolo, trata-se de uma prática voluntária que pode melhorar a transparência e ajudar os delegadores a compreender como seu poder de voto está sendo utilizado.
+
+As justificativas podem incluir:
+
+- O posicionamento do DRep sobre a ação de governança.
+- Os principais argumentos que sustentam a decisão.
+- Preocupações, ressalvas ou condições relevantes.
+- Referências a documentação de apoio, pesquisas ou discussões.
+
+Os padrões de metadados de governança, incluindo a [CIP-100](https://cips.cardano.org/cip/CIP-100), oferecem mecanismos para associar documentos *off-chain* a votos registrados *on-chain*.
+
+A existência de uma justificativa não comprova, por si só, a qualidade ou a validade dos argumentos apresentados.
+
+### Comunicação e representação
+
+Os DReps podem comunicar suas prioridades, posições sobre governança e métodos de tomada de decisão por meio de perfis públicos, sites, fóruns ou outros canais.
+
+A CIP-119 fornece uma estrutura padronizada de metadados pela qual os representantes podem publicar informações como objetivos, motivações, qualificações e referências externas.
+
+Alguns DReps também mantêm canais adicionais para receber perguntas, discutir ações de governança e se comunicar com delegadores.
+
+Essas práticas podem ajudar delegadores a compreender os posicionamentos de um representante e acompanhar suas atividades, mas o protocolo não estabelece uma frequência universal de comunicação nem um formato obrigatório de engajamento.
+
+### Transparência e conflitos de interesse
+
+Como os DReps podem participar simultaneamente de organizações, projetos, comitês ou outras atividades do ecossistema, podem surgir questões relacionadas a potenciais conflitos de interesse.
+
+A Constituição da Cardano trata expressamente de determinados requisitos de transparência, incluindo a divulgação de remuneração e de funções simultâneas em órgãos de governança.
+
+Além dessas disposições, os DReps podem divulgar voluntariamente outros vínculos, afiliações ou interesses relevantes para ações de governança específicas.
+
+Essas divulgações podem fornecer contexto para interpretar decisões de voto. Entretanto, não existe um mecanismo universal *on-chain* que determine se todos os potenciais conflitos de interesse foram adequadamente divulgados ou administrados.
+
+### Diretrizes comunitárias e códigos de conduta
+
+Além das disposições estabelecidas pela Constituição da Cardano, iniciativas comunitárias desenvolveram diretrizes e códigos de conduta voluntários que abordam responsabilidades, padrões éticos e práticas esperadas dos DReps.
+
+Duas iniciativas financiadas pelo Project Catalyst Fund10 contribuíram para esse esforço:
+
+***DRep Code of Conduct***
+
+Desenvolvido por meio de uma iniciativa comunitária internacional liderada por Eystein Hansen, esse projeto partiu de trabalhos anteriores sobre ética de DReps, iniciados em 2022, e os expandiu para o modelo de governança da Cardano estabelecido pela CIP-1694.
+
+A iniciativa realizou consultas comunitárias e *workshops* em diferentes regiões para reunir perspectivas sobre representação responsável e riscos associados à governança descentralizada. O *Code of Conduct* resultante estabelece uma estrutura voluntária organizada em torno de competência, identidade, interesses e alianças, procedimentos de votação e mecanismos de divulgação de informações e recebimento de *feedback*.
+
+Em vez de determinar como os representantes devem votar, essa estrutura enfatiza a divulgação de informações que permitam aos delegadores compreender as qualificações, os interesses, os recursos disponíveis e os processos de tomada de decisão de um DRep. Também propõe procedimentos para atualizar essas informações e coletar *feedback* da comunidade, permitindo que os representantes adaptem as diretrizes às suas circunstâncias.
+
+- [DRep Code of Conduct — Archived Document](https://web.archive.org/web/20251231212423/https://docs.google.com/document/d/1uyCOzWO9uk71GRlCv_UT08Rt3kGBQMXFDXF3iiXejjU/preview?tab=t.0)
+- [DRep Code of Conduct — Intersect GitHub Repository](https://github.com/IntersectMBO/drep-code-of-conduct)
+- [Project Catalyst — Original Proposal](https://projectcatalyst.io/funds/10/drep-improvement-and-onboarding/drep-recruitment-training-and-ethical-code-development-workshops)
+
+**Manifesto Cardano Brasil — Diretrizes para DReps**
+
+Desenvolvido por meio de uma iniciativa de pesquisa comunitária e educação liderada por Rodrigo Pacini, esse projeto buscou identificar prioridades, expectativas e preocupações de participantes brasileiros e lusófonos da Cardano em relação à governança descentralizada e à representação comunitária no ecossistema.
+
+Entre novembro de 2023 e março de 2024, a iniciativa realizou sete debates públicos acompanhados de questionários, reunindo perspectivas da comunidade sobre o modelo de governança da CIP-1694, qualificações dos DReps, prestação de contas (*accountability*), transparência, conflitos de interesse, participação e expectativas em relação aos representantes.
+
+Os resultados foram consolidados no documento *Diretrizes e Missões Críticas para DReps Brasileiros*, que aborda qualificações e experiência, representação, missão, valores, conduta, conflitos de interesse e serviços que os DReps podem oferecer aos delegadores. O documento também identifica áreas de interesse e prioridades expressas pelos participantes, oferecendo uma referência fundamentada nas consultas comunitárias para representantes que desejem compreender e atender às expectativas dos participantes brasileiros e lusófonos.
+
+- [Diretrizes e Missões Críticas para DReps Brasileiros](https://manifestocardanobrasil.gitbook.io/manifesto/governanca/diretrizes-e-missoes-criticas-para-dreps-brasileiros)
+- [Project Catalyst — Original Proposal](https://projectcatalyst.io/funds/10/drep-improvement-and-onboarding/dreps-latam-brasil-exploration-and-community-sensing)
+
+Ambas as iniciativas oferecem perspectivas adicionais sobre representação responsável e participação na governança. Suas recomendações são voluntárias e não devem ser confundidas com obrigações constitucionais ou requisitos impostos diretamente pelo protocolo.
+
+## Referências
+
+### Estrutura de governança e padrões técnicos
+
+- [Cardano Constitution](https://cardano.org/constitution/) — Estrutura constitucional que estabelece princípios de governança, responsabilidades institucionais e disposições relativas à participação, remuneração e transparência dos DReps.
+- [CIP-1694 — A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694) — Especificação técnica do modelo de governança da Cardano, incluindo registro, delegação, votação, inatividade e encerramento do registro de DReps.
+- [CIP-119 — Governance Metadata: DReps](https://cips.cardano.org/cip/CIP-0119) — Formato padronizado de metadados para publicar perfis, objetivos, motivações, qualificações e referências de DReps.
+- [CIP-100 — Governance Metadata](https://cips.cardano.org/cip/CIP-100) — Padrão de metadados para documentos relacionados à governança, incluindo justificativas de voto e informações complementares.
+- [CIP-181 — Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181) — Proposta para eliminar o requisito de delegação de governança para a retirada de recompensas de *staking*.
+
+### Documentação técnica e recursos educacionais
+
+- [Cardano Developer Portal — DReps & Vote Delegation](https://developers.cardano.org/docs/developers/curriculum/staking-governance/drep-and-delegation/) — Documentação técnica sobre credenciais de governança, registro de DReps, delegação e operações programáticas.
+- [GovTool — Documentation](https://docs.gov.tools/cardano-govtool/using-govtool/) — Guias de interação com a governança da Cardano, incluindo registro de DReps, delegação e ações de governança.
+- [DRepTalk — How to Become a DRep](https://dreptalk.com/help/become-a-drep/) — Introdução ao processo de tornar-se DRep e participar da governança.
+- [DRepTalk — Managing Your DRep](https://dreptalk.com/help/managing-your-drep/) — Orientações sobre registro de DReps, gerenciamento de metadados e encerramento do registro.
+- [DRepTalk — How to Delegate to a DRep](https://dreptalk.com/help/delegate-to-a-drep) — Guia de delegação do poder de voto e troca de representantes.
+- [DRepTalk — How to Write a Vote Rationale](https://dreptalk.com/help/writing-a-vote-rationale/) — Guia educacional para documentar e publicar justificativas de voto.
+- [DRepTalk — How to Vote](https://dreptalk.com/help/voting/) — Tutorial sobre votação de governança e alterações de votos.
+
+### Iniciativas comunitárias e pesquisas
+
+**DRep Code of Conduct**
+
+- [DRep Code of Conduct — Archived Document](https://web.archive.org/web/20251231212423/https://docs.google.com/document/d/1uyCOzWO9uk71GRlCv_UT08Rt3kGBQMXFDXF3iiXejjU/preview?tab=t.0) — Código de conduta comunitário preservado em arquivo histórico, que aborda responsabilidades, divulgação de informações e práticas de tomada de decisão dos DReps.
+- [DRep Code of Conduct — Intersect GitHub Repository](https://github.com/IntersectMBO/drep-code-of-conduct) — Repositório público que preserva o código de conduta comunitário.
+- [Project Catalyst — dRep Recruitment, Training, and Ethical Code Development Workshops](https://projectcatalyst.io/funds/10/drep-improvement-and-onboarding/drep-recruitment-training-and-ethical-code-development-workshops) — Proposta original do Fund10 que documenta os objetivos e a metodologia da iniciativa.
+- [Project Catalyst — Milestone Records](https://milestones.projectcatalyst.io/projects/1000067) — Registros de execução do projeto e de seus entregáveis (*deliverables*).
+
+**Manifesto Cardano Brasil**
+
+- [Manifesto Cardano Brasil — Guidelines and Critical Missions for Brazilian DReps](https://manifestocardanobrasil.gitbook.io/manifesto/governanca/diretrizes-e-missoes-criticas-para-dreps-brasileiros) — Diretrizes fundamentadas em consultas comunitárias, abrangendo qualificações, representação, conduta, conflitos de interesse e serviços dos DReps.
+- [Project Catalyst — DReps LATAM Brasil: Exploration & Community Sensing](https://projectcatalyst.io/funds/10/drep-improvement-and-onboarding/dreps-latam-brasil-exploration-and-community-sensing) — Proposta original do Fund10 que descreve a iniciativa de pesquisa e educação comunitária.
+- [Project Catalyst — Milestone Records](https://milestones.projectcatalyst.io/projects/1000068) — Registros de execução, relatórios e entregáveis do projeto.
