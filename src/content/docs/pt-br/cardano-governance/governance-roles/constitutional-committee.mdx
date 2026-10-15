@@ -1,0 +1,650 @@
+---
+title: 'Comitê Constitucional (CC)'
+description: 'Guia do Comitê Constitucional da Cardano, incluindo supervisão constitucional, eleições, procedimentos de votação, transparência e governança interna.'
+---
+
+O **Comitê Constitucional (Constitutional Committee - CC)** é uma instituição de governança responsável por avaliar se as *governance actions* propostas estão em conformidade com a Constituição da Cardano.
+
+Diferentemente dos Representantes Delegados (*Delegated Representatives* - DReps) e dos Operadores de Stake Pools (*Stake Pool Operators* - SPOs), cujo poder de voto é ponderado pela participação em stake, o Comitê Constitucional opera com um número definido de assentos com direito a voto, sendo atribuído um voto a cada membro.
+
+O Comitê exerce supervisão constitucional dentro da estrutura de governança descentralizada da Cardano. Sua autoridade limita-se às avaliações de constitucionalidade, enquanto sua composição, seus membros e seus requisitos de votação permanecem sujeitos a decisões de governança.
+
+Este artigo explica as responsabilidades e limitações do Comitê, como seus membros são eleitos e substituídos, sua evolução histórica e os mecanismos utilizados para registrar votos e documentar suas decisões de governança.
+
+## 1. Entendendo o Comitê Constitucional
+
+### O que é o Comitê Constitucional?
+
+O Comitê Constitucional é um dos três grupos de votação de governança estabelecidos pela [CIP-1694](https://cips.cardano.org/cip/CIP-1694), ao lado dos DReps e SPOs.
+
+Sua principal responsabilidade é avaliar as *governance actions* à luz das disposições da [Constituição da Cardano](https://cardano.org/constitution/), incluindo os *Guardrails* associados.
+
+O Comitê não determina se uma *governance action* é economicamente desejável, politicamente preferível ou estrategicamente benéfica. Sua responsabilidade formal é avaliar se a ação proposta está em conformidade com o arcabouço constitucional.
+
+Essa distinção separa a supervisão constitucional da tomada de decisões representativa mais ampla exercida pelos DReps.
+
+Por exemplo, uma retirada de recursos do Treasury pode atender aos requisitos constitucionais relativos à documentação, à supervisão financeira e aos limites aplicáveis, mas ainda assim suscitar questionamentos sobre sua necessidade, custo ou impacto esperado.
+
+Essas considerações mais amplas não constituem, automaticamente, motivos para um membro do Comitê Constitucional rejeitar a proposta.
+
+Portanto, a função do Comitê é oferecer uma verificação constitucional adicional no processo de governança, e não substituir o julgamento dos demais participantes com direito a voto.
+
+### Autoridade e limitações constitucionais
+
+O Artigo III da Constituição da Cardano define a autoridade e o escopo de atuação do Comitê.
+
+O Comitê Constitucional é responsável por determinar se as *governance actions* elegíveis estão em conformidade com a Constituição.
+
+Sua autoridade apresenta diversas limitações importantes:
+
+- **Escopo constitucional:** Espera-se que os membros fundamentem suas decisões nas disposições constitucionais e nos *Guardrails* aplicáveis.
+- **Autoridade de governança compartilhada:** O Comitê não pode ratificar, de forma independente, *governance actions* que também exijam a aprovação de DReps ou SPOs.
+- **Ausência de autoridade sobre a própria nomeação:** Alterações na composição do Comitê e nos thresholds de aprovação são decididas por meio de *governance actions* do tipo *Update Committee*, sem necessidade de aprovação do CC.
+- **Mecanismos de substituição:** O Comitê pode ser substituído por meio de processos de governança que envolvem DReps e SPOs.
+- **Distinção entre protocolo e Constituição:** A blockchain registra as decisões de voto, mas não determina, de forma independente, se a fundamentação jurídica ou constitucional de um voto é válida.
+
+Um membro do Comitê Constitucional pode votar contra uma proposta que considere violar a Constituição. Entretanto, discordar de seus objetivos ou resultados esperados não equivale, por si só, à constatação de inconstitucionalidade.
+
+A Constituição estabelece que os *Guardrails* aplicáveis a uma *governance action* são aqueles em vigor no momento de sua submissão *on-chain*, independentemente de alterações posteriores. A aplicação de outras disposições constitucionais a ações ainda pendentes pode exigir interpretação adicional, especialmente quando a Constituição é modificada antes da conclusão de uma ação.
+
+### Direitos de voto e ratificação
+
+Cada membro do Comitê Constitucional possui um voto, independentemente da quantidade de ADA que detenha ou represente.
+
+Nas *governance actions* elegíveis, os membros podem registrar:
+
+- **Yes:** Voto favorável à aceitabilidade constitucional da ação.
+- **No:** Voto contrário, indicando que a ação não deve receber a aprovação constitucional daquele membro.
+- **Abstain:** Decisão registrada de não apoiar nenhum dos dois resultados de votação.
+
+Para as *governance actions* que exigem aprovação do Comitê Constitucional, o número de votos favoráveis deve atingir o threshold de aprovação aplicável ao Comitê.
+
+Em outubro de 2026, esse threshold é de **dois terços (2/3) dos membros elegíveis do Comitê**. Com sete membros ativos, são necessários pelo menos **cinco votos Yes** para obter a aprovação constitucional.
+
+O threshold é estabelecido como parte da configuração *on-chain* do Comitê e pode ser alterado por meio de uma *governance action* do tipo *Update Committee*. Ele é distinto do parâmetro de protocolo `committeeMinSize` e dos thresholds de aprovação ponderados por stake aplicáveis aos DReps e SPOs.
+
+De acordo com a Constituição, duas categorias de *governance actions* não exigem aprovação do Comitê Constitucional:
+
+- **No Confidence:** Propostas que expressam falta de confiança no Comitê Constitucional.
+- **Update Committee:** Propostas que alteram a composição do Comitê ou seu threshold de aprovação.
+
+Para os demais tipos de *governance actions*, a aprovação constitucional geralmente integra os requisitos de ratificação, juntamente com a aprovação dos outros grupos de votação elegíveis.
+
+As *Info Actions* possuem uma condição particular: elas não implementam diretamente alterações no protocolo. Ainda assim, os membros do Comitê Constitucional podem manifestar posições sobre a constitucionalidade de ações propostas ou consideradas nas informações nelas apresentadas.
+
+Um voto do Comitê não resulta automaticamente na implementação de uma proposta. A ratificação e o *enactment* continuam sujeitos aos requisitos aplicáveis ao tipo de *governance action* e às regras de processamento do protocolo.
+
+## 2. Composição e eleições do Comitê
+
+### Membros e assentos com direito a voto
+
+O Comitê Constitucional é composto por um conjunto de assentos com direito a voto, ocupados por indivíduos ou entidades.
+
+Um membro pode ser:
+
+- Uma pessoa física.
+- Uma organização.
+- Um consórcio ou coletivo representado por uma credencial de governança compartilhada.
+
+Cada assento está associado a uma credencial do Comitê Constitucional e confere direito a um voto.
+
+Consequentemente, um consórcio formado por várias pessoas não recebe múltiplos votos *on-chain* apenas porque diversos indivíduos participam de seu processo interno de decisão.
+
+O número de assentos do Comitê não é permanentemente fixado pelo protocolo. Ele pode ser alterado por meio de uma *governance action* do tipo *Update Committee* devidamente ratificada.
+
+É importante distinguir três conceitos:
+
+- **Tamanho do Comitê:** Número de assentos estabelecidos para o Comitê.
+- **`committeeMinSize`:** Número mínimo de membros do Comitê cujos mandatos ainda não expiraram, necessário para que o Comitê possa ratificar *governance actions* elegíveis.
+- **Threshold de aprovação do Comitê:** Proporção de votos favoráveis dos membros necessária para a aprovação constitucional.
+
+Em outubro de 2026, o Comitê Constitucional da Cardano possui **sete assentos**, enquanto o parâmetro `committeeMinSize` é **cinco**.
+
+Esse mínimo foi [reduzido de sete para cinco em julho de 2026](https://dreptalk.com/t/reduce-the-committeeminsize-parameter-from-7-to-5-6043dfae/), proporcionando maior tolerância a vacâncias ou mandatos expirados sem impedir imediatamente que o Comitê desempenhe sua função de governança.
+
+Esses valores são controlados pela governança e podem mudar no futuro.
+
+### Processo eleitoral e nomeação
+
+A Constituição da Cardano exige que a comunidade estabeleça e publique processos para eleger os membros do Comitê Constitucional.
+
+Entretanto, a Constituição não determina uma plataforma eleitoral única e permanente, nem uma organização administrativa específica.
+
+Desde 2024, a Intersect facilita eleições por meio de processos que envolvem participação comunitária, inscrição de candidatos, votação, verificação de resultados e nomeação *on-chain*.
+
+É importante distinguir eleição de nomeação.
+
+**Eleição comunitária**
+
+Os candidatos são apresentados aos eleitores elegíveis por meio de um processo de seleção *off-chain*.
+
+Nas eleições de 2025 e 2026, os DReps votaram nos candidatos, com suas escolhas ponderadas pelo poder de voto delegado.
+
+Os resultados identificaram os candidatos selecionados para nomeação ao Comitê.
+
+**Nomeação on-chain**
+
+Após a eleição, uma *governance action* do tipo *Update Committee* é submetida à blockchain da Cardano.
+
+Essa ação identifica as credenciais dos membros que ingressarão no Comitê e os epochs de expiração de seus mandatos. Também pode remover credenciais de membros que deixam o Comitê ou modificar seu threshold de aprovação.
+
+Em seguida, a ação deve satisfazer os requisitos de ratificação aplicáveis, envolvendo DReps e SPOs.
+
+Somente após seu *enactment* as credenciais nomeadas passam a integrar a configuração ativa do Comitê.
+
+Isso significa que o resultado de uma eleição *off-chain* não estabelece, por si só, a condição de membro *on-chain*.
+
+A Intersect atua como facilitadora desses processos, e não como autoridade capaz de nomear membros do Comitê de forma independente.
+
+A governança da Cardano permanece *permissionless*: *governance actions* do tipo *Update Committee* também podem ser submetidas de forma independente, desde que satisfaçam os requisitos aplicáveis do protocolo e da Constituição.
+
+Para informações sobre os procedimentos eleitorais, consulte:
+
+- [Intersect - Eleições do Comitê Constitucional de 2025](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections)
+- [Intersect - Eleições do Comitê Constitucional de 2026](https://intersectmbo.org/news/the-2026-constitutional-committee-elections)
+
+### Evolução histórica e composição
+
+O Comitê Constitucional passou por diversas mudanças desde a introdução do sistema de governança *on-chain* da Cardano.
+
+Os marcos a seguir ilustram o desenvolvimento institucional do Comitê desde 2024.
+
+**2024-2025: Comitê Constitucional Interino**
+
+O Comitê Constitucional Interino (*Interim Constitutional Committee* - ICC) começou a operar durante a transição de governança associada ao upgrade Chang, em setembro de 2024.
+
+Ele possuía sete assentos, reunindo quatro representantes institucionais e três membros eleitos pela comunidade.
+
+| Membro do Comitê Interino | Forma de nomeação |
+|---|---|
+| Cardano Foundation | Entidade fundadora |
+| Input Output Global (IOG) | Entidade fundadora |
+| EMURGO | Entidade fundadora |
+| Intersect Constitutional Council | Assento institucional ocupado por um conselho de membros da Intersect |
+| Cardano Atlantic Council (CAC) | Eleito pela comunidade |
+| Eastern Cardano Council (ECC) | Eleito pela comunidade |
+| Cardano Japan | Eleito pela comunidade |
+
+Essa estrutura era transitória. Seu propósito era oferecer supervisão constitucional enquanto a Cardano avançava para um Comitê integralmente eleito pela comunidade.
+
+Os membros interinos permaneceram em exercício até que a transição para o Comitê eleito fosse implementada em setembro de 2025.
+
+Fonte: [Intersect - Comitê Constitucional Interino](https://docs.intersectmbo.org/intersect-knowledge-base/archive/cardano-governance-archive/governance-roles/constitutional-committee/interim-constitution-committee-cc).
+
+**2025: Primeiro Comitê Constitucional integralmente eleito**
+
+Em 2025, a Intersect facilitou a primeira eleição para os sete assentos do Comitê.
+
+Os DReps selecionaram os candidatos por meio de um processo de votação *off-chain*, seguido de auditoria independente dos resultados e de uma *governance action on-chain*.
+
+Os membros eleitos foram:
+
+| Membro eleito | Expiração original do mandato |
+|---|---|
+| Cardano Atlantic Council | Epoch 653 |
+| Tingvard | Epoch 726 |
+| Eastern Cardano Council | Epoch 726 |
+| KtorZ | Epoch 653 |
+| Ace Alliance | Epoch 726 |
+| Cardano Japan Council | Epoch 653 |
+| Phil_uplc (Philip DiSarro) | Epoch 653 |
+
+A eleição de 2025 introduziu mandatos escalonados (*staggered terms*) para evitar a substituição simultânea dos sete membros do Comitê e preservar a continuidade institucional.
+
+Quatro assentos receberam mandatos mais curtos, de **73 epochs (aproximadamente um ano)**, com expiração no epoch 653, enquanto três receberam mandatos mais longos, de **146 epochs (aproximadamente dois anos)**, com expiração no epoch 726.
+
+Em vez de atribuir automaticamente a duração dos mandatos, a eleição permitiu que os candidatos vencedores escolhessem a duração de sua preferência conforme sua classificação eleitoral. O candidato mais votado teve a primeira escolha entre os mandatos de um e dois anos ainda disponíveis. O segundo colocado escolheu entre as opções restantes, seguido pelos demais eleitos em ordem decrescente de votos. Quando todas as vagas de determinada duração eram escolhidas, os candidatos restantes recebiam os mandatos da outra duração disponível.
+
+Esse procedimento foi aplicado aos sete candidatos eleitos, independentemente de sua participação anterior. Cardano Atlantic Council, Eastern Cardano Council e Cardano Japan Council já haviam integrado o Comitê Constitucional Interino, mas a eleição de 2025 estabeleceu novos mandatos segundo as mesmas regras aplicáveis aos membros recém-eleitos, incluindo Philip DiSarro.
+
+O procedimento de escolha dos mandatos escalonados foi específico da transição de 2025 para o Comitê integralmente eleito.
+
+A substituição do Comitê Constitucional Interino foi implementada no **epoch 581, em 6 de setembro de 2025**.
+
+Fontes:
+
+- [Resultados das eleições do Comitê Constitucional de 2025 - Intersect](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections/2025-cc-election-results)
+- [Replace Interim Constitutional Committee - Governance Action](https://dreptalk.com/t/replace-interim-constitutional-committee-76603060/)
+- [Eleições do Comitê Constitucional de 2025, guia para candidatos - Intersect](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections/guide-for-applicants)
+
+**2025: Renúncia e eleição extraordinária**
+
+Em 26 de novembro de 2025, o Cardano Atlantic Council formalizou sua saída do Comitê Constitucional.
+
+Naquele momento, o Comitê possuía sete assentos e o parâmetro `committeeMinSize` também era igual a sete.
+
+A renúncia reduziu o número de membros ativos para seis, colocando o Comitê abaixo do mínimo exigido.
+
+Isso afetou sua capacidade de conceder a aprovação constitucional necessária às *governance actions* que exigiam a participação do CC.
+
+Para preencher a vacância, a Intersect facilitou uma eleição extraordinária, também descrita como *snap election*.
+
+O **Cardano Curia** foi selecionado para preencher a vaga, e uma *governance action* do tipo *Update Committee* foi submetida para adicionar sua credencial.
+
+A ação foi implementada no **epoch 602, em 20 de dezembro de 2025**, restabelecendo o Comitê com sete membros ativos.
+
+O Cardano Curia foi nomeado para um mandato com término no epoch 653, correspondente ao período restante do mandato do membro que havia renunciado. A *governance action* adicionou a credencial do Curia sem remover imediatamente a credencial do Cardano Atlantic Council, já aposentado, da configuração *on-chain* do Comitê. Esta última foi formalmente removida durante a renovação de 2026.
+
+Esse episódio ilustra como renúncias, validade do Comitê, eleições e nomeações *on-chain* interagem.
+
+Fonte: [Add Constitutional Committee Member - Governance Action](https://dreptalk.com/t/add-constitutional-committee-member-0242a93c/).
+
+**2026: Renovação do Comitê**
+
+Quatro assentos do Comitê tinham mandatos previstos para expirar no epoch 653, em setembro de 2026.
+
+A Intersect facilitou outra eleição para selecionar os membros que ocupariam esses assentos.
+
+Os resultados auditados identificaram quatro candidatos vencedores:
+
+- Philip DiSarro (Phil_uplc).
+- Leandros BSP.
+- Marek Mahut.
+- Cardano Curia.
+
+A *governance action Update Constitutional Committee 2026* nomeou formalmente esses candidatos.
+
+Sua implementação ocorreu no **epoch 654, em 6 de setembro de 2026**.
+
+Os quatro membros nomeados receberam mandatos com término no epoch 799.
+
+Os três membros cujos mandatos ainda estavam vigentes permaneceram inalterados.
+
+**Composição do Comitê Constitucional após a renovação de 2026**
+
+| Membro | Expiração do mandato |
+|---|---|
+| Eastern Cardano Council | Epoch 726 |
+| Tingvard | Epoch 726 |
+| Ace Alliance | Epoch 726 |
+| Philip DiSarro (Phil_uplc) | Epoch 799 |
+| Leandros BSP | Epoch 799 |
+| Marek Mahut | Epoch 799 |
+| Cardano Curia | Epoch 799 |
+
+Philip DiSarro e Cardano Curia continuaram em exercício após serem novamente eleitos, enquanto os outros novos membros substituíram assentos cujos mandatos expiravam.
+
+A configuração resultante preservou a estrutura escalonada, com três assentos previstos para expirar antes dos outros quatro.
+
+Fontes:
+
+- [Intersect - Resultados das eleições de 2026](https://intersectmbo.org/news/intersect-weekly-update-122-july-31-2026)
+- [Update Constitutional Committee 2026 - Governance Action](https://dreptalk.com/t/update-constitutional-committee-2026-5e7883f7/)
+
+### Histórico de governance actions do tipo Update Committee
+
+A tabela a seguir resume as *governance actions* do tipo *Update Committee* identificadas na mainnet da Cardano até outubro de 2026.
+
+| Governance Action | Submissão | Resultado | Finalidade |
+|---|---|---|---|
+| [Replace Interim Constitutional Committee](https://dreptalk.com/t/replace-interim-constitutional-committee-76603060/?tab=onchain) | 29 de julho de 2025 | Implementada - 6 de setembro de 2025 | Nomeou os sete membros eleitos em 2025 |
+| [Add Constitutional Committee Member](https://dreptalk.com/t/add-constitutional-committee-member-0242a93c/) | 9 de dezembro de 2025 | Implementada - 20 de dezembro de 2025 | Adicionou Cardano Curia após a eleição extraordinária |
+| [Add Constitutional Committee Member - Christina](https://dreptalk.com/t/add-constitutional-committee-member-christina-c6074264/) | 15 de dezembro de 2025 | Expirada - 14 de janeiro de 2026 | Propôs adicionar Christina Gianelloni como membro adicional |
+| [Update Constitutional Committee 2026](https://dreptalk.com/t/update-constitutional-committee-2026-5e7883f7/) | 31 de julho de 2026 | Implementada - 6 de setembro de 2026 | Renovou quatro assentos do Comitê após a eleição de 2026 |
+
+A proposta expirada de adicionar Christina Gianelloni demonstra que as *governance actions* do tipo *Update Committee* não se limitam aos candidatos selecionados em eleições facilitadas pela Intersect.
+
+Entretanto, a submissão de uma *governance action* não garante sua aprovação ou implementação.
+
+Esses registros se baseiam nas *governance actions* indexadas pelo [DRepTalk](https://dreptalk.com/c/governance-actions/), incluindo seus identificadores *on-chain*, datas de submissão, epochs de decisão e resultados finais. Assim como outros conjuntos de dados históricos, sua abrangência deve ser confrontada com os registros subjacentes da blockchain quando se realizar uma auditoria exaustiva.
+
+### Mandatos, rotatividade e substituição
+
+Os membros do Comitê exercem mandatos definidos em epochs.
+
+O epoch de expiração do mandato de um membro é registrado na configuração *on-chain* do Comitê quando a *governance action* do tipo *Update Committee* correspondente é implementada.
+
+A duração máxima permitida para um mandato é controlada pelo parâmetro de protocolo `committeeMaxTermLength`.
+
+Os membros podem ser reconduzidos, desde que a *governance action* aplicável seja ratificada e implementada.
+
+A Constituição estabelece mandatos escalonados como mecanismo de continuidade. Isso significa que diferentes assentos podem expirar em momentos distintos, em vez de exigir substituição simultânea.
+
+A composição do Comitê pode mudar por diversos mecanismos:
+
+- **Expiração do mandato:** O mandato de um membro alcança o epoch de expiração estabelecido.
+- **Renúncia:** Um membro submete o certificado de renúncia correspondente *on-chain*.
+- **Update Committee:** Uma *governance action* remove ou substitui uma ou mais credenciais de membros.
+- **No Confidence:** Uma moção de desconfiança aprovada estabelece um estado de falta de confiança que exige a reinstituição ou substituição do Comitê para que a governança normal possa ser retomada.
+
+Um membro cujo mandato tenha expirado ou que tenha renunciado deixa de contribuir como membro ativo com direito a voto.
+
+Uma vacância não desencadeia automaticamente uma eleição no nível do protocolo. A seleção e a nomeação ainda precisam ocorrer pelos processos comunitários e de governança *on-chain* aplicáveis.
+
+### No Confidence e validade do Comitê
+
+O Comitê Constitucional pode estar em um estado de confiança (*confidence*) ou de falta de confiança (*no confidence*).
+
+Uma *Motion of No Confidence* aprovada altera a condição de governança do Comitê e restringe a ratificação de outras ações até que o Comitê seja reinstituído ou substituído.
+
+O Comitê Constitucional não vota em moções relacionadas à sua própria confiança nem em atualizações de sua composição.
+
+DReps e SPOs exercem os poderes de governança correspondentes.
+
+Separadamente, a validade do Comitê depende da existência de membros ativos suficientes para satisfazer o parâmetro `committeeMinSize`.
+
+Assim, o Comitê pode ficar impossibilitado de desempenhar determinadas funções de governança mesmo sem a aprovação de uma *Motion of No Confidence*, caso seu número de membros fique abaixo do mínimo exigido.
+
+Isso ocorreu após a renúncia do Cardano Atlantic Council, em novembro de 2025.
+
+A redução de `committeeMinSize` de sete para cinco, em julho de 2026, aumentou a tolerância operacional a vacâncias. Ela não alterou automaticamente a configuração do Comitê com sete assentos.
+
+## 3. Credenciais e votação de governança
+
+### Cold e hot credentials
+
+O protocolo de governança da Cardano exige que os membros do Comitê Constitucional utilizem **cold e hot credentials separadas**. A *cold credential* identifica o assento do membro do Comitê e autoriza uma *hot credential*, utilizada para registrar votos de governança.
+
+Essa separação é imposta pelo Cardano Ledger. As transações de votação devem satisfazer as regras aplicáveis de autorização de credenciais e validação criptográfica. Entretanto, o protocolo não impõe a separação física nem o armazenamento offline das chaves privadas. Manter as *cold signing keys* sensíveis offline é uma prática de segurança recomendada.
+
+Os principais componentes são:
+
+- **Cold credential:** Identifica o assento do membro do Comitê e autoriza operações administrativas, incluindo a autorização da *hot credential* e a renúncia.
+- **Hot credential:** Autoriza votos de governança após ser aprovada por meio da *cold credential* correspondente.
+- **Hot authorization certificate:** Estabelece a autorização *on-chain* que vincula uma *cold credential* a uma *hot credential*.
+- **Resignation certificate:** Permite que o membro renuncie formalmente ao seu assento no Comitê.
+
+Um candidato pode preparar uma *cold credential* antes de sua nomeação. Seu identificador pode então ser incluído em uma *governance action* do tipo *Update Committee*.
+
+Uma *hot credential* precisa ser autorizada por meio de um certificado *on-chain* antes que o membro possa exercer seu direito de voto. Essa autorização pode ocorrer antes da implementação da nomeação, desde que a *cold credential* já seja reconhecida em uma proposta de atualização do Comitê registrada *on-chain*.
+
+Uma vez nomeado o membro e autorizada a *hot credential*, ela pode ser utilizada para votar em *governance actions*.
+
+Se for necessário substituir a *hot credential*, o membro poderá autorizar outra usando a *cold credential*. A nova autorização substitui a anterior.
+
+Essa estrutura reduz a necessidade de utilizar *cold credentials* sensíveis durante a votação rotineira. Ambos os tipos de credencial podem ser baseados em chaves criptográficas ou em scripts compatíveis, permitindo arranjos individuais e coletivos.
+
+Para detalhes técnicos, consulte a [CIP-1694](https://cips.cardano.org/cip/CIP-1694) e o [Cardano Developer Portal - Governance Operations](https://developers.cardano.org/docs/developers/curriculum/staking-governance/governance-operations/).
+
+### Como registrar votos de governança
+
+Os membros do Comitê Constitucional votam por meio de transações registradas na blockchain da Cardano.
+
+Um procedimento típico de votação envolve:
+
+1. **Identificação da governance action:** Examinar a proposta, a documentação de apoio, as disposições constitucionais pertinentes e os *Guardrails* aplicáveis.
+2. **Avaliação de constitucionalidade:** Determinar se a ação está em conformidade com os requisitos constitucionais.
+3. **Escolha da posição:** Selecionar Yes, No ou Abstain.
+4. **Preparação dos metadados de apoio:** Opcionalmente, associar uma justificativa (*rationale*) ao voto, observadas as obrigações constitucionais aplicáveis.
+5. **Construção da transação:** Incluir o procedimento de votação e as informações exigidas pelo protocolo.
+6. **Autorização e assinatura:** Utilizar a *hot credential* apropriada e quaisquer credenciais adicionais necessárias para a transação.
+7. **Submissão e verificação:** Registrar a transação *on-chain* e confirmar sua inclusão.
+
+Os votos podem ser substituídos enquanto a *governance action* permanecer aberta, observadas as regras aplicáveis do protocolo.
+
+O voto válido mais recente do membro naquela ação substitui o anterior.
+
+O voto de um membro do Comitê está associado à sua credencial de governança autorizada, independentemente do número de pessoas que participem de suas deliberações internas.
+
+### Justificativas de voto e CIP-136
+
+Uma **justificativa de voto (*vote rationale*)** documenta o raciocínio que fundamenta a decisão de um membro do Comitê Constitucional.
+
+Diferentemente das justificativas dos DReps, que podem abranger uma ampla variedade de considerações políticas, econômicas ou estratégicas, espera-se que as justificativas do CC se concentrem na interpretação constitucional e na conformidade com a Constituição.
+
+A Constituição da Cardano exige que o Comitê publique suas decisões.
+
+Ela também estabelece uma obrigação específica quando um membro vota que uma *governance action* é inconstitucional: o membro deve identificar os artigos constitucionais ou *Guardrails* considerados conflitantes com a proposta.
+
+Essa obrigação não significa que todo voto favorável deva apresentar um parecer jurídico igualmente detalhado.
+
+Entretanto, os membros podem publicar voluntariamente explicações adicionais, incluindo referências, precedentes e contra-argumentos.
+
+**CIP-136 - Governance Metadata: Constitutional Committee Votes**
+
+A [CIP-136](https://cips.cardano.org/cip/CIP-0136) propõe um formato estruturado de metadados para documentar as decisões de voto do Comitê Constitucional.
+
+Ela amplia o framework geral de metadados de governança estabelecido pela [CIP-100](https://cips.cardano.org/cip/CIP-100).
+
+O vocabulário proposto inclui:
+
+- **`summary`:** Resumo conciso da avaliação constitucional.
+- **`rationaleStatement`:** Fundamentação principal que sustenta a decisão.
+- **`precedentDiscussion`:** Discussão de decisões ou interpretações anteriores relevantes.
+- **`counterargumentDiscussion`:** Consideração de interpretações contrárias.
+- **`conclusion`:** Determinação constitucional resultante.
+- **`internalVote`:** Informações opcionais sobre a votação interna de uma organização ou consórcio.
+- **`RelevantArticles`:** Referências às disposições constitucionais pertinentes à avaliação.
+
+O campo `internalVote` é particularmente relevante para membros coletivos do Comitê, pois permite documentar como os integrantes da organização participaram da definição da decisão registrada *on-chain*.
+
+Em outubro de 2026, a CIP-136 permanece com status *Proposed*. Portanto, ela deve ser distinguida das próprias obrigações constitucionais.
+
+### Ferramentas de votação e registros públicos
+
+Diversos recursos auxiliam na preparação, submissão e consulta dos votos do Comitê Constitucional.
+
+**Cardano Developer Portal**
+
+[Governance Operations](https://developers.cardano.org/docs/developers/curriculum/staking-governance/governance-operations/) | [Vote & Propose](https://developers.cardano.org/docs/developers/curriculum/staking-governance/vote-and-propose/)
+
+Fornece documentação técnica sobre credenciais do Comitê, certificados de autorização, procedimentos de renúncia, construção de votos, assinatura de transações e consultas de governança.
+
+A documentação inclui métodos que utilizam `cardano-cli` e bibliotecas de desenvolvimento compatíveis.
+
+Desenvolvedores também podem construir programaticamente transações de votação de governança utilizando SDKs compatíveis, incluindo Evolution e Mesh. Essas bibliotecas oferecem uma alternativa para implementar fluxos de votação personalizados, embora o gerenciamento de credenciais, os mecanismos de assinatura e a submissão das transações continuem sob responsabilidade da aplicação que realiza a integração.
+
+O [tutorial de votação da SanchoNet](https://sancho.network/tutorials/vote-action) apresenta um exemplo prático desse processo usando *hot keys* do Comitê Constitucional, incluindo criação do voto, assinatura e submissão da transação. O tutorial utiliza uma testnet de governança; portanto, seus comandos e parâmetros específicos de rede precisam ser adaptados para operações na mainnet.
+
+**Cardano Governance Voting Tool**
+
+[Repositório no GitHub](https://github.com/cardano-foundation/cardano-governance-voting-tool)
+
+Aplicação open-source desenvolvida pela Cardano Foundation para auxiliar DReps, SPOs e membros do Comitê Constitucional na votação de governança.
+
+A aplicação oferece suporte à preparação de votos de governança, geração de justificativas opcionais, construção de transações e gerenciamento dos fluxos de assinatura.
+
+Os métodos de assinatura disponíveis dependem das credenciais e dos arranjos de wallets utilizados por cada participante.
+
+**SPO Scripts - Governance Operations**
+
+[Governance Scripts - GitHub](https://github.com/gitmachtl/scripts/blob/master/cardano/mainnet/usage_governance.md)
+
+Conjunto de scripts de linha de comando mantido pela comunidade, com suporte a operações de governança para DReps, SPOs e membros do Comitê Constitucional.
+
+Para os membros do Comitê, os scripts oferecem procedimentos para gerar *cold* e *hot credentials*, submeter certificados de autorização, preparar votos de governança, assinar e submeter transações e consultar registros de votação.
+
+A documentação inclui fluxos de trabalho para manipulação de transações online e offline, oferecendo uma alternativa à execução manual de comandos individuais do `cardano-cli`.
+
+**Constitutional Committee Portal - Repositório open-source**
+
+[Intersect - CC Portal](https://github.com/IntersectMBO/cc-portal)
+
+O repositório documenta uma aplicação concebida para apoiar a transparência das votações do Comitê Constitucional e a publicação de justificativas.
+
+As funcionalidades previstas incluem apresentar *governance actions*, exibir os registros de votação do CC e permitir que os membros preparem documentos de justificativa associados a seus votos.
+
+O repositório também contém documentação técnica sobre sua arquitetura, seus componentes, sua configuração e seus serviços de apoio.
+
+O repositório é citado como referência técnica e histórica. Sua existência não comprova que uma determinada instância pública da aplicação continue operacional.
+
+**Exploradores de governança**
+
+Exploradores públicos da blockchain e plataformas de análise de governança também podem fornecer informações sobre:
+
+- Membros atuais e históricos do Comitê.
+- Credenciais *on-chain* dos membros e epochs de expiração de seus mandatos.
+- Votos registrados em *governance actions*.
+- Justificativas de voto publicadas.
+- Thresholds de aprovação do Comitê e resultados das *governance actions*.
+
+Esses registros permitem que os usuários examinem a atividade de votação constitucional independentemente dos canais de comunicação individuais dos membros.
+
+## 4. Responsabilidades constitucionais e transparência
+
+### Obrigações constitucionais
+
+A Constituição da Cardano estabelece responsabilidades aplicáveis aos membros do Comitê Constitucional, independentemente de seus arranjos organizacionais internos.
+
+De acordo com o Artigo III, elas incluem:
+
+- **Avaliação constitucional:** Votar conforme o escopo constitucional atribuído ao Comitê.
+- **Transparência:** Manter processos transparentes e publicar decisões.
+- **Fundamentação de decisões de inconstitucionalidade:** Identificar as disposições constitucionais ou *Guardrails* que entram em conflito com uma *governance action* ao votar contra sua constitucionalidade.
+- **Divulgação de remuneração:** Divulgar publicamente, em tempo hábil, as remunerações recebidas em conexão com as atividades do Comitê.
+
+O Artigo II também exige a divulgação pública da participação concomitante em diferentes papéis de votação de governança.
+
+Essas obrigações são distintas das regras técnicas do protocolo.
+
+Por exemplo, o Ledger pode verificar se um voto foi assinado por uma credencial autorizada do Comitê, mas não avalia de forma independente se a fundamentação publicada demonstra uma interpretação constitucional correta.
+
+### Evolução dos requisitos constitucionais de conduta
+
+As disposições constitucionais relativas à governança interna e à conduta do Comitê mudaram desde o arcabouço constitucional inicial da Cardano.
+
+Versões anteriores continham expectativas mais detalhadas em relação à adoção de códigos de conduta e políticas internas.
+
+A Constituição adotada em 2025, com base no processo constitucional concluído em dezembro de 2024, incluía requisitos para que o Comitê adotasse e publicasse periodicamente um código de conduta e procedimentos operacionais pertinentes.
+
+A Constituição revisada, implementada em janeiro de 2026, preservou os requisitos centrais de transparência e publicação de decisões, mas deixou de incluir aquelas mesmas disposições explícitas relativas a um código de conduta para todo o Comitê e a políticas operacionais periódicas.
+
+| Assunto | Constituição anterior | Constituição implementada em janeiro de 2026 |
+|---|---|---|
+| Transparência dos processos do CC | Exigida | Exigida |
+| Publicação das decisões | Exigida | Exigida |
+| Justificativa dos votos por inconstitucionalidade | Exigida | Exigida, com redação específica para cada membro |
+| Código de conduta do Comitê como um todo | Exigência explícita de adoção e publicação | Sem exigência explícita equivalente |
+| Políticas operacionais periódicas | Exigência explícita de publicação | Sem exigência explícita equivalente |
+| Divulgação de remuneração | Exigida | Exigida |
+
+Essa revisão reduziu o número de requisitos organizacionais internos expressamente prescritos, preservando as obrigações de accountability constitucional do Comitê.
+
+A ausência de uma exigência universal de código de conduta não impede que membros individuais ou consórcios adotem seus próprios códigos, charters de governança ou procedimentos operacionais internos.
+
+Para comparação histórica, consulte:
+
+- [Constituição da Cardano - Versão promulgada em fevereiro de 2025](https://github.com/IntersectMBO/cardano-constitution/blob/main/cardano-constitution-1/cardano-constitution-1.txt.md) - Constituição histórica vigente de fevereiro de 2025 a janeiro de 2026, utilizada para examinar as mudanças nas responsabilidades do Comitê.
+
+### Divulgação e independência
+
+Os membros do Comitê Constitucional podem manter relações com organizações, projetos, comitês ou outros participantes do ecossistema Cardano.
+
+Essas relações não impedem necessariamente a participação na supervisão constitucional.
+
+Entretanto, a sobreposição de papéis de governança deve ser divulgada conforme as disposições constitucionais aplicáveis.
+
+Os membros também podem publicar voluntariamente informações adicionais sobre vínculos institucionais, interesses financeiros, procedimentos de decisão e possíveis conflitos de interesse.
+
+Essas divulgações podem fornecer contexto para compreender as decisões e as relações institucionais de um membro.
+
+Nesse contexto, a independência diz respeito ao exercício do julgamento constitucional dentro da autoridade definida para o Comitê, e não à ausência de todas as relações externas.
+
+A Constituição não estabelece um mecanismo *on-chain* universal para detectar e solucionar todos os possíveis conflitos de interesse.
+
+### Frameworks de governança interna e políticas operacionais
+
+Os membros do Comitê Constitucional podem adotar diferentes arranjos de governança interna, incluindo charters organizacionais, códigos de conduta, procedimentos de tomada de decisão, políticas de conflitos de interesse e frameworks operacionais.
+
+Esses arranjos são distintos das regras do protocolo que disciplinam a composição e a votação do Comitê. Enquanto o Cardano Ledger reconhece a credencial autorizada de cada membro e seu único voto *on-chain*, os processos internos utilizados para chegar à decisão são determinados pelo indivíduo ou pela organização que ocupa o assento.
+
+A Constituição promulgada em fevereiro de 2025 exigia que o Comitê Constitucional adotasse e publicasse periodicamente um código de conduta e políticas operacionais pertinentes. A Constituição revisada, implementada em janeiro de 2026, eliminou essas exigências explícitas. É importante destacar que a obrigação anterior se aplicava ao Comitê Constitucional como instituição, e não prescrevia frameworks de governança separados para cada membro.
+
+Ainda assim, diversos membros históricos e atuais do Comitê publicaram documentos que descrevem seus arranjos de governança interna. Esses materiais variam consideravelmente quanto ao escopo, à formalização e à disponibilidade pública.
+
+**Cardano Atlantic Council (CAC)**
+
+[Charter do Conselho](https://github.com/Cardano-Atlantic-Council/Charter) | [Atas das reuniões](https://github.com/Cardano-Atlantic-Council/Minutes)
+
+O Cardano Atlantic Council publicou um Charter que estabelece sua estrutura organizacional, critérios de participação, procedimentos internos de votação, mecanismos de accountability e compromissos de transparência.
+
+Seu modelo de decisão exigia a participação mínima de 60% dos integrantes para atingir o quórum e apoio de 60% para uma decisão interna. Caso não fosse possível alcançar o consenso exigido, o Conselho registraria um voto *Abstain* na *governance action* correspondente.
+
+O Charter também abordava votações assíncronas, substituição de membros, segurança das chaves e publicação de opiniões divergentes sem identificar individualmente os votantes. Os registros públicos das reuniões fornecem documentação adicional sobre suas operações.
+
+**Eastern Cardano Council (ECC)**
+
+[Governance Framework](https://github.com/Eastern-Cardano-Council/governance) | [Atualização da política de governança](https://forum.cardano.org/t/eastern-cardano-council-re-election-announcement/145166)
+
+O Eastern Cardano Council publicou um Governance Framework acompanhado de documentação sobre gestão de riscos, descrevendo aspectos de sua organização interna e de suas práticas de governança.
+
+Uma característica relevante é sua abordagem para a sobreposição de papéis de governança. Em 2025, o ECC anunciou uma atualização que introduziu um threshold combinado de poder de voto para membros que também atuam como DReps ou SPOs, com o objetivo de limitar a concentração de influência na governança.
+
+Os materiais publicados ilustram uma abordagem que incorpora considerações sobre descentralização e gestão de riscos de governança aos arranjos internos de um membro do Comitê.
+
+**Intersect Constitutional Council**
+
+[Charter do Constitutional Council](https://constitutionalcouncil.docs.intersectmbo.org/intersect-constitutional-council-charter) | [Documentação pública](https://github.com/IntersectMBO/intersect-constitutional-council)
+
+Durante o período do Comitê Constitucional Interino, a Intersect publicou um rascunho detalhado de Charter que descrevia a estrutura proposta para seu Conselho e seus procedimentos operacionais.
+
+O modelo incluía membros titulares e suplentes, uma presidência rotativa, thresholds de votação interna, declarações de conflitos de interesse, mecanismos de resolução de disputas e procedimentos para gerenciamento de credenciais de governança.
+
+Uma característica distintiva era a separação entre a deliberação constitucional interna e a execução técnica: o Conselho determinaria a posição de voto, enquanto profissionais autorizados da Intersect administrariam as credenciais e executariam a transação *on-chain* correspondente mediante instrução formal.
+
+O Charter disponibilizado publicamente continua identificado como rascunho; portanto, suas disposições não devem ser automaticamente tratadas como evidência de um framework de governança finalizado ou integralmente implementado.
+
+**Tingvard**
+
+[Registros públicos](https://github.com/Tingvard-cc/public-records) | [Gulating - Plataforma de votação interna](https://github.com/Tingvard-cc/gulating)
+
+A Tingvard publicou posicionamentos institucionais sobre remuneração na governança, conflitos de interesse, interpretação constitucional e accountability.
+
+Seus registros incluem posições relacionadas a incentivos para funções críticas de governança, regras de transição constitucional, interpretação dos *Guardrails* e supervisão efetiva das retiradas de recursos do Treasury. Essas publicações ajudam a compreender os princípios e argumentos que orientam suas posições institucionais.
+
+A Tingvard também mantém o *Gulating*, uma aplicação open-source concebida para apoiar votações internas, acompanhamento de *governance actions* e coleta de assinaturas de transações.
+
+Embora exista um repositório destinado ao seu Charter, nenhum documento substantivo desse tipo foi identificado no repositório publicamente acessível. Portanto, seus materiais disponíveis ilustram principalmente posicionamentos institucionais e ferramentas operacionais, e não um código de governança abrangente publicado.
+
+**Cardano Japan Council**
+
+[Code of Conduct](https://github.com/Cardano-Japan-Council/code-of-conduct) | [Justificativas de governança](https://github.com/Cardano-Japan-Council/rationales)
+
+O Cardano Japan Council publicou um Code of Conduct que descreve expectativas relativas a comportamento ético, imparcialidade, conflitos de interesse, confidencialidade, participação e comunicação.
+
+O documento também descreve procedimentos para comunicar violações e possíveis medidas disciplinares, incluindo suspensão ou remoção. Ele constitui um exemplo de framework voltado à ética, com foco na conduta individual e nas responsabilidades organizacionais.
+
+Entretanto, o texto final do documento ainda se refere a ele como rascunho, e não foi possível verificar de forma independente sua adoção formal ou aplicação efetiva.
+
+O Conselho também publica avaliações constitucionais e registros de votação interna, proporcionando visibilidade adicional sobre sua tomada de decisão coletiva.
+
+**Perspectiva comparativa e limitações da documentação**
+
+Esses exemplos demonstram que os arranjos de governança interna podem assumir diferentes formas, desde charters organizacionais abrangentes e frameworks de gestão de riscos até diretrizes éticas, posicionamentos institucionais públicos e ferramentas especializadas de votação.
+
+A disponibilidade da documentação também varia. Alguns membros publicaram regras detalhadas, enquanto outros disponibilizam principalmente registros operacionais ou declarações de princípios. Repositórios públicos não necessariamente permitem estabelecer se um documento foi formalmente adotado, aplicado de maneira consistente ou posteriormente revisado. Da mesma forma, a ausência de um documento acessível não significa que nenhuma política interna tenha existido.
+
+Portanto, esses exemplos devem ser entendidos como abordagens documentadas de governança interna, e não como requisitos padronizados ou evidências verificadas de conformidade com a antiga obrigação de um código de conduta para o Comitê como um todo.
+
+---
+
+## Referências
+
+### Arcabouço constitucional e padrões
+
+- [Constituição da Cardano](https://cardano.org/constitution/) - Arcabouço constitucional vigente que regula o papel, a composição, a autoridade de voto e as obrigações de transparência do Comitê.
+- [CIP-1694 - A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694) - Especificação técnica do Comitê Constitucional, mecanismos de votação, credenciais, ratificação e substituição.
+- [CIP-100 - Governance Metadata](https://cips.cardano.org/cip/CIP-100) - Framework geral de metadados de governança.
+- [CIP-136 - Governance Metadata: Constitutional Committee Votes](https://cips.cardano.org/cip/CIP-0136) - Proposta de especificação de metadados para documentar justificativas de voto e informações sobre votações internas do CC.
+- [Constituição da Cardano - Versão promulgada em fevereiro de 2025](https://github.com/IntersectMBO/cardano-constitution/blob/main/cardano-constitution-1/cardano-constitution-1.txt.md) - Constituição histórica vigente de fevereiro de 2025 a janeiro de 2026, utilizada para examinar mudanças nas responsabilidades do Comitê.
+
+### Eleições, composição e governance actions históricas
+
+- [Intersect - Comitê Constitucional Interino](https://docs.intersectmbo.org/intersect-knowledge-base/archive/cardano-governance-archive/governance-roles/constitutional-committee/interim-constitution-committee-cc) - Composição histórica do Comitê de transição.
+- [Intersect - Eleições do Comitê Constitucional de 2025](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections) - Framework eleitoral, elegibilidade, mandatos escalonados e processo de seleção.
+- [Resultados das eleições do Comitê Constitucional de 2025 - Intersect](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections/2025-cc-election-results) - Resultados auditados dos candidatos na eleição do primeiro Comitê integralmente eleito.
+- [Intersect - Eleições do Comitê Constitucional de 2026](https://intersectmbo.org/news/the-2026-constitutional-committee-elections) - Procedimentos eleitorais e requisitos dos candidatos.
+- [Intersect - Resultados auditados das eleições de 2026](https://intersectmbo.org/news/intersect-weekly-update-122-july-31-2026) - Resultados da eleição para quatro assentos.
+- [DRepTalk - Diretório de Governance Actions](https://dreptalk.com/c/governance-actions/) - Diretório público de *governance actions on-chain*, incluindo atualizações do Comitê Constitucional e seus resultados registrados.
+
+### Documentação técnica e ferramentas de votação
+
+- [Cardano Developer Portal - Governance Operations](https://developers.cardano.org/docs/developers/curriculum/staking-governance/governance-operations/) - Credenciais do Comitê, autorizações, renúncias e consultas do estado da governança.
+- [Cardano Developer Portal - Vote & Propose](https://developers.cardano.org/docs/developers/curriculum/staking-governance/vote-and-propose/) - Procedimentos técnicos para construir e submeter votos de governança.
+- [Cardano Foundation - Governance Voting Tool](https://github.com/cardano-foundation/cardano-governance-voting-tool) - Aplicação open-source de votação com suporte a credenciais do CC e metadados de governança.
+- [Intersect - Constitutional Committee Portal](https://github.com/IntersectMBO/cc-portal) - Documentação de aplicação open-source para registros de votação do CC e gerenciamento de justificativas.
+- [SanchoNet - Voting on Governance Actions](https://sancho.network/tutorials/vote-action) - Tutorial em testnet demonstrando a construção, assinatura e submissão de votos de governança com *hot credentials* do Comitê Constitucional.
+- [SPO Scripts - Governance Operations](https://github.com/gitmachtl/scripts/blob/master/cardano/mainnet/usage_governance.md) - Scripts de linha de comando mantidos pela comunidade que oferecem suporte às credenciais, autorizações, votações e submissão de transações do Comitê Constitucional.
+
+### Documentação histórica dos membros do Comitê
+
+- [Cardano Atlantic Council - Charter](https://github.com/Cardano-Atlantic-Council/Charter) - Charter organizacional que aborda composição, thresholds de votação interna, accountability, transparência e procedimentos operacionais.
+- [Cardano Atlantic Council - Atas das reuniões](https://github.com/Cardano-Atlantic-Council/Minutes) - Registros históricos das reuniões e atividades internas do Conselho.
+- [Eastern Cardano Council - Governance Framework](https://github.com/Eastern-Cardano-Council/governance) - Framework de governança interna e documentação de gestão de riscos.
+- [Eastern Cardano Council - Atualização da política de governança](https://forum.cardano.org/t/eastern-cardano-council-re-election-announcement/145166) - Explicação publicada sobre políticas relacionadas à sobreposição de papéis de governança.
+- [Intersect Constitutional Council - Charter](https://constitutionalcouncil.docs.intersectmbo.org/intersect-constitutional-council-charter) - Rascunho publicado que aborda estrutura organizacional, decisões internas, conflitos de interesse e gerenciamento de credenciais.
+- [Intersect Constitutional Council - Documentação pública](https://github.com/IntersectMBO/intersect-constitutional-council) - Documentação histórica de governança e justificativas de votos constitucionais.
+- [Tingvard - Registros públicos](https://github.com/Tingvard-cc/public-records) - Posicionamentos institucionais relativos a incentivos de governança, interpretação constitucional, conflitos de interesse e accountability.
+- [Tingvard - Gulating](https://github.com/Tingvard-cc/gulating) - Aplicação open-source concebida para apoiar votação coletiva, acompanhamento de *governance actions* e coleta de assinaturas.
+- [Cardano Japan Council - Code of Conduct](https://github.com/Cardano-Japan-Council/code-of-conduct) - Documento publicado sobre conduta, abordando padrões éticos, conflitos de interesse, confidencialidade, participação e procedimentos internos de aplicação das regras.
+- [Cardano Japan Council - Justificativas de governança](https://github.com/Cardano-Japan-Council/rationales) - Avaliações constitucionais e documentação de decisões de votação interna.
