@@ -1,0 +1,257 @@
+---
+title: "ADA Holders & Delegadores"
+description: "Direitos de governança, poder de voto, delegação e formas de participação dos titulares de ADA na Cardano."
+---
+
+**ADA holders** são indivíduos ou entidades que possuem ADA, a criptomoeda nativa da blockchain Cardano. Seus ativos constituem a base para a participação no sistema de governança da Cardano, fundamentado na participação proporcional ao *stake*.
+
+No modelo de governança da Cardano, os ADA holders podem participar das decisões delegando seu poder de voto a Representantes Delegados (*Delegated Representatives*, ou DReps), registrando-se como DReps ou selecionando opções predefinidas de delegação de governança.
+
+Este artigo explica os direitos de governança dos ADA holders, como o poder de voto é distribuído e delegado e quais métodos e recursos estão disponíveis para participar da governança.
+
+## 1. ADA Holders na Governança da Cardano
+
+### Titularidade de ADA e Direitos de Governança
+
+Os ADA holders desempenham um papel fundamental na governança da Cardano, pois o poder de voto deriva da quantidade de ADA associada a credenciais de *stake* elegíveis.
+
+A [Constituição da Cardano](https://cardano.org/constitution/), no Artigo II, Seção 2, estabelece direitos de participação para os titulares de ADA.
+
+Entre eles estão:
+
+- **Participação na governança:** O direito de acessar e participar dos processos de tomada de decisão *on-chain*.
+- **Representação:** A possibilidade de delegar poder de voto a DReps registrados ou de registrar-se como DRep.
+- **Escolha de delegação:** O direito de escolher e trocar de representante.
+- **Propostas de governança:** O direito de participar da submissão e apreciação de *governance actions*, sujeito aos requisitos aplicáveis.
+- **Arranjos de custódia:** A possibilidade de autorizar, ou não autorizar, terceiros responsáveis pela custódia de ADA a exercer direitos de governança em seu nome.
+
+A titularidade de ADA não implica a obrigação automática de participar ativamente da governança. Os titulares podem escolher se e como exercer seus direitos de governança, observadas as regras aplicáveis do protocolo.
+
+Esses direitos não são exclusivos de indivíduos que exercem outros papéis na governança. Um ADA holder também pode operar uma *stake pool*, registrar-se como DRep ou participar de outras atividades do ecossistema.
+
+### Poder de Voto e Stake Delegation
+
+A Cardano utiliza um modelo de governança ponderado por *stake*, no qual o poder de voto é proporcional à quantidade de ADA associada a credenciais de *stake* elegíveis.
+
+Portanto, o poder de voto não é distribuído igualmente entre endereços de carteiras ou participantes individuais. Seu peso depende da quantidade de ADA representada, de acordo com as regras de distribuição de *stake* e de *snapshots* do protocolo.
+
+Existem dois mecanismos independentes de delegação na Cardano:
+
+- **Stake delegation:** Atribui *stake* a uma *stake pool*, contribuindo para a produção de blocos e para o poder de voto da pool na governança, que também é ponderado por *stake*.
+- **Governance delegation:** Atribui poder de voto de governança a um DRep ou a uma das opções predefinidas de delegação.
+
+Esses mecanismos atendem a finalidades distintas e podem ser utilizados simultaneamente, sem que precisem ter o mesmo destinatário.
+
+Por exemplo, um ADA holder pode delegar seu *stake* a uma pool para produção de blocos e, ao mesmo tempo, delegar seu poder de voto de governança a um DRep sem relação com essa pool.
+
+Nenhuma dessas operações transfere a titularidade do ADA. Os ativos permanecem sob o controle do titular, exceto quando houver arranjos de custódia separados.
+
+## 2. Delegação de Governança e Participação
+
+### Como Funciona a Governance Delegation
+
+A *governance delegation* permite que os ADA holders determinem como seu poder de voto será representado no processo de tomada de decisões *on-chain* da Cardano.
+
+A delegação é realizada por meio de uma transação que associa a credencial de *stake* do titular à credencial de um DRep registrado ou a uma opção predefinida de delegação de governança.
+
+Quando o poder de voto é delegado a um DRep, esse representante pode votar em *governance actions* elegíveis utilizando o poder de voto associado ao *stake* delegado.
+
+O DRep não adquire a titularidade nem a custódia do ADA delegado. A delegação de governança também não impede que os titulares utilizem, transfiram ou administrem seus ativos de outras maneiras.
+
+O poder de voto de um DRep pode mudar ao longo do tempo à medida que seus delegadores transferem ADA, alteram sua delegação de governança ou modificam de outra forma o *stake* associado às suas credenciais.
+
+O protocolo utiliza *snapshots* da distribuição de *stake* para calcular o poder de voto nas decisões de governança.
+
+### Como Escolher um DRep
+
+Os ADA holders podem escolher representantes de acordo com suas próprias prioridades, preferências de governança e expectativas.
+
+DReps registrados podem publicar informações sobre seus objetivos, motivações, qualificações e posicionamentos em questões de governança. Seus históricos de votação e as justificativas de voto (*vote rationales*) publicadas também podem fornecer informações adicionais sobre sua participação.
+
+Dependendo das plataformas disponíveis, os delegadores podem examinar indicadores como:
+
+- **Participação nas votações:** A proporção de *governance actions* elegíveis nas quais um DRep votou.
+- **Histórico de votação:** Votos anteriores *Yes*, *No* e *Abstain* em *governance actions* específicas.
+- **Vote rationales:** Explicações publicadas em conjunto com as decisões de voto.
+- **Poder de voto:** A quantidade de ADA representada pelo DRep.
+- **Número de delegadores:** A quantidade de credenciais de *stake* que delegam poder de voto ao representante, conforme os dados apresentados pela plataforma.
+- **Status de atividade:** Se o DRep está ativo, inativo ou aposentado (*retired*).
+- **Posicionamentos de governança:** O alinhamento entre as decisões anteriores do representante e as preferências do delegador.
+- **Informações de perfil:** Objetivos, motivações, qualificações e referências externas declarados publicamente.
+
+Esses indicadores oferecem diferentes perspectivas sobre a atuação de um representante e não devem ser interpretados como medidas equivalentes de desempenho.
+
+Por exemplo, uma alta participação nas votações indica atividade, mas não comprova a qualidade das decisões individuais. Da mesma forma, a publicação de uma *rationale* não significa necessariamente que seus argumentos sejam completos ou bem fundamentados.
+
+As plataformas de governança também podem calcular indicadores semelhantes de maneiras diferentes, dependendo de suas metodologias, cobertura de dados e frequência de atualização.
+
+### Exploradores e Diretórios de DReps
+
+Diversas plataformas públicas permitem que os ADA holders encontrem representantes, examinem seus perfis e consultem sua atividade na governança.
+
+**DRepTalk**
+
+[DRep Directory](https://dreptalk.com/dreps/) | [Find Your DRep](https://dreptalk.com/match/)
+
+Oferece um diretório de DReps com informações sobre poder de voto delegado, número de delegadores, histórico de votação, *rationales* e atividade na governança.
+
+O recurso *Find Your DRep* permite comparar as preferências dos usuários em *governance actions* históricas selecionadas com os votos efetivamente registrados pelos representantes.
+
+**CardanoCube**
+
+[DRep Explorer](https://www.cardanocube.com/governance/dreps)
+
+Oferece um diretório pesquisável com filtros por status de atividade, informações de perfil, poder de voto, número de delegadores e proporção de votos acompanhados de *rationales*.
+
+Recursos adicionais de filtragem permitem explorar representantes com diferentes níveis de poder de voto delegado.
+
+**CGOV - Cardano Governance Platform**
+
+[DRep Dashboard](https://app.cgov.io/drep) | [DRep Charts](https://app.cgov.io/drep/charts)
+
+Apresenta informações sobre a atividade dos DReps, ADA delegado, número de delegadores, estatísticas de votação e distribuição do poder de voto.
+
+Suas visualizações ajudam os usuários a examinar representantes individuais e padrões mais amplos de participação na governança.
+
+**Cardano GovTool**
+
+[Governance Platform](https://gov.tools/) | [Delegation Guide](https://docs.gov.tools/cardano-govtool/using-govtool/delegating/delegate-to-a-drep/)
+
+Disponibiliza um diretório no qual os usuários podem pesquisar DReps por nome ou identificador e examinar os perfis disponíveis, o poder de voto e as informações de registro.
+
+A plataforma também permite delegar poder de voto por meio de uma *wallet* compatível.
+
+**DAVEgov - Cardano Governance Visualisation**
+
+[Governance Explorer](https://governance.cardano-visualisation.com/)
+
+Oferece visualizações do comportamento de voto dos DReps, taxas de participação, posicionamentos nas votações, proporção de votos acompanhados de *rationales* e atividade em diferentes tipos de *governance actions*.
+
+**Cardanoscan**
+
+[DRep Explorer](https://cardanoscan.io/dreps) | [Governance Overview](https://cardanoscan.io/gov/overview)
+
+Disponibiliza informações *on-chain* sobre DReps registrados, incluindo identificadores, registros, status de atividade e transações de governança.
+
+Sua visão geral da governança também apresenta informações agregadas sobre participação e poder de voto.
+
+As plataformas listadas acima são exemplos de recursos disponíveis, e não um diretório exaustivo.
+
+### Como Delegar e Trocar de Representante
+
+Os ADA holders podem delegar seu poder de voto de governança por meio de *wallets* compatíveis, plataformas de governança ou ferramentas técnicas capazes de construir transações de delegação de governança.
+
+Um processo típico de delegação envolve:
+
+1. **Escolher um representante:** Identificar o DRep e confirmar seu DRep ID.
+2. **Escolher um método de delegação:** Utilizar uma *wallet* ou plataforma de governança compatível.
+3. **Preparar a transação:** Criar uma transação de delegação de governança que associe a credencial de *stake* ao DRep escolhido.
+4. **Autorizar a transação:** Revisá-la e assiná-la utilizando as credenciais apropriadas da *wallet*.
+5. **Submeter e confirmar:** Enviar a transação e verificar se a delegação foi registrada *on-chain*.
+
+Algumas *wallets* disponibilizam a delegação de governança diretamente em suas interfaces. Outras exigem que os usuários conectem suas *wallets* a plataformas externas de governança.
+
+Por exemplo, o [guia de delegação do GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/delegating/delegate-to-a-drep/) documenta um processo em que os usuários pesquisam um DRep, conectam uma *wallet*, autorizam a transação e confirmam a delegação.
+
+Uma credencial de *stake* registrada pode alterar sua delegação de governança por meio de uma nova transação de delegação.
+
+A nova delegação substitui a associação anterior. Não é necessário retirar ADA da *wallet* nem alterar a delegação existente para uma *stake pool* ao trocar de DRep.
+
+Há uma taxa de transação, e depósitos adicionais de registro podem ser necessários quando uma credencial de *stake* ainda não estiver registrada.
+
+A delegação de governança nunca exige revelar a frase de recuperação da *wallet* a um site ou representante.
+
+### Abstain e No Confidence
+
+Além dos DReps registrados, a Cardano oferece duas opções predefinidas de delegação de governança.
+
+**Abstain**
+
+A opção *Abstain* permite que um ADA holder registre uma preferência permanente de não participar das votações de governança.
+
+O *stake* delegado a essa opção é excluído do *stake* de votação ativo utilizado nos cálculos de aprovação das *governance actions* aplicáveis.
+
+Essa opção permite estabelecer uma delegação de governança sem atribuir poder de voto a um representante específico.
+
+**No Confidence**
+
+A opção *No Confidence* expressa uma posição permanente de falta de confiança no Constitutional Committee.
+
+De acordo com as regras definidas pela CIP-1694, o *stake* delegado a essa opção é tratado como:
+
+- Um voto **Yes** em *governance actions* do tipo *Motion of No Confidence*.
+- Um voto **No** nas demais *governance actions*.
+
+Diferentemente de *Abstain*, esse *stake* permanece como parte do *stake* de votação ativo da governança.
+
+Essas opções predefinidas são processadas pelo protocolo, e não por representantes que submetem votos manualmente.
+
+Elas também devem ser diferenciadas de um voto individual *Abstain* que um DRep registrado possa registrar em uma *governance action* específica.
+
+Os ADA holders podem alternar entre essas opções predefinidas e DReps registrados por meio de transações de delegação de governança.
+
+### Direct Voting
+
+ADA holders que desejam registrar seus próprios votos na governança podem se registrar como DReps e delegar seu poder de voto às suas próprias credenciais de governança.
+
+Isso permite que votem diretamente em *governance actions*, sem depender das decisões de outro representante.
+
+Algumas plataformas de governança, incluindo o GovTool, denominam essa modalidade *Direct Voting*.
+
+Entretanto, *Direct Voter* é uma denominação utilizada pelas plataformas, e não um papel independente definido pelo protocolo Cardano. *On-chain*, os *direct voters* utilizam os mesmos mecanismos de registro e votação dos DReps.
+
+O registro como DRep exige um depósito reembolsável definido pelo parâmetro de protocolo `drepDeposit`, além das taxas de transação aplicáveis.
+
+Em outubro de 2026, esse depósito é de 500 ADA. Seu valor é controlado pela governança e pode mudar.
+
+Para mais informações sobre registro, credenciais de DRep, procedimentos de votação e aposentadoria (*retirement*), consulte [DReps - Representantes Delegados](../dreps/).
+
+### Acompanhamento da Delegação de Governança
+
+Escolher um DRep não impede que os ADA holders acompanhem posteriormente a atividade de seu representante.
+
+Exploradores e diretórios de governança oferecem informações que podem ajudar os delegadores a acompanhar históricos de votação, *rationales* publicadas, participação, status de registro e mudanças no poder de voto delegado.
+
+Algumas plataformas também oferecem notificações ou recursos de acompanhamento relacionados à atividade de governança de um representante.
+
+Acompanhar um DRep ao longo do tempo pode fornecer informações adicionais além daquelas disponíveis no momento em que a delegação foi realizada.
+
+Os ADA holders continuam livres para reavaliar suas preferências de delegação e trocar de representante quando desejarem.
+
+### Delegação de Governança e Recompensas de Staking
+
+De acordo com as regras de governança vigentes em outubro de 2026, a retirada de recompensas de *staking* exige que a credencial de *stake* associada possua uma delegação de governança.
+
+Esse requisito pode ser atendido por meio da delegação para:
+
+- Um DRep registrado.
+- A opção predefinida *Abstain*.
+- A opção predefinida *No Confidence*.
+
+A exigência se aplica à retirada de recompensas de *staking*, não à posse ou transferência de ADA.
+
+As recompensas podem continuar se acumulando mesmo quando não houver uma delegação de governança que satisfaça o requisito. Entretanto, sua retirada depende do cumprimento dessa condição de delegação.
+
+A [CIP-181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181), proposta em março de 2026, busca eliminar essa condição.
+
+Em outubro de 2026, a proposta ainda não foi implementada, e a exigência existente permanece em vigor.
+
+---
+
+## Referências
+
+### Estrutura de Governança e Padrões
+
+- [Cardano Constitution](https://cardano.org/constitution/) - Estrutura constitucional que estabelece os direitos de participação, representação e delegação dos titulares de ADA na governança.
+- [CIP-1694 - A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694) - Especificação técnica do modelo de governança da Cardano, da distribuição do poder de voto, dos mecanismos de delegação e das opções predefinidas de votação.
+- [CIP-181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181) - Proposta para remover a exigência de delegação de governança para a retirada de recompensas de *staking*.
+
+### Documentação Técnica e Recursos Educacionais
+
+- [Cardano Developer Portal - DReps & Vote Delegation](https://developers.cardano.org/docs/developers/curriculum/staking-governance/drep-and-delegation/) - Documentação técnica sobre credenciais de governança, delegação de poder de voto e transações associadas.
+- [Cardano Docs - Delegation](https://docs.cardano.org/learn/delegation/) - Introdução à *stake delegation* e ao seu papel no mecanismo de consenso *Proof-of-Stake* da Cardano.
+- [GovTool - Ways to Use Your Voting Power](https://docs.gov.tools/cardano-govtool/faqs/ways-to-use-your-voting-power/) - Visão geral dos métodos de participação na governança disponíveis aos ADA holders.
+- [GovTool - Delegate to a DRep](https://docs.gov.tools/cardano-govtool/using-govtool/delegating/delegate-to-a-drep/) - Guia prático para delegar e alterar a delegação de poder de voto.
+- [GovTool - Direct Voter vs DRep](https://docs.gov.tools/cardano-govtool/faqs/direct-voter-vs-drep/) - Explicação sobre a votação direta por meio do mecanismo de registro de DRep do protocolo.
+- [GovTool - Direct Voting](https://docs.gov.tools/cardano-govtool/using-govtool/direct-voting/) - Documentação sobre registro, depósitos e participação como *direct voter*.
+- [DRepTalk - For Delegators](https://dreptalk.com/help/for-delegators/) - Recursos educacionais para escolher representantes e acompanhar a delegação de governança.
