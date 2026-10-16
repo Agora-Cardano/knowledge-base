@@ -37,22 +37,11 @@ export default defineConfig({
       },
     ],
 
-    sidebar: [
-      {
-        label: 'Cardano Governance',
-        translations: {
-          'pt-br': 'Governança Cardano',
-        },
-        link: '/cardano-governance/',
-      },
-      {
-        label: 'Institutions & Organizations',
-        translations: {
-          'pt-br': 'Instituições e Organizações',
-        },
-        link: '/institutions-organizations/',
-      },
-    ],
+sidebar: [
+  { slug: 'cardano-governance' },
+  { slug: 'cardano-governance/governance-protocols' },
+  { slug: 'institutions-organizations' },
+],
 
   }), mdx()],
 });
