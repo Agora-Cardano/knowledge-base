@@ -1,0 +1,529 @@
+---
+title: Alternative Decision-Making Mechanisms
+description: Alternative voting, temperature checks, budget coordination, Constitutional Committee elections, and governance systems in Cardano.
+---
+
+Cardano's governance extends beyond the formal voting and ratification of Governance Actions through its native on-chain governance system. Discussions, preliminary polls, institutional elections, and alternative voting systems provide additional ways for participants to express preferences, coordinate decisions, and evaluate proposals before they reach the on-chain governance process.
+
+These mechanisms serve different purposes. Some provide non-binding signals of community sentiment, while others support structured decision-making within organizations or determine which candidates and proposals advance to formal consideration.
+
+Some use Layer 2 solutions, sidechains, or independent smart contract systems. Their defining characteristic in this context is that **their results are not ratified directly through Cardano's native Governance Action voting mechanism established by CIP-1694**.
+
+This section explains their relationship with on-chain governance, examines historical examples from Cardano's budgeting and Constitutional Committee election processes, and introduces alternative voting systems used across the ecosystem.
+
+**Primary references**
+
+- [CIP-1694 - On-Chain Decentralized Governance](https://cips.cardano.org/cip/cip-1694)
+- [Intersect - Cardano Budget Processes](https://intersectmbo.org/news/intersect-update-special-edition)
+- [Intersect - Constitutional Committee Elections](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections)
+- [GovTool - Governance Action Proposals](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/propose-a-governance-action/)
+
+---
+
+## 1. Overview & Purpose
+
+Alternative governance mechanisms complement Cardano's native governance system by enabling decisions and consultations that do not necessarily require a formal Governance Action.
+
+While on-chain Governance Actions follow protocol-defined rules for eligibility, voting thresholds, ratification, expiration, and enactment, alternative mechanisms can operate under different procedures adapted to their objectives.
+
+Their applications include:
+
+- **Temperature checks:** Assessing preliminary support or opposition to an idea before formal submission.
+- **Proposal prioritization:** Comparing initiatives and identifying which ones should advance to subsequent decision-making stages.
+- **Budget coordination:** Organizing funding requests, collecting feedback, and selecting proposals for potential treasury withdrawals.
+- **Institutional elections:** Selecting candidates for governance bodies through dedicated electoral processes.
+- **Organizational governance:** Enabling DAOs and other entities to make decisions according to their internal rules.
+
+These mechanisms vary in participation requirements, voting power calculations, transparency, security, decentralization and the authority assigned to their outcomes.
+
+A consultation might collect opinions without creating any obligation to act. By contrast, an institutional election may determine which candidates will be formally proposed for appointment, while a DAO vote may authorize an action within that organization's own governance system.
+
+The distinction between **advisory signaling, institutional decision-making, and protocol-level ratification** is essential to understanding their respective roles.
+
+## 2. Relationship with On-chain Governance
+
+Cardano's native governance system, introduced through CIP-1694, provides a protocol-level mechanism for evaluating and enacting Governance Actions.
+
+Alternative voting systems generally operate outside this ratification mechanism. However, they can influence which actions are subsequently submitted, how proposals are structured, and which decisions receive institutional or community support.
+
+For example, a proposed treasury withdrawal may first undergo public discussion, community feedback, and preliminary voting. Only after these stages might a formal Treasury Withdrawal Governance Action (TWGA) be submitted to Cardano's native on-chain governance system.
+
+Similarly, candidates for the Constitutional Committee may be selected through a dedicated election before being included in an Update Committee Governance Action.
+
+A simplified process can be represented as follows:
+
+**Discussion and Proposal → Preliminary Voting or Selection → Formal Governance Action → On-chain Ratification → Enactment**
+
+Not every process follows this sequence. Some alternative voting systems operate independently and do not lead to a Governance Action.
+
+### The Financial Dimension
+
+A significant consideration is Cardano's Governance Action deposit.
+
+The `govActionDeposit` protocol parameter has a documented mainnet reference value of **100,000 ADA**, which must be provided when submitting a Governance Action. The deposit is refundable under the applicable ledger rules, including when an action is enacted or expires.
+
+Although refundable, this requirement can create a substantial liquidity barrier, particularly for individual proposers and smaller community initiatives.
+
+Preliminary consultations allow participants to assess support before committing this deposit. However, **a temperature check does not eliminate the deposit requirement** for a subsequent on-chain Governance Action.
+
+Other approaches, including proposal consolidation, shared funding arrangements, and sponsorship, may reduce the number of deposits required or distribute the financial burden among multiple participants.
+
+The potential benefits therefore extend beyond reducing transaction fees, which are generally much smaller than the Governance Action deposit.
+
+**Further reading**
+
+- [CIP-1694 - Governance Actions](https://cips.cardano.org/cip/cip-1694)
+- [GovTool - Governance Actions](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/)
+
+## 3. Preliminary Voting & Temperature Checks
+
+A **temperature check** is a preliminary consultation intended to assess sentiment before a more formal decision-making process.
+
+It can help identify whether an idea has sufficient support to justify further development, whether substantial objections need to be addressed, or whether alternative approaches deserve consideration.
+
+Unlike a formal Governance Action vote, the rules governing a temperature check depend on the platform and process used.
+
+Some polls measure individual responses, while others apply voting weights based on ADA holdings, delegated voting power, or another eligibility model.
+
+The results are generally advisory unless the applicable process explicitly assigns them a particular institutional consequence.
+
+### GovTool
+
+GovTool provides an environment for preparing and discussing Governance Action proposals before their submission on-chain.
+
+Its Proposal Discussion functionality allows participants to publish proposals, gather feedback, revise supporting information, and optionally introduce a poll as a temperature check.
+
+This creates a distinction between two stages:
+
+- **Off-chain Proposal:** A proposal under discussion that has not yet become a formal Governance Action.
+- **On-chain Governance Action:** A submitted transaction recognized by Cardano's ledger and subject to the applicable governance rules.
+
+The preliminary stage does not require payment of the Governance Action deposit. The deposit becomes necessary when the proposer proceeds with formal submission.
+
+Not every Governance Action type is supported by GovTool's Proposal Discussion interface.
+
+[GovTool - Propose a Governance Action](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/propose-a-governance-action/)
+
+### DRepTalk
+
+DRepTalk provides a governance discussion platform where participants can examine Governance Actions, exchange perspectives, and engage in deliberation before and during formal voting.
+
+Its Proposal Drafts feature allows governance participants to publish draft proposals and collect feedback before submitting them on-chain. Once submitted, the draft can be linked to the corresponding Governance Action, preserving the history of preliminary discussions.
+
+The platform also integrates CIP-179 Surveys, enabling DReps to participate in polls recorded as transaction metadata on Cardano. Unlike formal Governance Action votes, these survey responses serve informational purposes and do not contribute to ratification thresholds.
+
+These features illustrate two complementary approaches to governance consultation: preliminary deliberation before formal submission and structured signaling alongside the native governance process.
+
+**Further reading**
+
+- [DRepTalk - Proposal Drafts](https://dreptalk.com/help/get-feedback-on-a-proposal/)
+- [DRepTalk - CIP-179 Surveys](https://dreptalk.com/help/cip-179-surveys/)
+
+## 4. Budget Coordination
+
+The Cardano budget processes facilitated by Intersect in 2025 and 2026 provide practical examples of preliminary voting supporting the preparation of formal Treasury Withdrawal Governance Actions.
+
+Both processes used alternative voting infrastructure to evaluate proposals before potential treasury funding decisions were presented on-chain.
+
+However, their procedures and financial structures differed.
+
+### 4.1. The 2025 Budget Process
+
+In 2025, Intersect facilitated a coordinated budget submission and evaluation process involving community proposals, feedback, and preliminary voting by DReps.
+
+A total of **194 proposals** entered the process.
+
+The earlier version of Ekklesia was used to organize preliminary voting, allowing DReps to express support for individual budget proposals according to the process's stake-weighted voting rules. More than **3.8 billion ADA** in voting stake participated.
+
+Forty proposals received sufficient preliminary support, while 39 proposals administered by Intersect were incorporated into an aggregated Budget Info Action requesting approximately **275 million ADA**.
+
+At the time, the Cardano Constitution required a separate budget approval process before the associated Treasury Withdrawal Governance Actions could proceed.
+
+The aggregated Budget Info Action therefore served as an intermediate formal governance step. Its approval did not transfer treasury funds.
+
+Individual Treasury Withdrawal Governance Actions were subsequently submitted for the selected initiatives, allowing DReps to approve or reject individual funding requests through the native governance system.
+
+Of the 39 individual treasury withdrawal proposals submitted, 37 achieved the required constitutional approval threshold, according to Intersect's published retrospective.
+
+This process demonstrated how a large number of funding proposals could be evaluated and prioritized through an alternative voting system before advancing to formal on-chain governance.
+
+Nevertheless, individual treasury withdrawals still required separate Governance Actions and their corresponding deposits. The preliminary selection process did not remove that financial requirement.
+
+**Further reading**
+
+- [Intersect - Making Sense of the 275M ADA Budget Info Action](https://intersectmbo.org/news/making-sense-of-the-275m-budget-info-action)
+- [Intersect - 2025 Budget Info Action FAQs](https://docs.intersectmbo.org/intersect-knowledge-base/archive/cardano-budget-archive/cardano-budget-submission/budget-info-action-faqs)
+- [Intersect - 2025 Development Retrospective](https://docs.intersectmbo.org/intersect-knowledge-base/intersect-membership/annual-member-meetings-amm/2025-annual-members-meeting/intersect-development-update-2025-report)
+
+### 4.2. The 2026 Budget Process
+
+The 2026 budget framework introduced changes intended to improve proposal evaluation, standardization, and the transition from preliminary voting to on-chain treasury decisions.
+
+The process was preceded by a Budget Process Framework Info Action, submitted in March 2026. This Info Action concerned the proposed procedures for coordinating the budget cycle rather than approving specific expenditures.
+
+The framework incorporated several changes:
+
+- Standardized proposal templates for more consistent evaluation.
+- Alignment with Cardano Vision 2030 and relevant performance indicators.
+- Defined feedback and proposal refinement stages.
+- A minimum funding request of 100,000 ADA.
+- A non-refundable 1,000 ADA treasury contribution for submitting a proposal through the coordinated process.
+- Preliminary DRep voting using Hydra-based infrastructure.
+- Consolidation of qualifying proposals into grouped Treasury Withdrawal Governance Actions.
+
+A total of **69 proposals**, requesting approximately **331.6 million ADA**, were submitted.
+
+Following proposal review and refinement, DReps participated in preliminary voting through the Hydra-powered version of Ekklesia, which combined proposal management with cryptographically verifiable voting infrastructure.
+
+The framework required proposals to obtain at least **67% support from participating DRep stake** to advance.
+
+An independent audit subsequently reported participation by 113 DReps, of whom 112 cast valid votes, representing approximately 5.07 billion ADA in eligible participating voting power.
+
+**Eleven proposals** reached the required threshold.
+
+#### Consolidated Treasury Withdrawal Governance Actions
+
+One of the more significant changes concerned the structure of subsequent treasury withdrawals.
+
+The framework established two approval tiers:
+
+| Tier | Preliminary DRep support | Intended treatment |
+| --- | --- | --- |
+| **Tier 1** | At least 75% | Consolidation into a higher-support TWGA |
+| **Tier 2** | At least 67% but below 75% | Consolidation into a separate TWGA |
+
+Proposals were to be prioritized according to their support levels and the available Net Change Limit (NCL).
+
+Qualifying proposals exceeding available NCL capacity could be placed on a waiting list rather than automatically rejected.
+
+Under this approach, several funding requests could be combined into a smaller number of formal Treasury Withdrawal Governance Actions.
+
+This reduces the number of separate 100,000 ADA deposits that would otherwise be required for individual submissions through the coordinated process.
+
+However, consolidation introduces a trade-off: **grouped Governance Actions reduce the granularity of the final on-chain decision**, since DReps must vote on the package presented rather than independently approving or rejecting every underlying proposal.
+
+The preliminary stage therefore becomes particularly important for preserving proposal-level evaluation and recording differentiated support before aggregation.
+
+The final authority to approve treasury withdrawals nevertheless remains with Cardano's native governance process. Neither a successful preliminary vote nor inclusion in a consolidated proposal independently guarantees funding.
+
+**Further reading**
+
+- [Intersect - 2026 Cardano Budget Process FAQs](https://committees.docs.intersectmbo.org/intersect-budget-committee/cardano-budget-process/cardano-2026-budget-process-faqs)
+- [Intersect - Building a 2026 Ecosystem Budget](https://www.intersectmbo.org/news/building-a-2026-ecosystem-budget-for-cardano)
+- [Intersect - 2026 Budget Voting Audit Results](https://intersectmbo.org/news/intersect-weekly-update-116-june-19-2026)
+
+### 4.3. Comparing the Two Processes
+
+| Aspect | 2025 | 2026 |
+| --- | --- | --- |
+| **Proposals submitted** | 194 | 69 |
+| **Preliminary voting** | Ekklesia | Hydra Voting through Ekklesia |
+| **Selection threshold** | More than 50% support under the process rules | At least 67% of participating DRep stake |
+| **Proposals advancing** | 40 qualified; 39 included in the Intersect-administered budget | 11 reached the preliminary threshold |
+| **Budget coordination** | Aggregated Budget Info Action | Budget Process Framework Info Action and proposal-level selection |
+| **Treasury withdrawal structure** | Individual TWGAs | Framework for consolidated TWGAs in two tiers |
+
+The comparison illustrates an evolving approach to coordinating ecosystem funding.
+
+In both years, preliminary voting enabled the evaluation of more proposals than would ultimately advance toward formal treasury withdrawal decisions.
+
+The 2026 framework additionally addressed the financial and operational burden of submitting separate Governance Actions by introducing a structure for consolidated withdrawals.
+
+Neither approach changed Cardano's underlying rules for the ratification of Treasury Withdrawal Governance Actions.
+
+## 5. Constitutional Committee Elections
+
+Constitutional Committee elections provide another example of decision-making processes that operate outside native Governance Action voting while remaining directly connected to Cardano's formal governance system.
+
+Under the CIP-1694 framework, changes to Constitutional Committee membership are enacted through Update Committee Governance Actions, subject to the applicable ratification requirements.
+
+However, the ledger does not itself provide a complete public electoral process for candidate registration, campaigning, comparative evaluation, and selection.
+
+These functions can be organized through separate mechanisms before candidates are presented for formal appointment.
+
+Intersect has facilitated several such elections using different voting platforms and procedures.
+
+### 5.1. Interim Constitutional Committee Election (2024)
+
+In 2024, an election was held to select three community representatives for Cardano's Interim Constitutional Committee.
+
+The process used the **Summon platform**, with voting weighted by an ADA stake snapshot.
+
+Community members could participate in candidate selection outside the subsequent protocol-level governance structure.
+
+This early process provided an example of community-based electoral participation in the formation of Cardano's constitutional governance institutions.
+
+[Intersect - Interim Constitutional Committee Elections](https://docs.intersectmbo.org/intersect-knowledge-base/archive/cardano-governance-archive/governance-roles/constitutional-committee/interim-constitution-committee-cc)
+
+### 5.2. Constitutional Committee Election (2025)
+
+The 2025 election supported the transition from the Interim Constitutional Committee to a fully elected Constitutional Committee.
+
+Intersect coordinated candidate registration and a voting process in which DReps selected preferred candidates using delegated voting power.
+
+The voting period ran from June 12 to July 2, 2025.
+
+The process was accompanied by an independent audit assessing:
+
+- Candidate eligibility and ballot accuracy.
+- Voter eligibility and DRep registration status.
+- Cryptographic signatures and vote integrity.
+- Duplicate or invalid votes.
+- Vote tally calculations and published results.
+
+Following candidate selection, an Update Committee Governance Action was required to formalize the committee's composition on-chain.
+
+The election results therefore informed the formal governance proposal but did not independently modify Constitutional Committee membership in the Cardano ledger.
+
+**Further reading**
+
+- [Intersect - 2025 Constitutional Committee Elections](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections)
+- [Intersect - 2025 Election Results and Audit](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections/2025-cc-election-results)
+
+### 5.3. Constitutional Committee Snap Election (2025)
+
+A further election was organized in November and December 2025 after the retirement of a Constitutional Committee member created a vacancy affecting the committee's minimum required membership.
+
+The abbreviated election process used the earlier Ekklesia voting platform to conduct a dedicated DRep election and select a replacement candidate.
+
+According to the published audit results, **88 DReps**, representing approximately **3.16 billion ADA**, participated.
+
+Cardano Curia received the highest level of support by delegated voting power, although another candidate received more individual DRep votes.
+
+This distinction illustrates how election results can differ depending on whether outcomes are calculated by individual ballots or stake-weighted voting power.
+
+The selected candidate was subsequently presented through the formal governance mechanism for updating Constitutional Committee membership.
+
+**Further reading**
+
+- [Intersect - 2025 Constitutional Committee Snap Election](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-cc-snap-election-overview)
+- [Intersect - Inside Cardano's Snap Election](https://intersectmbo.org/news/updating-the-constitutional-committee)
+
+### 5.4. Constitutional Committee Election (2026)
+
+In 2026, Intersect facilitated another Constitutional Committee election to renew four seats.
+
+Voting was conducted through Hydra-powered Ekklesia, allowing eligible DReps to select up to four preferred candidates through a dedicated electoral process.
+
+The preliminary results were published following the close of voting on July 23 and were subsequently subject to independent audit.
+
+The selection process determined which candidates would advance to an Update Committee Governance Action.
+
+The resulting Constitutional Committee update was enacted in September 2026, completing the transition from the electoral process to the protocol-level governance decision.
+
+This provides a practical example of how an alternative voting system can support institutional selection while leaving final enactment to Cardano's native governance mechanism.
+
+**Further reading**
+
+- [Intersect - 2026 Constitutional Committee Election](https://www.intersectmbo.org/news/whos-standing-in-the-2026-constitutional-committee-election)
+- [Intersect - 2026 Election Preliminary Results](https://www.intersectmbo.org/news/intersect-weekly-update-121-july-24-2026)
+- [Intersect - Constitutional Committee Update Enacted](https://intersectmbo.org/news/intersect-weekly-update-128-sep-11-2026)
+
+## 6. Alternative Governance Systems
+
+Not every alternative voting system is intended to produce a subsequent Cardano Governance Action.
+
+Other applications and organizations maintain independent governance arrangements, including their own voting rules, membership requirements, funding procedures, and mechanisms for executing decisions.
+
+These systems are relevant as comparative examples, but their authority and objectives should not be confused with those of Cardano's protocol-level governance.
+
+### 6.1. Ekklesia & Hydra Voting
+
+**Ekklesia** is a voting platform developed for organizing governance consultations, institutional elections, and other collective decision-making processes within the Cardano ecosystem.
+
+The platform supports ballot creation, proposal presentation, voter authentication, voting, and publication of results. Depending on the process, eligible participants may include DReps, SPOs, ADA holders, or other groups defined by the voting authority.
+
+Ekklesia supports different voting methods, including binary choices, single-choice and multi-choice ballots, ranked voting, and weighted allocation mechanisms. These capabilities allow voting procedures to be adapted to the requirements of each governance process.
+
+#### Evolution and Hydra Integration
+
+Ekklesia has evolved from its earlier voting implementation into a system that incorporates **Hydra**, Cardano's Layer 2 scaling protocol.
+
+The Hydra-powered implementation processes votes as cryptographically signed transactions within a *Hydra Head*, a separate transaction-processing environment connected to Cardano's Layer 1.
+
+This architecture enables votes to be processed without requiring an individual Layer 1 transaction for every ballot submission. Once voting concludes, cryptographic commitments to the results and supporting evidence are settled on Cardano's Layer 1.
+
+The system uses Merkle proofs and published audit data to support independent verification of recorded votes and their inclusion in the final results.
+
+Importantly, Ekklesia separates the cryptographic recording of votes from their interpretation under a particular governance process. **Voter eligibility, stake weighting, approval thresholds, and certification of results are defined and applied by the responsible voting authority**, rather than automatically following CIP-1694 ratification rules.
+
+#### Applications in Cardano Governance
+
+Intersect has used Ekklesia in several governance-related processes, illustrating the platform's development over time:
+
+- **2025 Budget Process:** DReps participated in preliminary voting to evaluate funding proposals before their consideration through formal Governance Actions.
+- **2025 Constitutional Committee Snap Election:** Ekklesia supported the selection of a replacement committee member through a dedicated DRep election.
+- **2026 Budget Process:** The Hydra-powered implementation supported proposal discussion, preliminary voting, and the selection of proposals for potential consolidated Treasury Withdrawal Governance Actions.
+- **2026 Constitutional Committee Election:** Hydra-powered voting supported the selection of candidates for a subsequent Update Committee Governance Action.
+
+These applications demonstrate how Ekklesia can support structured voting processes with rules and objectives distinct from those of Cardano's native governance system.
+
+Its integration with Hydra adds a blockchain-based execution and verification layer, while the platform provides the interfaces and supporting functionality required to organize voting events.
+
+**Ekklesia voting results do not independently ratify or enact Cardano Governance Actions.** Their authority depends on the rules of the relevant process, and formal protocol-level changes remain subject to Cardano's native governance requirements.
+
+**Further reading**
+
+- [Ekklesia - Official Documentation](https://docs.ekklesia.vote/)
+- [Ekklesia - Hydra & Architecture](https://docs.ekklesia.vote/hydra/)
+- [Ekklesia - Voting Methods](https://docs.ekklesia.vote/vote-types/)
+- [Ekklesia - Auditability](https://docs.ekklesia.vote/audit/)
+- [Intersect - Hydra Voting Platform](https://intersect.ekklesia.vote/ballots/)
+
+
+### 6.2. DAO Governance Platforms
+
+Decentralized Autonomous Organizations (DAOs) often establish their own systems for proposing, evaluating, and executing collective decisions.
+
+Their governance models may use token-weighted voting, delegated authority, smart contracts, multisignature arrangements, or combinations of on-chain and off-chain procedures.
+
+**[Clarity DAO](https://www.clarity.vote/)** provides an example within the Cardano ecosystem.
+
+Its documentation describes governance functionality that allows a DAO to operate as a registered DRep and collectively determine its position on Cardano Governance Actions.
+
+In this arrangement, the DAO's internal voting process establishes a collective decision, which may subsequently be expressed through a formal DRep vote on Cardano.
+
+This illustrates how independent governance systems can interact with the native governance framework without adopting identical internal decision-making rules.
+
+A detailed comparison of individual DAO architectures falls outside the scope of this section.
+
+**Further reading**
+
+- [Clarity - DAO Governance Documentation](https://docs.clarity.vote/)
+
+
+### 6.3. Project Catalyst
+
+Project Catalyst is Cardano's ecosystem funding and innovation program, operating through a governance and proposal-selection framework distinct from the native Governance Action system.
+
+Its historical voting infrastructure used the **Jormungandr sidechain**, enabling participants to register and cast votes through a separate blockchain environment.
+
+The Catalyst process also incorporated its own proposal eligibility rules, community review mechanisms, voting procedures, and funding selection criteria.
+
+These arrangements were designed for allocating resources within the Catalyst program rather than for ratifying Governance Actions under CIP-1694.
+
+Catalyst illustrates how blockchain-based voting systems can support governance objectives that differ substantially from those of Cardano's native protocol governance.
+
+Its operating parameters and voting mechanisms have evolved across funding rounds, so historical procedures should not automatically be treated as permanent features of the program.
+
+**Further reading**
+
+- [Project Catalyst - Voting Documentation](https://docs.projectcatalyst.io/previous-funds/fund14-docs/voting/voting-faq)
+- [CIP-15 - Catalyst Registration Transaction Metadata](https://cips.cardano.org/cip/CIP-15)
+- [Catalyst Core - Public Repository](https://github.com/cardano-foundation/catalyst-core)
+
+## 7. Benefits, Limitations & Considerations
+
+Alternative voting systems can expand the ways in which Cardano participants coordinate decisions, gather information, and participate in governance.
+
+However, their usefulness depends on the design and credibility of each process.
+
+### Potential Benefits
+
+**Scalability of decision-making**
+
+Preliminary voting allows numerous proposals or candidates to be evaluated without requiring a separate Governance Action for every intermediate decision.
+
+This can be particularly useful for budget coordination, institutional elections, and other processes involving large numbers of alternatives.
+
+**Lower financial barriers**
+
+Consultations can occur before participants commit the refundable 100,000 ADA Governance Action deposit.
+
+When combined with proposal consolidation or shared funding arrangements, alternative processes can also reduce the number of deposits required for subsequent formal submissions.
+
+**Flexible governance procedures**
+
+Different processes can adopt rules appropriate to their specific objectives, including candidate ranking, differentiated voting thresholds, proposal refinement, and alternative voting power calculations.
+
+**Additional opportunities for participation**
+
+Temperature checks and community polls can create opportunities for delegators and other stakeholders to express preferences beyond formal Governance Action voting.
+
+### Limitations & Risks
+
+**Advisory versus binding authority**
+
+Participants must understand whether a vote is an informal signal, an institutional selection decision, or a binding action within a separate governance system.
+
+Preliminary approval should not be presented as equivalent to the ratification of a Governance Action.
+
+**Voter eligibility and representation**
+
+Different systems may use different rules for registration, delegated voting power, snapshots, abstentions, and vote weighting.
+
+As a result, voting percentages from different processes are not necessarily directly comparable.
+
+**Auditability and integrity**
+
+Voting processes that do not use Cardano's native Governance Action ratification mechanism require their own safeguards for verifying voter eligibility, preventing duplicate votes, validating results, and preserving evidence.
+
+Blockchain-based infrastructure does not automatically guarantee that every aspect of an electoral process is fair, transparent, or independently auditable.
+
+**Dependence on platforms and organizers**
+
+Alternative voting processes may depend on platform operators, administrators, election facilitators, or external auditors.
+
+Their responsibilities and potential influence should be clearly documented.
+
+**Reduced granularity through consolidation**
+
+Grouping several proposals into one Governance Action can reduce deposit requirements and simplify formal voting, but may prevent DReps from expressing different positions on individual components during the final on-chain decision.
+
+This creates a trade-off between procedural efficiency and proposal-level accountability.
+
+### Complementary Governance Infrastructure
+
+Alternative governance mechanisms encompass different technologies, decision-making processes, and institutional arrangements rather than a single governance model.
+
+Their implementations range from simple non-binding polls to Layer 2 voting systems and independently governed DAOs.
+
+Their relationship with Cardano's native governance also varies. Some are used to gather preliminary opinions, others determine institutional candidates or funding priorities, and some operate independently with no requirement for subsequent on-chain ratification.
+
+**The central distinction is not simply where votes are recorded, but what authority those votes carry and how their outcomes interact with Cardano's formal governance system.**
+
+When appropriately designed, these mechanisms can complement Cardano's native governance system by facilitating participation, reducing financial and operational barriers, and supporting more structured decision-making without replacing the protocol-level rules governing Cardano Governance Actions.
+
+## 8. References & Practical Guides
+
+The following resources provide foundational specifications, historical documentation, voting tools, and examples of alternative governance systems.
+
+### Foundational Governance Documentation
+
+| Resource | Coverage |
+| --- | --- |
+| [CIP-1694](https://cips.cardano.org/cip/cip-1694) | Native Governance Actions, voting bodies, ratification, and enactment |
+| [GovTool Documentation](https://docs.gov.tools/) | Governance Action preparation, proposal discussion, polls, and on-chain participation |
+| [Hydra Documentation](https://hydra.family/head-protocol/docs/dev/layer-two) | Layer 2 infrastructure and its relationship with Cardano Layer 1 |
+
+### Intersect Budget Processes
+
+| Resource | Coverage |
+| --- | --- |
+| [2025 Budget Info Action](https://intersectmbo.org/news/making-sense-of-the-275m-budget-info-action) | Preliminary proposal selection and the aggregated budget |
+| [2025 Budget Retrospective](https://docs.intersectmbo.org/intersect-knowledge-base/intersect-membership/annual-member-meetings-amm/2025-annual-members-meeting/intersect-development-update-2025-report) | Results, individual treasury withdrawals, and process outcomes |
+| [2026 Budget Framework FAQs](https://committees.docs.intersectmbo.org/intersect-budget-committee/cardano-budget-process/cardano-2026-budget-process-faqs) | Proposal rules, voting thresholds, consolidation, and Net Change Limit |
+| [2026 Budget Voting Results](https://intersectmbo.org/news/intersect-weekly-update-116-june-19-2026) | Audited Hydra voting participation and proposal qualification |
+
+### Constitutional Committee Elections
+
+| Resource | Coverage |
+| --- | --- |
+| [Interim Constitutional Committee](https://docs.intersectmbo.org/intersect-knowledge-base/archive/cardano-governance-archive/governance-roles/constitutional-committee/interim-constitution-committee-cc) | 2024 community election and Summon voting |
+| [2025 CC Election Results](https://docs.intersectmbo.org/intersect-knowledge-base/cardano-facilitation-services/cardano-governance/2025-constitutional-committee-elections/2025-cc-election-results) | Results, audit criteria, and vote integrity |
+| [2025 Snap Election](https://intersectmbo.org/news/updating-the-constitutional-committee) | Extraordinary election and selection of a replacement member |
+| [2026 CC Election](https://www.intersectmbo.org/news/intersect-weekly-update-121-july-24-2026) | Hydra voting and candidate selection |
+
+### Voting Tools & Alternative Systems
+
+| Resource | Coverage |
+| --- | --- |
+| [GovTool](https://gov.tools/) | Proposal discussions and preliminary polls |
+| [DRepTalk](https://dreptalk.com/) | Preliminary proposal discussions and CIP-179 on-chain surveys |
+| [Ekklesia / Hydra Voting](https://docs.ekklesia.vote/) | Governance voting platform, Hydra-based ballot processing, institutional elections, and verifiable results |
+| [Clarity](https://docs.clarity.vote/) | DAO governance and interaction with Cardano DRep voting |
+| [Project Catalyst](https://docs.projectcatalyst.io/previous-funds/fund14-docs/voting/voting-faq) | Independent funding governance and historical sidechain voting |
+
+---
+
+*Alternative voting platforms, institutional procedures, eligibility rules, and funding mechanisms may change over time. Historical examples describe the processes documented for their respective periods and should not be assumed to represent permanent governance requirements or currently available platform functionality.*
