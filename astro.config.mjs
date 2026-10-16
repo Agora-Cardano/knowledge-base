@@ -41,7 +41,7 @@ sidebar: [
   {
     label: 'Cardano Governance',
     translations: {
-      'pt-BR': 'Governança Cardano',
+      'pt-br': 'Governança Cardano',
     },
     collapsed: false,
     items: [
@@ -49,16 +49,31 @@ sidebar: [
         slug: 'cardano-governance',
         label: 'Overview',
         translations: {
-          'pt-BR': 'Visão Geral',
+          'pt-br': 'Visão Geral',
         },
       },
-      { slug: 'cardano-governance/governance-framework' },
-      { slug: 'cardano-governance/governance-roles' },
-      { slug: 'cardano-governance/governance-protocols' },
-    ],
-  },
-  { slug: 'institutions-organizations' },
-],
+      {
+        label: 'Governance Framework',
+        translations: {
+          'pt-br': 'Estrutura de Governança',
+        },
+        collapsed: true,
+        items: [
+          {
+            autogenerate: {
+              directory: 'cardano-governance/governance-framework',
+            },
+          },
+        ],
+      },
+      {
+        label: 'Governance Roles',
+        translations: {
+          'pt-br': 'Papéis de Governança',
+        },
+        collapsed: true,
+        items: [
+          {
 
   }), mdx()],
 });
