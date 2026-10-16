@@ -38,8 +38,25 @@ export default defineConfig({
     ],
 
 sidebar: [
-  { slug: 'cardano-governance' },
-  { slug: 'cardano-governance/governance-protocols' },
+  {
+    label: 'Cardano Governance',
+    translations: {
+      'pt-BR': 'Governança Cardano',
+    },
+    collapsed: false,
+    items: [
+      {
+        slug: 'cardano-governance',
+        label: 'Overview',
+        translations: {
+          'pt-BR': 'Visão Geral',
+        },
+      },
+      { slug: 'cardano-governance/governance-framework' },
+      { slug: 'cardano-governance/governance-roles' },
+      { slug: 'cardano-governance/governance-protocols' },
+    ],
+  },
   { slug: 'institutions-organizations' },
 ],
 
