@@ -1,0 +1,441 @@
+---
+title: Governance Actions
+description: Tipos de Governance Actions, votação, ratificação, ciclo de vida, submissão e depósitos na Cardano.
+---
+
+import { Image } from "astro:assets";
+import actionTypesImage from "../../../../assets/images/governance-actions/pt-br/governance-action-types-and-voting-thresholds-pt.png";
+import lifecycleImage from "../../../../assets/images/governance-actions/pt-br/governance-action-lifecycle-pt.png";
+
+
+As **Governance Actions** são o mecanismo formal pelo qual os participantes da Cardano propõem e decidem mudanças na governança da rede, nos parâmetros do protocolo, na estrutura constitucional e nas alocações do tesouro.
+
+Introduzidas por meio da **CIP-1694**, as Governance Actions são submetidas como transações *on-chain* e avaliadas de acordo com regras que determinam quem pode votar, quais *thresholds* de aprovação se aplicam e quando uma decisão aprovada entra em vigor.
+
+A Cardano reconhece **sete tipos de Governance Actions**, cada um com uma finalidade distinta. Dependendo do tipo, a ratificação pode exigir a aprovação de Delegated Representatives (DReps), Stake Pool Operators (SPOs), do Constitutional Committee (CC) ou de uma combinação desses órgãos.
+
+Esta seção apresenta esses mecanismos, explica o ciclo de vida de uma Governance Action e fornece referências para a participação no processo.
+
+**Referências principais**
+
+- [CIP-1694 - On-Chain Decentralized Governance](https://cips.cardano.org/cip/cip-1694)
+- [Cardano Governance Action Charts](https://cardano.org/insights/governance-actions/)
+- [Cardano Developer Portal - Governance](https://developers.cardano.org/docs/learn/cardano-cli/governance/submit-votes/)
+- [GovTool - Governance Actions Documentation](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/)
+
+---
+
+## 1. Visão Geral e Finalidade
+
+As Governance Actions permitem que decisões que afetam a rede Cardano sejam formalmente propostas, submetidas à votação e, quando aplicável, implementadas por meio da blockchain.
+
+Elas abrangem decisões que vão desde a alteração de parâmetros do protocolo e atualizações da rede até emendas à Constituição, mudanças na composição do Constitutional Committee e autorização de retiradas do tesouro.
+
+Diferentemente de discussões informais da comunidade ou consultas *off-chain*, as Governance Actions são reconhecidas pelo *ledger* da Cardano e seguem procedimentos predefinidos de votação, ratificação, expiração e *enactment*.
+
+Cada Governance Action submetida possui um registro identificável *on-chain*, incluindo seu tipo, depósito, referência aos metadados e atividade de votação associada.
+
+Nem todas as Governance Actions produzem mudanças executáveis. As **Info Actions**, por exemplo, oferecem um mecanismo para registrar informações ou sinalizar preferências sem alterar diretamente o protocolo.
+
+**Leitura complementar**
+
+- [What Is a Governance Action? - GovTool](https://docs.gov.tools/cardano-govtool/faqs/what-is-a-governance-action/)
+- [Cardano Governance Actions - Visual Guides](https://cardano.org/insights/governance-actions/)
+
+## 2. Tipos de Governance Actions
+
+A Cardano define sete tipos de Governance Actions. A lista a seguir respeita a ordem apresentada na CIP-1694, que também é relevante para as regras de precedência que regem a ratificação e o *enactment*.
+
+### 2.1. Motion of No Confidence
+
+Uma **Motion of No Confidence** permite que os participantes da governança retirem sua confiança no Constitutional Committee vigente.
+
+Se ratificada, a ação coloca o sistema de governança em um estado de *no-confidence*, afetando a forma como uma atualização subsequente do Constitutional Committee pode ser aprovada.
+
+Esse mecanismo oferece uma forma de responder a circunstâncias nas quais o comitê existente deixa de contar com a confiança dos órgãos de governança cuja aprovação é exigida.
+
+**Aprovação necessária:** DReps e SPOs.
+
+### 2.2. Update Constitutional Committee
+
+Esta ação modifica a composição ou a configuração do Constitutional Committee.
+
+Ela pode envolver:
+
+- Adicionar ou remover um ou vários membros do comitê.
+- Estabelecer as *epochs* de término dos mandatos dos novos membros.
+- Alterar o *threshold* de aprovação do comitê.
+
+Os requisitos de ratificação variam conforme o sistema de governança esteja operando em seu estado normal ou em um estado de *no-confidence*.
+
+**Aprovação necessária:** DReps e SPOs.
+
+### 2.3. New Constitution or Guardrails Script
+
+Esta ação permite atualizar a estrutura constitucional da Cardano.
+
+Ela pode introduzir uma nova versão da Constituição, alterar o *guardrails script* associado ou atualizar ambos.
+
+A Constituição estabelece princípios, requisitos e restrições que regem as decisões tomadas por meio do sistema de governança da Cardano. Um *guardrails script* pode fornecer validações adicionais *on-chain* para determinadas ações de governança.
+
+**Aprovação necessária:** DReps e Constitutional Committee.
+
+### 2.4. Hard Fork Initiation
+
+As ações de **Hard Fork Initiation** autorizam mudanças na versão principal do protocolo da rede.
+
+Elas são utilizadas quando uma atualização do protocolo exige uma transição que não é retrocompatível com a versão existente.
+
+A ratificação é apenas uma parte do processo de atualização. Os participantes da rede também precisam ter acesso a softwares compatíveis e implementá-los para que a transição seja bem-sucedida.
+
+**Aprovação necessária:** DReps, SPOs e Constitutional Committee.
+
+### 2.5. Protocol Parameter Changes
+
+As ações de **Protocol Parameter Change** modificam parâmetros configuráveis que influenciam o funcionamento da Cardano.
+
+Esses parâmetros estão organizados em quatro grupos:
+
+| Grupo | Exemplos |
+| --- | --- |
+| **Network** | Tamanho dos blocos, tamanho das transações, limites de execução |
+| **Economic** | Taxas de transação, depósitos de *staking*, expansão monetária, alocação ao tesouro |
+| **Technical** | Parâmetros de configuração de *stake pools*, modelos de custo, requisitos de colateral |
+| **Governance** | *Thresholds* de votação, período de atividade dos DReps, depósitos de governança, tempo de vida das ações |
+
+Alguns parâmetros também pertencem a uma categoria relevante para a segurança, exigindo aprovação adicional dos SPOs.
+
+Uma única Governance Action pode propor alterações em múltiplos parâmetros, inclusive pertencentes a grupos diferentes. Quando múltiplos *thresholds* se aplicam, os requisitos mais rigorosos aplicáveis devem ser satisfeitos.
+
+**Aprovação necessária:** DReps e Constitutional Committee, com aprovação adicional dos SPOs para parâmetros relevantes à segurança.
+
+**Leitura complementar**
+
+- [Protocol Parameter Changes - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/protocol-parameters-changes/)
+- [Governance Action Charts - Parameter Changes](https://cardano.org/insights/governance-actions/)
+
+### 2.6. Treasury Withdrawals
+
+As ações de **Treasury Withdrawal** autorizam a transferência de ADA do tesouro *on-chain* da Cardano para *reward accounts* especificadas.
+
+Uma ação pode identificar um ou vários destinatários, com um valor de retirada definido para cada um.
+
+As Treasury Withdrawals estão sujeitas ao processo de ratificação da governança e às restrições constitucionais aplicáveis, incluindo requisitos relacionados aos gastos do tesouro.
+
+A aprovação de uma Treasury Withdrawal autoriza uma transferência *on-chain*. Isso não estabelece, por si só, uma estrutura completa para monitorar a utilização posterior dos recursos.
+
+**Aprovação necessária:** DReps e Constitutional Committee.
+
+**Requisitos Constitucionais e Net Change Limit**
+
+As Treasury Withdrawals devem cumprir requisitos constitucionais adicionais relativos à finalidade e às condições do financiamento, às alocações anteriores do tesouro, às auditorias independentes, à supervisão e à administração dos recursos.
+
+Um **Net Change Limit (NCL)** também deve ser estabelecido para o período aplicável. Segundo a Constituição da Cardano, o NCL deve ser acordado pelos DReps por meio de uma Governance Action *on-chain*, com apoio de mais de 50% do poder de voto ativo. Na prática, os NCLs têm sido estabelecidos por meio de Info Actions.
+
+As Treasury Withdrawals devem respeitar o NCL aplicável. Atualmente, esse requisito é aplicado constitucionalmente por meio da supervisão da governança, em vez de ser verificado automaticamente pelo *ledger*.
+
+**Evolução dos Requisitos Constitucionais**
+
+Versões anteriores da Constituição da Cardano exigiam que os orçamentos do ecossistema fossem aprovados por meio de uma **Budget Info Action** separada antes que as Treasury Withdrawal Governance Actions associadas pudessem prosseguir.
+
+Esse requisito foi removido na **Constituição v2.3**, que passou a incorporar exigências de prestação de contas orçamentária, transparência, supervisão e auditoria diretamente às disposições constitucionais que regem as Treasury Withdrawals.
+
+O requisito do NCL, entretanto, permanece em vigor.
+
+**Leitura complementar**
+
+- [Cardano Constitution - Article II, Section 7 and Guardrails TREASURY-01a/02a](https://cardano.org/constitution/)
+- [CIP-173 - Net Change Limit Parameter](https://cips.cardano.org/cip/CIP-0173)
+
+### 2.7. Info Actions
+
+As **Info Actions** oferecem um mecanismo *on-chain* para registrar informações, realizar consultas de sinalização ou expressar preferências coletivas.
+
+Diferentemente dos demais tipos de Governance Actions, elas não modificam diretamente os parâmetros do protocolo, não alteram regras constitucionais nem executam retiradas do tesouro.
+
+Elas podem ser utilizadas para subsidiar decisões futuras ou fornecer um registro publicamente verificável da participação na governança.
+
+**Distinção importante:** as Info Actions não são vinculantes e não passam por *enactment* como mudanças executáveis do protocolo. Seus resultados de votação não devem ser confundidos com a ratificação de Governance Actions vinculantes.
+
+**Participação na votação:** DReps, SPOs e membros do Constitutional Committee podem votar em Info Actions. Esses votos representam sinalizações *on-chain*, e não aprovações vinculantes ou mudanças executáveis no protocolo.
+
+**Leitura complementar**
+
+- [Info Actions - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/info-action/)
+
+## 3. Votação e Ratificação
+
+As Governance Actions são avaliadas por meio de um sistema de votação ponderado pelo *stake*, envolvendo diferentes órgãos de governança.
+
+A combinação de órgãos cuja aprovação é necessária depende do tipo de ação.
+
+- **DReps** votam utilizando o poder de voto delegado a eles pelos detentores de ADA.
+- **SPOs** votam utilizando o *stake* associado às suas *pools*, nos tipos de ações para os quais sua aprovação é exigida.
+- **Membros do Constitutional Committee** avaliam se as ações aplicáveis estão em conformidade com a Constituição. Cada membro do comitê possui um voto.
+
+### Opções de Votação
+
+Os participantes da governança podem registrar votos **Yes**, **No** ou **Abstain**.
+
+A interpretação desses votos depende do órgão votante e das regras aplicáveis do *ledger*. Em particular, abstenções, DReps inativos, opções especiais de delegação e votos não registrados não necessariamente produzem efeitos idênticos nos cálculos de votação.
+
+Consequentemente, a proporção de votos Yes entre os votos efetivamente registrados não corresponde necessariamente à proporção utilizada para determinar a ratificação.
+
+A documentação do GovTool fornece explicações separadas sobre como são calculados os totais de votos dos DReps, SPOs e do Constitutional Committee.
+
+[How Governance Action Vote Totals Are Calculated - GovTool](https://docs.gov.tools/cardano-govtool/faqs/how-governance-action-vote-totals-are-calculated-in-govtool/)
+
+### Thresholds de Ratificação
+
+Cada Governance Action vinculante deve satisfazer os requisitos de aprovação associados ao seu tipo.
+
+A tabela a seguir apresenta os **thresholds de referência da Conway Genesis** documentados pelo Cardano Developer Portal. Esses *thresholds* são parâmetros controlados pela governança e podem mudar ao longo do tempo.
+
+<Image src={actionTypesImage} alt="Tipos de Governance Actions e thresholds de votação" loading="lazy" />
+
+Para alterações em parâmetros relevantes à segurança, o *threshold* de referência para aprovação dos SPOs é de 51%.
+
+Os requisitos exatos de uma determinada ação dependem dos parâmetros de protocolo aplicáveis, dos parâmetros que estão sendo modificados e do estado atual da governança.
+
+**As Info Actions estão excluídas desta tabela de ações vinculantes**, pois não produzem resultados de *enactment* executáveis.
+
+O *threshold* de aprovação do Constitutional Committee é determinado por sua configuração *on-chain* vigente, e não por uma exigência permanentemente fixa de dois terços. Os valores apresentados acima são configurações de referência e devem ser verificados em relação aos parâmetros de governança aplicáveis a cada ação.
+
+**Rejeição pelo Constitutional Committee**
+
+Uma Governance Action que exige aprovação do Constitutional Committee não pode ser ratificada sem que a proporção necessária de membros do comitê vote Yes.
+
+Entretanto, **um número suficiente de votos No não cancela nem rejeita permanentemente a ação de forma automática**. Ela permanece elegível à ratificação durante seu período de atividade.
+
+Os membros do Constitutional Committee podem alterar seus votos enquanto a ação permanecer ativa, sendo o voto válido mais recente aquele que substitui o anterior. Portanto, uma ação inicialmente bloqueada pelo comitê ainda poderá ser ratificada se as aprovações necessárias forem obtidas posteriormente, antes de sua expiração.
+
+Se a ação atingir seu prazo de expiração sem satisfazer as condições de ratificação aplicáveis, ela expira.
+
+**Referências**
+
+- [Developer Portal - Ratification and Lifecycle](https://developers.cardano.org/docs/learn/cardano-cli/governance/submit-votes/)
+- [Cardano Governance Action Charts](https://cardano.org/insights/governance-actions/)
+- [Current Protocol Parameters - Cardanoscan](https://cardanoscan.io/protocolparams)
+
+## 4. Ciclo de Vida, Expiração e Enactment
+
+Uma Governance Action passa por diversas etapas, desde sua submissão inicial até seu resultado final.
+
+<Image src={lifecycleImage} alt="Ciclo de vida de uma Governance Action" loading="lazy" />
+
+### 4.1. Submissão
+
+Uma Governance Action é registrada no *ledger* quando uma transação válida contendo a proposta é submetida.
+
+A ação passa a ser identificável *on-chain* e recebe um período de votação determinado pelo parâmetro de protocolo `govActionLifetime`.
+
+### 4.2. Votação Ativa
+
+Durante seu período de atividade, os órgãos de governança elegíveis podem registrar votos.
+
+A atividade de votação e os níveis de aprovação podem ser acompanhados por meio de interfaces de governança e *blockchain explorers*.
+
+A ação permanece sujeita às regras de ratificação aplicáveis até que seja ratificada, expire ou deixe de ser elegível por outro motivo.
+
+### 4.3. Ratificação
+
+Uma Governance Action torna-se elegível à ratificação quando todos os *thresholds* de aprovação aplicáveis são satisfeitos.
+
+**A ratificação é avaliada em uma transição de epoch**, utilizando os votos de governança e o poder de voto reconhecidos pelo *ledger* naquele momento. Para uma ação que exige aprovação de múltiplos órgãos de governança, os *thresholds* relevantes devem ser satisfeitos simultaneamente durante essa avaliação.
+
+Entretanto, atingir os *thresholds* de votação não garante automaticamente a ratificação. A ação também deve satisfazer todos os requisitos constitucionais, procedimentais e relativos ao estado da governança que sejam aplicáveis, incluindo restrições relacionadas a ações anteriormente implementadas.
+
+Uma vez ratificada, a Governance Action avança em direção ao *enactment*. **A ratificação confirma a aprovação; isso não significa que a mudança proposta já tenha entrado em vigor.**
+
+Uma Governance Action não precisa permanecer ativa durante todo o seu período de seis *epochs*. Se todos os *thresholds* de aprovação e condições de ratificação aplicáveis forem satisfeitos em uma transição de *epoch* anterior, ela poderá ser ratificada naquele momento e avançar para o *enactment*. O período de seis *epochs* representa um limite de expiração, não um prazo obrigatório de espera.
+
+### 4.4. Enactment
+
+Uma vez ratificada, a Governance Action é preparada para o *enactment*.
+
+**No ciclo de vida padrão, o enactment ocorre na transição de epoch seguinte à ratificação**, quando a mudança aprovada entra em vigor no *ledger*.
+
+Por exemplo, uma ação ratificada na transição da *epoch* 700 para a *epoch* 701 normalmente seria implementada na transição da *epoch* 701 para a *epoch* 702, aproximadamente cinco dias depois.
+
+Dependendo do tipo de ação, o *enactment* pode alterar parâmetros do protocolo, a composição do Constitutional Committee, referências constitucionais ou autorizar transferências do tesouro para *reward accounts* designadas.
+
+Determinadas Governance Actions podem atrasar a ratificação ou o *enactment* de outras ações devido a regras de precedência e dependência. As ações de Hard Fork Initiation também exigem adoção coordenada de software; o *enactment* no *ledger*, por si só, não garante que todos os participantes da rede tenham realizado a atualização.
+
+### 4.5. Expiração
+
+Uma Governance Action expira quando seu período de validade permitido termina sem ratificação, sujeito a eventuais extensões ou restrições relacionadas ao estado da governança.
+
+Esse período é controlado pelo parâmetro `govActionLifetime`, que o Developer Portal documenta como sendo de seis *epochs* na *mainnet*, em seu material de referência.
+
+Como esse parâmetro pode ser ajustado por meio da governança, os leitores devem consultar os parâmetros atuais do protocolo, em vez de presumir um prazo fixo e permanente.
+
+### 4.6. Dependências e Precedência
+
+As Governance Actions nem sempre são independentes umas das outras. Mesmo quando os *thresholds* de votação exigidos são atingidos, regras adicionais do *ledger* podem impedir ou atrasar a ratificação.
+
+**Ações prioritárias:** a ratificação de uma Motion of No Confidence, de uma atualização do Constitutional Committee, de uma mudança constitucional ou de uma Hard Fork Initiation atrasa temporariamente a ratificação de outras Governance Actions até a primeira *epoch* após seu *enactment*. As ações ativas que permanecem válidas recebem uma *epoch* adicional antes da expiração durante esse atraso.
+
+**Referências a ações anteriores:** a maioria dos tipos de Governance Actions deve referenciar a ação anteriormente implementada de sua respectiva categoria. Se outra ação alterar primeiro o estado relevante da governança, uma proposta concorrente poderá se tornar inválida. Treasury Withdrawals e Info Actions estão isentas desse requisito de referência.
+
+**Disponibilidade do tesouro:** as Treasury Withdrawal Actions também dependem da existência de recursos suficientes no tesouro. Quando múltiplas retiradas competem por recursos limitados, a ordem de processamento pode afetar quais ações serão ratificadas.
+
+**Restrições constitucionais do tesouro:** além da disponibilidade de recursos suficientes, as Treasury Withdrawal Actions devem cumprir o Net Change Limit aplicável e os requisitos constitucionais de financiamento. Essas condições são avaliadas por meio da supervisão constitucional e são distintas das verificações automáticas de saldo do tesouro realizadas pelo *ledger*.
+
+Essas restrições afetam principalmente **se e quando uma ação pode ser ratificada**, e não o intervalo padrão até o *enactment*. Uma vez ratificada, a ação normalmente é implementada na transição de *epoch* seguinte.
+
+Para consultar as regras técnicas detalhadas, consulte a [CIP-1694](https://cips.cardano.org/cip/cip-1694) e a [Cardano Ledger Governance API](https://cardano-ledger.cardano.intersectmbo.org/cardano-ledger-api/Cardano-Ledger-Api-Governance.html).
+
+**Referências**
+
+- [CIP-1694 - Governance Action Lifecycle](https://cips.cardano.org/cip/cip-1694)
+- [Governance Action Charts - Ratification and Enactment](https://cardano.org/insights/governance-actions/)
+- [GovTool - View Governance Actions](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/view-governance-actions/)
+
+## 5. Submissão e Depósito
+
+### Quem Pode Submeter uma Governance Action?
+
+Qualquer detentor de ADA pode submeter uma Governance Action, desde que a transação satisfaça os requisitos do *ledger* e inclua o depósito necessário.
+
+A submissão de uma ação não exige que o proponente seja um DRep registrado, SPO ou membro do Constitutional Committee.
+
+Entretanto, diferentes tipos de ações podem estar sujeitos a requisitos adicionais estabelecidos pelo protocolo e pela Constituição.
+
+### Depósito de Governance Action
+
+Toda Governance Action exige um depósito reembolsável definido pelo parâmetro de protocolo `govActionDeposit`.
+
+O valor documentado para a *mainnet* é de **100.000 ADA**, embora esse montante possa ser modificado por meio da governança.
+
+O depósito é devolvido à *reward account* designada quando a ação é finalizada de acordo com as regras do *ledger*, incluindo *enactment* ou expiração.
+
+As taxas de transação e quaisquer custos adicionais cobrados por serviços externos são separados do depósito reembolsável.
+
+### Metadados e Documentação de Suporte
+
+Uma Governance Action inclui uma âncora de metadados (*metadata anchor*) composta por uma URL e um *hash* criptográfico.
+
+Isso permite que a documentação de suporte seja publicada externamente, enquanto sua integridade pode ser verificada em relação à referência *on-chain*.
+
+O padrão de metadados CIP-108 define uma estrutura para a documentação de Governance Actions, incluindo:
+
+- Título e resumo.
+- Motivação.
+- Justificativa (*rationale*).
+- Referências de suporte.
+
+A disponibilidade do documento de metadados depende de como ele é hospedado. Um *hash* válido *on-chain* verifica a integridade do documento, mas não garante que o serviço de hospedagem permanecerá acessível.
+
+### Como Submeter
+
+As Governance Actions podem ser submetidas por meio de aplicações dedicadas à governança, ferramentas de linha de comando ou *Software Development Kits* (SDKs).
+
+O método mais adequado depende da experiência técnica do proponente, do tipo de Governance Action e das funcionalidades oferecidas pela ferramenta selecionada.
+
+#### Aplicações Web
+
+**GovTool**
+
+O GovTool fornece uma interface gráfica para preparar, discutir e submeter Governance Actions.
+
+Seu fluxo de trabalho inclui conectar uma *wallet* compatível, preparar a proposta e os metadados de suporte, opcionalmente coletar *feedback* da comunidade e assinar a transação *on-chain* contendo o depósito exigido.
+
+A etapa de proposta (*Proposal*) *off-chain* é distinta da submissão efetiva *on-chain*.
+
+Nem todos os tipos de ações são suportados pela interface de criação de propostas. Em particular, propostas de Protocol Parameter Change não podem ser criadas atualmente por meio desse fluxo de trabalho.
+
+- [GovTool - Propose a Governance Action](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/propose-a-governance-action/)
+- [GovTool - Governance Actions](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/)
+
+#### Submissão por Linha de Comando
+
+**cardano-cli**
+
+A interface de linha de comando da Cardano oferece um método técnico para construir, assinar e submeter transações de Governance Actions.
+
+Ela oferece suporte aos sete tipos de Governance Actions e permite que os proponentes gerenciem diretamente os *inputs* das transações, as âncoras de metadados, as credenciais de devolução do depósito e outros requisitos do protocolo.
+
+Esse método é destinado principalmente a usuários com experiência técnica.
+
+- [Cardano Developer Portal - Vote & Propose](https://developers.cardano.org/docs/developers/curriculum/staking-governance/vote-and-propose/)
+
+#### Submissão por SDKs
+
+Desenvolvedores também podem submeter Governance Actions programaticamente, utilizando bibliotecas de construção de transações da Cardano.
+
+O **Mesh SDK** fornece funções para a construção de transações de governança, incluindo o método `proposal()`, com suporte aos sete tipos de Governance Actions.
+
+- [Mesh SDK - Governance Transactions](https://meshjs.dev/apis/txbuilder/governance)
+
+O **Evolution SDK** fornece um método `.propose()` para construir transações de Governance Actions, incluindo a possibilidade de submeter múltiplas ações em uma única transação.
+
+- [Evolution SDK - Governance Proposals](https://intersectmbo.github.io/evolution-sdk/docs/governance/proposals/)
+
+Essas abordagens oferecem maior flexibilidade técnica, mas exigem familiaridade com a construção e assinatura de transações e com o desenvolvimento em blockchain.
+
+Independentemente do método de submissão, os requisitos subjacentes do *ledger* continuam aplicáveis, incluindo o depósito da Governance Action, a âncora de metadados e as condições específicas relevantes para cada tipo de ação.
+
+### Financiamento e Patrocínio do Depósito
+
+O depósito de uma Governance Action pode representar uma barreira financeira significativa à participação, especialmente para detentores individuais de ADA e iniciativas comunitárias menores.
+
+Diversas abordagens foram propostas para enfrentar essa barreira:
+
+| Abordagem | Descrição |
+| --- | --- |
+| **Patrocínio (*Sponsorship*)** | Um terceiro fornece o depósito em nome do proponente |
+| **Financiamento coletivo (*Crowdfunding / Pooling*)** | Múltiplos contribuidores fornecem coletivamente a quantidade necessária de ADA |
+| **Empréstimo (*Lending*)** | O proponente toma o depósito emprestado mediante condições de pagamento acordadas |
+
+Esses modelos diferem quanto à propriedade, ao controle dos recursos, às obrigações de pagamento e aos riscos financeiros.
+
+As iniciativas a seguir ilustram abordagens exploradas no ecossistema Cardano.
+
+**CoSponsor - Sundae Labs**
+
+Uma iniciativa que desenvolve mecanismos para que múltiplos contribuidores financiem coletivamente os depósitos de Governance Actions.
+
+Os materiais públicos de desenvolvimento descrevem contribuições *on-chain*, funcionalidades de retirada e agregação de patrocínios. Esses materiais, por si só, não comprovam a disponibilidade de um serviço estável e amplamente adotado na *mainnet*.
+
+[CoSponsor - Public Repository](https://github.com/SundaeSwap-finance/cosponsor-ui)
+
+Outros conceitos também surgiram, refletindo a demanda por depósitos de Governance Actions mais acessíveis. Entre eles estão o [Governance Action Deposit Pooling, da Dquadrant](https://projectcatalyst.io/funds/14/cardano-use-cases-concepts/pooling-platform-for-100k-ada-ga-deposit-by-dquadrant), que propõe contribuições agrupadas por meio de *smart contracts*, e o [InfoAction / GovAction as a Service](https://projectcatalyst.io/funds/14/cardano-use-cases-concepts/infoactiongovaction-as-a-service), que propõe financiamento de depósitos por terceiros em troca de remuneração.
+
+Ambos foram submetidos ao Catalyst Fund14, mas **não receberam financiamento**, e nenhuma implementação posterior foi verificada. Eles são incluídos como exemplos de abordagens propostas, e não como serviços disponíveis.
+
+## 6. Referências e Guias Práticos
+
+Os recursos a seguir fornecem explicações adicionais, documentação técnica, visualizações interativas e interfaces práticas para explorar Governance Actions.
+
+### Especificações Fundamentais
+
+| Recurso | Abrangência |
+| --- | --- |
+| [CIP-1694](https://cips.cardano.org/cip/cip-1694) | Tipos de Governance Actions, votação, ratificação, *enactment* e precedência |
+| [CIP-108](https://cips.cardano.org/cip/cip-0108) | Padrão de metadados de Governance Actions |
+| [Cardano Constitution](https://cardano.org/constitution/) | Requisitos constitucionais e *guardrails* |
+
+### Documentação Educacional e Técnica
+
+| Recurso | Abrangência |
+| --- | --- |
+| [Governance Action Charts](https://cardano.org/insights/governance-actions/) | Visualizações interativas dos tipos de ações, *thresholds* de votação e ciclos de vida |
+| [Cardano Developer Portal](https://developers.cardano.org/docs/learn/cardano-cli/governance/submit-votes/) | Mecanismos de governança e orientações voltadas a desenvolvedores |
+| [GovTool Documentation](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/) | Criação de propostas, submissão, votação e monitoramento de ações |
+| [GovTool Vote Calculations](https://docs.gov.tools/cardano-govtool/faqs/how-governance-action-vote-totals-are-calculated-in-govtool/) | Explicações detalhadas sobre poder de voto e cálculos de ratificação |
+| [Mesh SDK - Governance Transactions](https://meshjs.dev/apis/txbuilder/governance) | Construção programática de transações de Governance Actions |
+| [Evolution SDK - Governance Proposals](https://intersectmbo.github.io/evolution-sdk/docs/governance/proposals/) | Construção e submissão de propostas por meio de SDK |
+
+### Aplicações de Governança e Explorers
+
+| Recurso | Abrangência |
+| --- | --- |
+| [GovTool](https://gov.tools/) | Submissão, votação, discussão e histórico de Governance Actions |
+| [CGOV](https://app.cgov.io/) | Exploração e monitoramento de Governance Actions |
+| [Cardanoscan Protocol Parameters](https://cardanoscan.io/protocolparams) | Parâmetros atuais do protocolo, incluindo configurações de governança |
+
+Esses recursos se complementam. As especificações estabelecem as regras do protocolo, a documentação educacional explica seu funcionamento e as aplicações de governança permitem que os participantes observem e interajam com Governance Actions reais.
+
+---
+
+*As regras de governança, os thresholds de votação, os requisitos de depósito e as funcionalidades oferecidas pelas aplicações podem mudar. Para decisões que dependem de informações atualizadas, consulte os parâmetros vigentes do protocolo, a Constituição da Cardano e a documentação mantida pela aplicação ou pelo serviço correspondente.*
