@@ -1,79 +1,111 @@
-// @ts-check
+
+ // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://agora-cardano.github.io',
   base: '/knowledge-base',
-  integrations: [starlight({
-    title: 'Agora Knowledge Base',
+  integrations: [
+    starlight({
+      title: 'Agora Knowledge Base',
 
-    defaultLocale: 'root',
-    locales: {
-      root: {
-        label: 'English',
-        lang: 'en',
-      },
-      'pt-br': {
-        label: 'Português (Brasil)',
-        lang: 'pt-BR',
-      },
-    },
-    logo: {
-      light: './src/assets/agora-dark-logo-no-background.png',
-      dark: './src/assets/agora-light-logo-no-background.png',
-      alt: 'Agora',
-    },
-    customCss: ['./src/styles/custom.css'],
-    description:
-      'An educational and reference resource focused on Cardano governance and its institutional environment.',
-    social: [
-      {
-        icon: 'github',
-        label: 'GitHub',
-        href: 'https://github.com/Agora-Cardano/knowledge-base',
-      },
-    ],
-
-sidebar: [
-  {
-    label: 'Cardano Governance',
-    translations: {
-      'pt-br': 'Governança Cardano',
-    },
-    collapsed: false,
-    items: [
-      {
-        slug: 'cardano-governance',
-        label: 'Overview',
-        translations: {
-          'pt-br': 'Visão Geral',
+      defaultLocale: 'root',
+      locales: {
+        root: {
+          label: 'English',
+          lang: 'en',
+        },
+        'pt-br': {
+          label: 'Português (Brasil)',
+          lang: 'pt-BR',
         },
       },
-      {
-        label: 'Governance Framework',
-        translations: {
-          'pt-br': 'Estrutura de Governança',
+
+      logo: {
+        light: './src/assets/agora-dark-logo-no-background.png',
+        dark: './src/assets/agora-light-logo-no-background.png',
+        alt: 'Agora',
+      },
+
+      customCss: ['./src/styles/custom.css'],
+
+      description:
+        'An educational and reference resource focused on Cardano governance and its institutional environment.',
+
+      social: [
+        {
+          icon: 'github',
+          label: 'GitHub',
+          href: 'https://github.com/Agora-Cardano/knowledge-base',
         },
-        collapsed: true,
-        items: [
-          {
-            autogenerate: {
-              directory: 'cardano-governance/governance-framework',
-            },
+      ],
+
+      sidebar: [
+        {
+          label: 'Cardano Governance',
+          translations: {
+            'pt-br': 'Governança Cardano',
           },
-        ],
-      },
-      {
-        label: 'Governance Roles',
-        translations: {
-          'pt-br': 'Papéis de Governança',
+          collapsed: false,
+          items: [
+            {
+              slug: 'cardano-governance',
+              label: 'Overview',
+              translations: {
+                'pt-br': 'Visão Geral',
+              },
+            },
+            {
+              label: 'Governance Framework',
+              translations: {
+                'pt-br': 'Estrutura de Governança',
+              },
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: 'cardano-governance/governance-framework',
+                  },
+                },
+              ],
+            },
+            {
+              label: 'Governance Roles',
+              translations: {
+                'pt-br': 'Papéis de Governança',
+              },
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: 'cardano-governance/governance-roles',
+                  },
+                },
+              ],
+            },
+            {
+              label: 'Governance Protocols',
+              translations: {
+                'pt-br': 'Protocolos de Governança',
+              },
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: 'cardano-governance/governance-protocols',
+                  },
+                },
+              ],
+            },
+          ],
         },
-        collapsed: true,
-        items: [
-          {
-
-  }), mdx()],
+        {
+          slug: 'institutions-organizations',
+        },
+      ],
+    }),
+    mdx(),
+  ],
 });
