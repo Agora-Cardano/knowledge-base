@@ -1,0 +1,364 @@
+---
+title: "CPS-0033 - Concentração do Poder de Voto dos DReps"
+description: "Entenda a concentração do poder de voto delegado na governança da Cardano, suas causas e as abordagens técnicas em investigação para enfrentá-la."
+sidebar:
+  label: "CPS-0033"
+---
+
+**Entenda a concentração do poder de voto delegado na governança da Cardano, suas causas e as abordagens técnicas em investigação para enfrentá-la.**
+
+| Campo | Detalhes |
+|---|---|
+| Documento | [CPS-0033 - DRep Voting Power Concentration](https://cips.cardano.org/cps/CPS-0033) |
+| Autoras | Maureen Wepngong e Danielle Stanko |
+| Categoria | Tools |
+| Status | Open |
+| Criada em | 11 de junho de 2026 |
+| Incorporada ao repositório de CIPs em | 6 de agosto de 2026 |
+| Última atualização | 7 de setembro de 2026 |
+| Licença | CC BY 4.0 |
+| Proposta relacionada | [CIP-0181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181) |
+
+---
+
+## 1. Visão geral
+
+A concentração do poder de voto entre os Representantes Delegados (DReps) constitui um dos principais desafios da governança descentralizada da Cardano.
+
+No modelo de governança da Cardano, em que o peso dos votos é proporcional ao *stake* (*stake-weighted governance*), os detentores de ADA podem delegar seu poder de voto a DReps registrados, que votam em *governance actions* em seu nome. O peso do voto de um DRep é determinado pela quantidade de *stake* delegada a esse representante.
+
+Esse arranjo possibilita a participação sem exigir que cada detentor de ADA avalie e vote individualmente em todas as *governance actions*. Entretanto, também permite que grandes quantidades de poder de voto se acumulem em um número relativamente pequeno de credenciais DRep.
+
+Essa concentração não é necessariamente indesejável. Um DRep pode legitimamente atrair um volume expressivo de delegações em razão de sua experiência, transparência, participação consistente ou da confiança dos detentores de ADA. Ainda assim, uma distribuição suficientemente concentrada pode introduzir riscos à resiliência da governança, à accountability e à capacidade de representantes menores participarem de maneira significativa.
+
+A **[CPS-0033 - DRep Voting Power Concentration](https://cips.cardano.org/cps/CPS-0033)** foi apresentada para documentar formalmente esse problema e estabelecer uma base para a investigação de possíveis soluções técnicas.
+
+Como uma *Cardano Problem Statement* (CPS), ela não prescreve uma implementação específica nem estabelece um limite obrigatório para o poder de voto. Em vez disso, define o problema, identifica mecanismos e restrições relevantes e apresenta questões que futuras *Cardano Improvement Proposals* (CIPs) deverão abordar.
+
+O desafio central é determinar se a Cardano consegue administrar concentrações indesejáveis de poder de governança preservando a liberdade de escolha dos participantes, a representação proporcional ao *stake* e um sistema aberto que não exige identidades reais verificadas.
+
+## 2. Contexto: evidências de concentração crescente
+
+As preocupações com a distribuição do poder de voto dos DReps antecedem a publicação da CPS-0033.
+
+Discussões comunitárias examinaram se a delegação de governança deveria incorporar mecanismos de saturação semelhantes aos utilizados no sistema de incentivos dos *stake pools* da Cardano.
+
+Uma [discussão de outubro de 2024 no Cardano Forum](https://forum.cardano.org/t/delegation-saturation-for-dreps/137589) explorou possíveis limites de saturação das delegações, incluindo a sugestão de um teto de 50 milhões de ADA. Os participantes também levantaram preocupações sobre delegações inativas e a possibilidade de os delegadores precisarem reavaliar periodicamente seus representantes.
+
+Uma [discussão posterior, de janeiro de 2025](https://forum.cardano.org/t/do-you-think-that-a-dreps-voting-power-should-be-capped/142533), examinou limites ao poder de voto, a distinção entre limites rígidos e mecanismos de saturação e suas possíveis consequências para a liberdade de delegação e a participação dos DReps.
+
+Essas discussões demonstraram que a questão ia além do número total de representantes registrados. A pergunta central era como o poder de voto seria distribuído entre eles.
+
+### Evidências do Beyond Minimum Viable Governance
+
+O projeto de pesquisa **Beyond Minimum Viable Governance (Beyond-MVG)** contribuiu com uma base empírica sistemática para examinar esse problema.
+
+Sua pesquisa quantitativa analisou a atividade de governança ao longo das **epochs 537–609**, abrangendo aproximadamente o período de janeiro de 2025 a janeiro de 2026, utilizando um *Governance Measurement Framework* (GMF) que incluía indicadores da distribuição do poder de voto dos DReps.
+
+Dois indicadores foram particularmente relevantes:
+
+**Coeficiente de Gini (*Gini coefficient*)**
+
+O coeficiente de Gini mede a desigualdade na distribuição do poder de voto. Valores mais próximos de zero indicam uma distribuição mais igualitária, enquanto valores mais próximos de um indicam maior concentração.
+
+De acordo com os resultados do projeto, o coeficiente de Gini do poder de voto dos DReps aumentou de aproximadamente **0,916 para 0,935** durante o período observado.
+
+Esses valores indicam uma distribuição altamente desigual, e o aumento registrado reflete uma concentração adicional do poder de voto delegado ao longo do período analisado.
+
+**Coeficiente de Nakamoto (*Nakamoto coefficient*)**
+
+O coeficiente de Nakamoto indica o número mínimo de participantes cujo poder de voto combinado alcança um determinado limiar.
+
+Diferentemente do coeficiente de Gini, ele se concentra no tamanho do grupo capaz de atingir um nível específico de concentração do poder de voto.
+
+O Beyond-MVG registrou uma queda no coeficiente de Nakamoto dos DReps ao longo da pesquisa, indicando que um número progressivamente menor de representantes era necessário para alcançar, coletivamente, os limiares relevantes de poder de voto.
+
+Os dois indicadores descrevem aspectos diferentes de uma mesma preocupação estrutural: uma distribuição cada vez mais desigual da influência sobre a governança.
+
+A pesquisa também identificou uma baixa taxa de redelegação e padrões persistentes de delegação. Esses resultados sugerem que a distribuição do poder de voto pode permanecer relativamente estável, mesmo quando os detentores de ADA possuem a capacidade técnica de trocar de representante.
+
+Essas medições estabelecem tendências observáveis, mas não determinam, por si só, se um nível específico de concentração é inaceitável nem identificam uma causa única.
+
+Os resultados estão documentados no [State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf), com [medições *on-chain*](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/On-chain-measurements-epoch-537-609/DRep-Metrics) e [visualizações dos indicadores](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/On-chain-visuals-epoch-537-609/DRep-metrics) disponibilizadas no repositório público do projeto.
+
+## 3. Desenvolvimento e formalização da CPS-0033
+
+A CPS-0033 foi elaborada por **Maureen Wepngong e Danielle Stanko**, colaboradoras da iniciativa de pesquisa Beyond-MVG.
+
+A proposta traduziu os resultados do projeto, juntamente com discussões comunitárias anteriores, em uma declaração formal de problema no âmbito do processo de CIPs e CPSs da Cardano.
+
+O *pull request* original, [#1211](https://github.com/cardano-foundation/CIPs/pull/1211), foi submetido em **16 de junho de 2026**.
+
+### Revisão e refinamento
+
+A proposta passou por discussões substanciais com editores de CIPs e colaboradores da comunidade.
+
+Uma parte importante desse processo envolveu a delimitação do escopo adequado a uma *Cardano Problem Statement*.
+
+As versões iniciais incluíam considerações mais amplas sobre governança, envolvendo comportamento social, coordenação institucional e normas comunitárias.
+
+Após receberem comentários editoriais, as autoras refinaram o documento para enfatizar problemas que poderiam ser investigados por meio de padrões técnicos e do desenvolvimento do protocolo.
+
+O escopo resultante passou a se concentrar em:
+
+- Regras do *ledger* que determinam o poder de voto delegado.
+- Metadados dos DReps e mecanismos de sinalização de preferências.
+- Comportamento das *wallets* e dos exploradores de governança.
+- Abordagens técnicas para a distribuição das delegações.
+- Compatibilidade dos incentivos e resistência a mecanismos de contorno das restrições.
+
+Esse refinamento estabeleceu uma distinção mais clara entre o desafio mais amplo de governança e os mecanismos técnicos que poderiam ser abordados por futuras CIPs.
+
+Após novas análises e revisões, a CPS-0033 foi incorporada ao repositório oficial de CIPs em **6 de agosto de 2026**, com status **Open**.
+
+Uma [atualização posterior, de 7 de setembro](https://github.com/cardano-foundation/CIPs/pull/1248), corrigiu a formatação e a organização das referências do documento, sem introduzir um novo mecanismo técnico.
+
+A publicação da CPS-0033 formalizou o problema no processo de padronização da Cardano. Isso não representou a adoção de uma solução específica nem uma alteração no protocolo de governança.
+
+## 4. Mecanismos que contribuem para a concentração do poder de voto
+
+A CPS-0033 identifica diversos mecanismos pelos quais a concentração das delegações pode surgir ou persistir.
+
+### Visibilidade dos delegados e efeitos de rede
+
+Os exploradores de DReps e as interfaces das *wallets* influenciam como os delegadores descobrem e comparam representantes.
+
+Quando os representantes são apresentados ou ordenados principalmente pela quantidade de poder de voto que já possuem, os maiores DReps podem receber mais visibilidade.
+
+Assim, um detentor de ADA em busca de um representante pode encontrar primeiro os maiores DReps, mesmo quando representantes menores possuem experiência, histórico de participação ou prioridades de governança comparáveis.
+
+Isso cria a possibilidade de um ciclo de reforço: mais delegações geram maior visibilidade, que, por sua vez, pode atrair novas delegações.
+
+A CPS reconhece esse fenômeno como uma influência potencial, sem estabelecer que o design das *wallets*, isoladamente, explique a concentração observada.
+
+### Persistência das delegações e reavaliação limitada
+
+Uma delegação pode permanecer inalterada mesmo quando a atividade, as posições ou as circunstâncias de um representante evoluem.
+
+Os delegadores podem não dispor de notificações convenientes, ferramentas de comparação ou incentivos para reavaliar periodicamente suas escolhas.
+
+Consequentemente, o poder de voto pode permanecer concentrado em representantes que acumularam delegações anteriormente, independentemente de os delegadores continuarem avaliando ativamente seu desempenho.
+
+### Barreiras enfrentadas por DReps menores
+
+Representantes com relativamente pouco poder de voto podem enfrentar dificuldades para obter reconhecimento, mesmo quando publicam justificativas de voto (*rationales*), participam de maneira consistente ou demonstram experiência relevante.
+
+A visibilidade limitada pode dificultar a obtenção de delegações por esses DReps, potencialmente desestimulando sua continuidade na governança.
+
+Entretanto, a CPS-0033 não pressupõe que todos os DReps menores sejam igualmente qualificados nem que as delegações devam ser distribuídas igualmente, independentemente do desempenho.
+
+Ela distingue as preferências legítimas dos participantes dos mecanismos estruturais que podem dificultar uma comparação informada entre representantes.
+
+### Limitações das ferramentas de delegação
+
+A Cardano permite que os detentores de ADA distribuam seu *stake* entre vários DReps utilizando credenciais de *stake* separadas.
+
+Entretanto, uma única credencial de *stake* não permite dividir fracionariamente seu poder de voto entre vários representantes, e as interfaces das *wallets* geralmente privilegiam um modelo de delegação para um único DRep.
+
+Isso limita a conveniência prática de distribuir a representação na governança entre diferentes DReps.
+
+A ausência de interfaces padronizadas para esse tipo de operação está, portanto, entre os aspectos que precisam ser investigados.
+
+## 5. Possíveis abordagens técnicas
+
+A CPS-0033 não endossa um mecanismo específico. Em vez disso, identifica diferentes categorias de possíveis soluções e as questões associadas a cada uma delas.
+
+A tabela a seguir sintetiza as abordagens potenciais e as considerações técnicas identificadas na CPS. **Trata-se de possibilidades em investigação, não de soluções endossadas ou implementadas.**
+
+| Abordagem | Mecanismo em consideração | Principal desafio |
+|---|---|---|
+| **Saturação do poder de voto** | Reduzir o peso efetivo do voto sobre a parcela de delegação que ultrapassar determinado limiar. | Definir um limiar adequado e evitar mecanismos de contorno. |
+| **Limites rígidos ao poder de voto (*hard caps*)** | Estabelecer um limite máximo rígido para a quantidade de *stake* delegada a uma única credencial DRep. | Preservar a liberdade de delegação e impedir que o limite seja contornado por meio de múltiplas credenciais. |
+| **Sinalização de limites voluntários (*self-cap*) e preferências de delegação** | Permitir que DReps declarem limites preferenciais de delegação ou limiares de saturação, potencialmente por meio de credenciais *on-chain* ou metadados. | Distinguir sinalizações voluntárias de restrições impostas pelo *ledger* e garantir que as *wallets* reconheçam essas informações. |
+| **Extensões dos metadados dos DReps** | Padronizar informações sobre preferências de delegação, atividade e participação na governança. | Manter informações confiáveis e interoperáveis, sem impor exigências excessivas. |
+| **Padrões para *wallets* e exploradores** | Melhorar a descoberta e a comparação de DReps, a apresentação de alternativas e as interfaces de distribuição de delegações. | Evitar configurações padrão que reforcem involuntariamente as concentrações existentes. |
+| **Compatibilidade dos incentivos** | Coordenar possíveis mecanismos de mitigação da concentração com propostas de incentivos à governança, especialmente a CPS-0020. | Evitar incentivos que reforcem a concentração ou recompensem a participação sem accountability significativa. |
+
+Essas abordagens não são mutuamente excludentes. Algumas poderiam ser implementadas de maneira independente por meio de interfaces de *wallets* ou padrões de metadados, enquanto outras exigiriam mudanças no *ledger*.
+
+Suas implicações diferem consideravelmente.
+
+Um mecanismo de sinalização voluntária, por exemplo, preservaria a liberdade de escolha dos delegadores, mas poderia produzir efeitos práticos limitados se as *wallets* ignorassem a informação.
+
+Um limite imposto pelo protocolo poderia afetar mais diretamente as credenciais individuais dos DReps, mas introduziria considerações técnicas, econômicas e de governança adicionais.
+
+A CPS-0033 enfatiza, portanto, a necessidade de modelagem, pesquisa e avaliação antes da escolha de mecanismos específicos.
+
+## 6. Restrições técnicas e questões em aberto
+
+### Identidade e contorno de limites por múltiplas credenciais
+
+Uma das principais dificuldades identificadas pela CPS-0033 é a ausência de uma exigência de verificação de identidade real na governança da Cardano.
+
+Os DReps operam por meio de credenciais criptográficas, e não de um sistema que exija a correspondência entre cada credencial e uma pessoa ou organização com identidade verificada de maneira única.
+
+Essa distinção é importante para qualquer mecanismo que tente limitar o poder de voto por representante.
+
+Por exemplo, um limite aplicado a uma credencial DRep individual não impediria necessariamente um único agente de registrar ou controlar várias credenciais.
+
+Esse agente poderia distribuir as delegações entre elas e, ainda assim, manter uma influência coletiva substancial.
+
+A CPS questiona, portanto, se mecanismos econômicos ou estruturais poderiam desestimular esse comportamento sem exigir verificação convencional de identidade.
+
+As possibilidades consideradas incluem custos de registro, depósitos, requisitos de atividade e outras restrições. Nenhuma delas é estabelecida pela CPS-0033 como solução definitiva.
+
+### Determinação de níveis aceitáveis de concentração
+
+Uma segunda questão em aberto diz respeito ao significado de concentração excessiva.
+
+Os coeficientes de Gini e Nakamoto medem a distribuição de poder, mas não estabelecem um nível de descentralização universalmente adequado.
+
+Parte da concentração pode resultar de delegações informadas a representantes confiáveis, enquanto outras formas podem refletir alternativas limitadas, influência institucional ou informação insuficiente.
+
+Qualquer intervenção proposta precisaria considerar a relação entre a concentração mensurável e os resultados efetivos da governança.
+
+### Preservação da liberdade de escolha dos participantes
+
+Medidas destinadas a distribuir o poder de voto de maneira mais ampla poderiam entrar em conflito com a liberdade dos delegadores de apoiar seus representantes preferidos.
+
+Um limite rígido poderia impedir ou restringir a influência efetiva de delegações adicionais a um representante com quem um detentor de ADA concorda fortemente.
+
+Um mecanismo de saturação poderia permitir a continuidade das delegações, mas reduzir seu peso marginal de voto.
+
+Ambas as abordagens exigem uma avaliação cuidadosa de suas consequências para a representação, os incentivos e a legitimidade das escolhas de governança.
+
+### Consequências não intencionais
+
+A CPS também reconhece que medidas técnicas podem produzir efeitos secundários indesejáveis.
+
+Um limite de poder poderia incentivar a proliferação de credenciais. Programas de incentivo poderiam recompensar a participação mínima, em vez de trabalho substantivo de governança. Configurações padrão de *wallets* poderiam continuar reforçando a concentração, mesmo após mudanças no protocolo.
+
+Essas considerações reforçam a necessidade de avaliar as propostas como partes de um sistema mais amplo de governança, e não como alterações técnicas isoladas.
+
+## 7. Conexões com outras propostas de governança
+
+A CPS-0033 está relacionada a diversas outras iniciativas voltadas à participação na governança, à delegação e ao desenho de incentivos.
+
+### CIP-0181 - Remove DRep Requirement for Reward Withdrawals
+
+A **[CIP-0181](https://cips.cardano.org/cip/CIP-0181)**, de autoria de Ryan Wiley, propõe eliminar a exigência do *ledger* de que uma credencial de *stake* possua uma delegação de governança - seja para um DRep registrado, seja para uma das opções de voto predefinidas - antes de permitir o saque de recompensas de *staking*.
+
+A proposta aborda um incentivo estrutural que pode levar usuários a escolher um DRep principalmente para ter acesso às recompensas, e não porque desejam participar da governança.
+
+Quando a delegação se torna um requisito prático para uma operação distinta, as interfaces das *wallets* podem estimular escolhas de delegação convenientes ou predefinidas.
+
+A remoção dessa exigência poderia reduzir esses incentivos e dar aos detentores de ADA maior liberdade para decidir se, quando e a quem delegar seu poder de voto na governança.
+
+A conexão entre os dois documentos é explicitamente reconhecida na CPS-0033, que lista a CIP-0181 como uma solução proposta.
+
+Durante a [discussão da CPS-0033 no GitHub](https://github.com/cardano-foundation/CIPs/pull/1211#issuecomment-4887725275), Ryan Wiley também explicou que a CIP-0181 buscava enfrentar parte do problema da concentração, reconhecendo que ela não seria suficiente para solucioná-lo integralmente.
+
+A CIP-0181 aborda, portanto, um possível fator de concentração, em vez de introduzir um limite direto ao poder de voto.
+
+### CPS-0020 - Governance Stakeholder Incentivization
+
+A **[CPS-0020](https://cips.cardano.org/cps/CPS-0020)** examina o desafio de estabelecer incentivos sustentáveis para os participantes da governança.
+
+Seu escopo inclui DReps, membros do *Constitutional Committee* (CC) e detentores de ADA, com atenção à participação, remuneração, accountability e sustentabilidade de longo prazo.
+
+A relação com a CPS-0033 é significativa porque os incentivos econômicos podem afetar a distribuição do poder de voto.
+
+Mecanismos de remuneração poderiam estimular a continuidade da atuação de mais representantes, mas recompensas mal desenhadas também poderiam reforçar a concentração existente ou incentivar uma participação superficial.
+
+A CPS-0033 identifica, por isso, a coordenação com a CPS-0020 como um objetivo explícito.
+
+As duas declarações de problema abordam dimensões distintas, porém interligadas, da governança: como o poder é distribuído e como a participação significativa pode ser sustentada.
+
+### CIP-0119 - Governance Metadata for DReps
+
+A **[CIP-0119](https://cips.cardano.org/cip/CIP-0119)** estabelece um padrão para os metadados de governança dos DReps.
+
+A CPS-0033 identifica possíveis extensões desse padrão como uma das áreas a investigar.
+
+Entre as possíveis adições estão limites voluntários de delegação, preferências de saturação e indicadores de atividade que poderiam ajudar *wallets* e exploradores a apresentar perfis de DReps mais informativos.
+
+Essas são direções futuras identificadas pela CPS, e não funcionalidades existentes introduzidas pela CPS-0033.
+
+## 8. Status atual e relevância
+
+Em outubro de 2026, a CPS-0033 permanece com status **Open**.
+
+De acordo com o [processo de *Cardano Problem Statements*](https://cips.cardano.org/cip/CIP-9999), esse status indica que o problema foi formalmente documentado, mas ainda não foi abordado de maneira abrangente por uma solução implementada que atenda a seus objetivos.
+
+A existência de propostas relacionadas não altera automaticamente esse status.
+
+A CPS-0033 não estabelece um limiar de poder de voto, não impõe saturação, não introduz novos parâmetros no *ledger* nem determina mudanças nas interfaces das *wallets*.
+
+Sua principal contribuição é oferecer uma referência estruturada para investigações futuras e para o desenvolvimento de propostas técnicas.
+
+O documento também estabelece uma conexão entre diversas frentes de trabalho anteriormente tratadas de forma separada:
+
+- Preocupações comunitárias com o poder de voto delegado.
+- Resultados quantitativos do Beyond-MVG.
+- Limitações técnicas do modelo atual de governança.
+- Design das *wallets* e comportamento dos delegadores.
+- Incentivos econômicos e participação na governança.
+- Futuros padrões para o *ledger* e os metadados.
+
+Ao formalizar essas relações, a CPS-0033 oferece uma estrutura para avaliar abordagens concorrentes sem pressupor que um único mecanismo resolverá o problema.
+
+O desafio restante é determinar quais combinações de padrões técnicos, incentivos e práticas de governança poderiam melhorar significativamente a distribuição e a resiliência do poder de voto, preservando os princípios de governança proporcional ao *stake* da Cardano.
+
+---
+
+## 9. Documentação e referências
+
+### Documentos principais
+
+**[CPS-0033 - DRep Voting Power Concentration](https://cips.cardano.org/cps/CPS-0033)**
+
+A *Cardano Problem Statement* oficial, incluindo sua motivação, casos de uso, objetivos técnicos, questões em aberto e soluções propostas.
+
+**[CPS-0033 - Pull Request original #1211](https://github.com/cardano-foundation/CIPs/pull/1211)**
+
+O histórico de submissão e revisão da proposta, incluindo contribuições das autoras, dos editores de CIPs e de outros participantes da comunidade.
+
+**[CPS-0033 - Atualização editorial de setembro de 2026](https://github.com/cardano-foundation/CIPs/pull/1248)**
+
+A correção posterior da formatação das referências no documento oficial.
+
+**[CIP-9999 - Cardano Problem Statements](https://cips.cardano.org/cip/CIP-9999)**
+
+A especificação formal do processo de CPSs, de sua estrutura documental, dos possíveis status e da relação entre declarações de problema e soluções propostas.
+
+### Pesquisa Beyond-MVG
+
+**[State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf)**
+
+O relatório final da pesquisa Beyond-MVG, que documenta resultados quantitativos e qualitativos sobre a governança da Cardano e seus principais desafios.
+
+**[Beyond-MVG - Métricas e visualizações dos DReps](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/On-chain-visuals-epoch-537-609/DRep-metrics)**
+
+Visualizações de indicadores como os coeficientes de Gini e Nakamoto, com [dados de medição correspondentes](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/On-chain-measurements-epoch-537-609/DRep-Metrics) disponíveis no repositório do projeto.
+
+**[Beyond-MVG - Relatório de conclusão do projeto](https://www.essentialcardano.io/article/beyond-mvg-project-complete)**
+
+O anúncio público de conclusão, que resume os resultados do projeto e as iniciativas posteriores relacionadas à pesquisa.
+
+### Propostas relacionadas
+
+**[CIP-0181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181)**
+
+Uma proposta de alteração do *ledger* destinada a eliminar a dependência entre a delegação de governança e o acesso às recompensas de *staking* já obtidas.
+
+**[CPS-0020 - Governance Stakeholder Incentivization](https://cips.cardano.org/cps/CPS-0020)**
+
+Uma declaração de problema relacionada, que examina incentivos, remuneração e participação sustentável na governança.
+
+**[CIP-0119 - Governance Metadata for DReps](https://cips.cardano.org/cip/CIP-0119)**
+
+O padrão de metadados dos DReps identificado como possível base para novas informações sobre preferências de delegação e indicadores de atividade.
+
+### Discussões comunitárias
+
+**[Delegation Saturation for DReps? - Cardano Forum, outubro de 2024](https://forum.cardano.org/t/delegation-saturation-for-dreps/137589)**
+
+Uma discussão inicial sobre limiares de saturação das delegações aos DReps, concentração do poder de voto e persistência das delegações.
+
+**[Do You Think That a DRep's Voting Power Should Be Capped? - Cardano Forum, janeiro de 2025](https://forum.cardano.org/t/do-you-think-that-a-dreps-voting-power-should-be-capped/142533)**
+
+Uma discussão comunitária sobre limites rígidos, mecanismos de saturação, liberdade de delegação e incentivos à participação.
+
+**[DRep Voting Power Concentration: The Path Forward - Cardano, abril de 2026](https://cardano.org/news/2026-04-17-media-drep-votin-power-concentration/)**
+
+Uma discussão pública sobre como o design das *wallets*, o comportamento dos delegadores, a accountability e a distribuição do poder de voto se relacionam na governança da Cardano.
