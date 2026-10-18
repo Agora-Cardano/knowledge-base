@@ -1,0 +1,469 @@
+---
+title: "CIP-0181 - Remove DRep Requirement for Reward Withdrawals"
+description: "Understanding the proposal to remove mandatory governance delegation from staking reward withdrawals, its implications for ADA holders, and its implementation within Cardano's evolving governance framework."
+sidebar:
+  label: "CIP-0181"
+---
+
+**Understanding the proposal to remove mandatory governance delegation from staking reward withdrawals, its implications for ADA holders, and its implementation within Cardano's evolving governance framework.**
+
+| Field | Details |
+|---|---|
+| Document | [CIP-0181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181) |
+| Author | Ryan Wiley |
+| Category | Ledger |
+| Status | Proposed |
+| Created | March 5, 2026 |
+| Merged into the CIP repository | May 12, 2026 |
+| Last updated | August 6, 2026 |
+| License | CC BY 4.0 |
+| Related problem statement | [CPS-0033 - DRep Voting Power Concentration](https://cips.cardano.org/cps/CPS-0033) |
+| Implementation | Merged into the Dijkstra ledger code on July 15, 2026 |
+| Mainnet activation | Pending the Dijkstra hard fork |
+
+---
+
+## 1. Overview
+
+Cardano's decentralized governance framework allows ADA holders to participate in decision-making by delegating their voting power to Delegated Representatives (DReps). Alongside this governance mechanism, ADA holders can delegate their stake to Stake Pool Operators (SPOs) and earn staking rewards.
+
+Although these functions serve different purposes, the governance model introduced by [CIP-1694](https://cips.cardano.org/cip/CIP-1694) established a connection between them.
+
+Following the governance bootstrap phase, withdrawing earned staking rewards requires the associated stake credential to have a governance voting delegation. This can be a delegation to a registered DRep or to one of Cardano's predefined voting options.
+
+The requirement was introduced to encourage participation in the new governance system. However, it also means that ADA holders who do not wish to select a governance representative must still make a governance-related delegation choice before withdrawing rewards.
+
+**[CIP-0181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181)** proposes removing this dependency.
+
+Its objective is straightforward: **staking reward withdrawals should not depend on whether an ADA holder has delegated their governance voting power.**
+
+The proposal does not eliminate DRep delegation, change the distribution of staking rewards, or modify the voting rights of participating ADA holders. Instead, it removes a condition connecting two otherwise distinct operations.
+
+The change also addresses concerns that mandatory governance delegation may encourage users to select representatives primarily for convenience, potentially reinforcing the concentration of voting power among a relatively small number of DReps.
+
+As of October 2026, CIP-0181 remains formally classified as **Proposed**, although its implementation has already been merged into the code for Cardano's planned Dijkstra ledger era. The rule change is not yet active on mainnet.
+
+## 2. Background: Governance Delegation and Staking Rewards
+
+### Two distinct forms of delegation
+
+Cardano supports two delegation mechanisms with different functions.
+
+**Stake delegation** allows ADA holders to delegate stake to a stake pool. The pool participates in block production, and eligible delegators receive staking rewards according to the protocol's reward distribution rules.
+
+**Governance voting delegation** allows ADA holders to assign voting power to a DRep, who can participate in governance decisions on their behalf.
+
+These mechanisms are independent in their purpose.
+
+An ADA holder may support a stake pool for block production while selecting a different representative for governance. Delegating voting power does not transfer ownership of ADA or change the stake pool receiving the holder's stake delegation.
+
+However, the governance framework introduced an additional requirement affecting access to accumulated staking rewards.
+
+### The withdrawal requirement introduced by CIP-1694
+
+[CIP-1694 - A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694) introduced mechanisms intended to encourage ADA holders to participate in decentralized governance.
+
+Among these was a rule linking the withdrawal of staking rewards to the existence of a governance delegation.
+
+After the bootstrap phase, a reward account could be prevented from withdrawing rewards unless its associated stake credential had been delegated for governance voting.
+
+The delegation could point to:
+
+- A registered DRep.
+- The predefined `Abstain` voting option.
+- The predefined `No Confidence` voting option.
+
+The predefined options do not require selecting an individual DRep, but they still constitute governance delegation choices recognized by the protocol.
+
+Importantly, **the rule does not prevent staking rewards from accumulating**. Its effect concerns the withdrawal of rewards already credited to the reward account.
+
+This distinction is central to understanding CIP-0181.
+
+The proposal does not change how staking rewards are earned or calculated. It changes the conditions under which those rewards can be withdrawn.
+
+### Governance activation and the Plomin hard fork
+
+The requirement was part of the broader transition from Cardano's earlier governance arrangements to the decentralized framework established by CIP-1694.
+
+The [Plomin hard fork](https://www.intersectmbo.org/news/intersect-development-update-47-january-31st), activated on January 29, 2025, completed the transition to full on-chain governance under the Conway-era framework.
+
+The original motivation for linking reward withdrawals to governance delegation was to encourage the distribution of voting power to governance participants during this transition.
+
+Once the governance system became operational, however, questions emerged about whether the restriction remained an appropriate long-term participation incentive.
+
+CIP-0181 responds directly to that question.
+
+## 3. Motivation and Identified Problems
+
+CIP-0181 challenges the continued use of staking reward access as an incentive for governance delegation.
+
+The proposal distinguishes between genuine participation in governance and compliance with a technical requirement necessary to perform an unrelated operation.
+
+### Conditioning reward access on governance participation
+
+Under the existing rule, an ADA holder can continue earning staking rewards without making a governance delegation decision, but may be unable to withdraw those rewards until a recognized voting delegation is established.
+
+This creates a dependency between two different activities.
+
+A holder may be satisfied with their stake pool delegation while remaining undecided about which DRep, if any, should exercise their governance voting power.
+
+Such a decision can require research into representatives' policy positions, voting histories, accountability practices, and participation records.
+
+CIP-0181 argues that access to accumulated rewards should not depend on completing this governance evaluation.
+
+The proposed change would allow holders to postpone or decline governance delegation without introducing an obstacle to reward withdrawals.
+
+### Convenience-driven delegation
+
+A second concern relates to how wallets and custodial applications handle the existing requirement.
+
+When a user attempts to withdraw rewards without a governance delegation, the interface must either explain the restriction or facilitate a delegation transaction.
+
+Wallet developers may respond by introducing simplified delegation procedures, recommending particular representatives, or automatically assigning a predefined voting option.
+
+Such approaches can reduce immediate friction, but they may also influence how voting power is distributed.
+
+If a wallet prominently features its own DRep or another convenient representative, users seeking only to withdraw rewards may select that option without evaluating alternatives.
+
+This does not necessarily reflect their governance preferences.
+
+The distinction is important because a delegation made to satisfy a withdrawal requirement may persist after the original transaction has been completed.
+
+The proposal therefore identifies mandatory delegation as a potential contributor to delegation patterns driven by convenience rather than informed representative selection.
+
+### Participation incentives and their effectiveness
+
+The original requirement was intended to encourage governance participation and contribute to the legitimacy of the decentralized governance system.
+
+CIP-0181 questions whether requiring delegation before reward withdrawals continues to serve that objective.
+
+A recorded governance delegation does not necessarily imply that the holder has evaluated a DRep, follows governance decisions, or periodically reassesses their representative.
+
+Consequently, the number of credentials with voting delegations cannot, by itself, establish the quality or intentionality of governance participation.
+
+The proposal favors encouraging participation through governance tools, representative accountability, informed selection, and appropriate incentives rather than through restrictions on reward access.
+
+This remains a policy and governance-design argument. CIP-0181 does not provide a quantitative demonstration of how removing the requirement would affect overall delegation rates.
+
+## 4. Technical Specification
+
+CIP-0181 proposes a limited change to the ledger's transaction validation rules.
+
+### Removing the withdrawal-specific delegation check
+
+Under the Conway-era rules, certain reward withdrawals can be rejected when the withdrawing account lacks a recognized governance voting delegation.
+
+This behavior is represented in the ledger and supporting infrastructure through validation errors, including:
+
+- `ConwayWdrlNotDelegatedToDRep`
+- `ForbiddenWithdrawal`, as exposed through the Ogmios transaction-submission interface.
+
+The proposal removes the governance-delegation validation condition associated with reward withdrawals.
+
+After the change becomes active, an otherwise valid withdrawal transaction must not be rejected solely because the corresponding stake credential has no governance voting delegation.
+
+The general distinction is:
+
+| Situation | Before the proposed change | After activation |
+|---|---|---|
+| Reward account has a valid delegation to a registered DRep | Withdrawal permitted, subject to other transaction validity requirements | Withdrawal permitted |
+| Reward account uses a predefined governance voting option | Withdrawal permitted, subject to other transaction validity requirements | Withdrawal permitted |
+| Reward account has no governance voting delegation | Withdrawal may be rejected because of the missing delegation | Withdrawal permitted, subject to other transaction validity requirements |
+
+The change removes only the governance-delegation prerequisite.
+
+Other ledger validation requirements remain applicable, including the rules governing reward balances, transaction validity, authorization, and applicable fees.
+
+### What remains unchanged
+
+CIP-0181 does not propose changes to:
+
+- The procedures for registering or retiring a DRep.
+- The mechanisms through which ADA holders delegate governance voting power.
+- The voting power assigned to DReps.
+- The available governance voting options.
+- Stake pool delegation and staking reward calculations.
+- The rights of DReps to participate in eligible governance decisions.
+
+The change also does not introduce a voting-power cap, delegation saturation mechanism, or requirement for periodic redelegation.
+
+Its technical scope is limited to allowing reward withdrawals without a governance delegation.
+
+### Backward compatibility
+
+The proposal relaxes an existing transaction validity restriction rather than introducing a new requirement.
+
+Transactions that were valid under the previous withdrawal rules remain valid under the proposed rules.
+
+The principal difference is that certain reward withdrawal transactions previously rejected for lacking governance delegation become valid after activation.
+
+This also simplifies application development by eliminating a governance-specific prerequisite from the reward withdrawal process.
+
+Wallets, custodial services, APIs, and other transaction-submission tools may need to update their validation logic and user-facing instructions once the new rule is active.
+
+## 5. Development and Implementation History
+
+CIP-0181 was authored by **Ryan Wiley** and formally introduced on **March 5, 2026**, through [GitHub Pull Request #1159](https://github.com/cardano-foundation/CIPs/pull/1159).
+
+The proposal was deliberately narrow, focusing on removing an existing ledger validation condition rather than introducing a broader redesign of governance delegation.
+
+### Review within the CIP process
+
+The proposal received feedback from CIP editors, ledger developers, wallet contributors, and other community participants.
+
+During the initial technical review, ledger developer Alexey Kuleshevich indicated that the change would be comparatively straightforward to implement in a new ledger era, since it primarily required removing a validation check.
+
+The discussion nevertheless distinguished technical feasibility from the separate question of whether the community should adopt the proposed change.
+
+Participants raised several considerations:
+
+- Whether removing the restriction would reduce meaningful participation barriers.
+- Whether the existing mechanism contributed to large wallet-associated DRep delegations.
+- Whether wallet-level workarounds were sufficient or the issue should be addressed at protocol level.
+- Whether a governance decision should precede its inclusion in a future hard fork.
+
+Wallet-related comments also described different interface responses to the requirement, including automatic delegation to predefined voting options.
+
+These observations provided examples of how the ledger rule could influence wallet behavior, although the discussion did not establish a comprehensive empirical assessment of wallet practices.
+
+Following editorial review and community discussion, **CIP-0181 was merged into the official CIP repository on May 12, 2026**.
+
+Its acceptance into the repository established a documented technical proposal. It did not itself activate the change on Cardano mainnet.
+
+### Incorporation into the Dijkstra ledger
+
+Implementation work progressed during preparations for the Dijkstra ledger era.
+
+On July 8, 2026, [cardano-ledger Issue #5910](https://github.com/IntersectMBO/cardano-ledger/issues/5910) was opened to track the implementation.
+
+The issue identified the relevant validation calls within the Dijkstra ledger rules and specified their removal alongside the associated predicate failures.
+
+The implementation was subsequently submitted through [Pull Request #5916](https://github.com/IntersectMBO/cardano-ledger/pull/5916), titled *Remove DRep requirement for reward withdrawals*.
+
+The pull request removed the withdrawal-specific delegation failures from the Dijkstra `ENTITIES` and `SUBENTITIES` validation rules.
+
+After review and adjustments to affected tests, the change was **merged on July 15, 2026**.
+
+The [Ledger Team Update of July 22, 2026](https://updates.cardano.intersectmbo.org/2026-07-22-ledger/) independently confirmed that CIP-0181 had been implemented in the Dijkstra ledger development work.
+
+This represents implementation progress beyond the proposal's original publication.
+
+However, inclusion in the development code does not mean that the new rule is active on mainnet.
+
+### Planned activation through the Dijkstra hard fork
+
+CIP-0181 is included in the published [Dijkstra hard fork planning documentation](https://github.com/IntersectMBO/product-website/blob/master/docs/hardfork-planning/dijkstra.md).
+
+The change is part of the planned transition to the Dijkstra ledger era, associated with **Protocol Version 12**.
+
+Activation requires the relevant node software, testing and deployment procedures, and the applicable on-chain governance process for the hard fork.
+
+The Dijkstra planning documentation describes a staged process involving Preview and Pre-production testnets before mainnet activation.
+
+The final mainnet activation date remains dependent on technical readiness and governance ratification.
+
+Therefore, three different milestones must be distinguished:
+
+1. **May 12, 2026:** CIP-0181 was merged into the official CIP repository.
+2. **July 15, 2026:** The corresponding implementation was merged into the Dijkstra ledger code.
+3. **Mainnet activation:** Pending deployment and enactment of the relevant hard fork.
+
+As of October 2026, the third milestone has not been completed.
+
+## 6. Relationship with Beyond Minimum Viable Governance
+
+The **Beyond Minimum Viable Governance (Beyond-MVG)** project investigated the effectiveness, participation patterns, and structural challenges of Cardano's decentralized governance.
+
+One of its research areas concerned the distribution of voting power among DReps and the factors influencing delegation behavior.
+
+The project's quantitative analysis found that DRep voting power became increasingly concentrated during the observation period, while redelegation remained limited.
+
+Its qualitative research also examined the obstacles ADA holders face when choosing governance representatives.
+
+### Governance delegation as a source of friction
+
+During Beyond-MVG workshops and community discussions, participants identified the requirement to select a governance delegation before withdrawing staking rewards as a possible contributor to convenience-driven delegation.
+
+The concern was that users seeking to access rewards could choose a readily available DRep or predefined option without necessarily making an informed governance decision.
+
+This connected the technical rule introduced through CIP-1694 to broader questions about wallet interfaces, delegation persistence, and the distribution of voting power.
+
+### Connection with the project's recommendations
+
+Beyond-MVG's July 2026 completion announcement included **Wallet One-Click Delegation and Removing the Rewards Barrier** among its five principal priorities.
+
+This recommendation combined two related directions:
+
+- Improving wallet interfaces to help ADA holders discover governance and compare a broader range of representatives.
+- Removing mandatory governance delegation as a prerequisite for withdrawing staking rewards.
+
+The second direction corresponds directly to the change proposed by CIP-0181.
+
+However, the development chronology is important.
+
+**CIP-0181 was introduced in March 2026, before the publication of Beyond-MVG's final recommendations.**
+
+The relationship should therefore not be understood as the project first identifying the problem and then originating the CIP as a subsequent deliverable.
+
+Rather, the CIP developed alongside ongoing governance research and community discussions, with Beyond-MVG participants providing supporting evidence and helping connect the proposal with broader governance priorities.
+
+Project contributor Ken Erik Ølmheim participated in the [CIP-0181 GitHub discussion](https://github.com/cardano-foundation/CIPs/pull/1159), relating the withdrawal requirement to delegation concentration and recommending that the proposal receive consideration within governance institutions.
+
+The Beyond-MVG research provided additional context for the proposal and helped identify its relevance to the project's wider objectives.
+
+### Limits of the expected impact
+
+Removing mandatory governance delegation may reduce the incentive for users to select a representative merely to withdraw rewards.
+
+However, CIP-0181 does not require users to change existing delegations.
+
+Nor does it modify wallet recommendation systems, reduce the power of large DReps, or redistribute voting power already delegated.
+
+Its potential effect on concentration would therefore depend on future user behavior, wallet design, and other governance mechanisms.
+
+The proposal addresses one identified source of friction rather than providing a comprehensive solution to DRep voting-power concentration.
+
+## 7. Connections to Other Governance Proposals
+
+### CPS-0033 - DRep Voting Power Concentration
+
+**[CPS-0033](https://cips.cardano.org/cps/CPS-0033)** formally documents the challenge of increasing concentration in delegated DRep voting power.
+
+It examines the structural and technical mechanisms that may contribute to this pattern, including wallet design, delegation defaults, limited redelegation, and barriers faced by smaller representatives.
+
+CPS-0033 explicitly lists CIP-0181 as a proposed solution.
+
+The relationship is complementary:
+
+- **CPS-0033** defines and investigates the broader concentration problem.
+- **CIP-0181** proposes removing one particular protocol rule that may contribute to the problem.
+
+CIP-0181 does not impose any direct limit on DRep voting power. Its contribution concerns the conditions under which delegators make governance choices.
+
+The author of CIP-0181 acknowledged this distinction during the [CPS-0033 review discussion](https://github.com/cardano-foundation/CIPs/pull/1211#issuecomment-4887725275), noting that removing the withdrawal requirement could address part of the problem without fully resolving concentration.
+
+### CIP-1694 - On-Chain Decentralized Governance
+
+**[CIP-1694](https://cips.cardano.org/cip/CIP-1694)** established the governance framework containing the withdrawal requirement that CIP-0181 seeks to remove.
+
+The newer proposal revises one aspect of the original incentive design while preserving its broader governance architecture.
+
+Its adoption would not eliminate the DRep system or modify the fundamental right of ADA holders to delegate their voting power.
+
+Instead, it would remove a protocol-level dependency between governance delegation and the withdrawal of earned staking rewards.
+
+This illustrates how elements of Cardano's governance framework can be reconsidered through subsequent technical proposals as operational experience and research become available.
+
+### CPS-0020 - Governance Stakeholder Incentivization
+
+**[CPS-0020](https://cips.cardano.org/cps/CPS-0020)** examines the broader problem of creating sustainable incentives for governance participants.
+
+Although it addresses a different set of mechanisms, its objectives intersect with the questions raised by CIP-0181.
+
+Removing a requirement designed to encourage delegation raises a broader question: how should Cardano encourage meaningful governance participation without relying on restrictions affecting otherwise independent activities?
+
+Possible approaches involve improving governance tools, representative accountability, and incentive design.
+
+CIP-0181 does not propose a replacement compensation or participation mechanism, but its rationale supports treating informed participation as distinct from mandatory procedural compliance.
+
+## 8. Current Status and Significance
+
+As of October 2026, **CIP-0181 remains Proposed**, with its ledger implementation merged into the Dijkstra development code and its activation planned as part of the corresponding hard fork.
+
+The official CIP does not yet have an active status, and the published acceptance criteria have not all been satisfied.
+
+In particular, inclusion in a development branch does not establish that the change has been integrated into a mainnet release and activated through the governance and hard fork process.
+
+### Significance for ADA holders
+
+For ADA holders, the practical effect would be the ability to withdraw earned staking rewards without first establishing a governance delegation.
+
+This would give users greater freedom to decide whether and when they wish to participate in governance.
+
+It would also preserve the distinction between participating in stake pool delegation and selecting a governance representative.
+
+### Significance for wallet developers
+
+Wallets and transaction-submission services would no longer need to enforce a governance-delegation prerequisite for reward withdrawals once the rule becomes active.
+
+This may simplify user interfaces and reduce the need for automatic or convenience-based governance delegation during reward withdrawal flows.
+
+However, wallets would remain free to offer governance discovery, DRep comparison, and voluntary delegation features.
+
+### Significance for governance
+
+CIP-0181 represents a reassessment of an incentive introduced during Cardano's transition to decentralized governance.
+
+The original rule sought to encourage participation by connecting governance delegation to access to accumulated rewards.
+
+The proposed change favors separating those decisions, allowing governance participation to depend more directly on user preferences and voluntary engagement.
+
+Whether this improves DRep representation or the distribution of voting power cannot be established from the proposal alone.
+
+Its measurable effects would depend on implementation, wallet behavior, and how delegators respond after activation.
+
+The proposal nevertheless illustrates an important stage in the evolution of Cardano governance: **reconsidering mechanisms introduced during the initial governance transition in light of subsequent operational experience and community research.**
+
+---
+
+## 9. Documentation & References
+
+### Primary Documents
+
+**[CIP-0181 - Remove DRep Requirement for Reward Withdrawals](https://cips.cardano.org/cip/CIP-0181)**
+
+The official Cardano Improvement Proposal, including its motivation, proposed ledger rule change, rationale, backward compatibility considerations, and activation criteria.
+
+**[CIP-0181 - Original GitHub Pull Request #1159](https://github.com/cardano-foundation/CIPs/pull/1159)**
+
+The proposal's original submission, review history, and community discussion, including contributions from the author, CIP editors, wallet developers, and ledger contributors.
+
+**[CIP-1694 - A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694)**
+
+The governance framework that introduced the requirement connecting reward withdrawals with governance delegation.
+
+### Ledger Implementation and Hard Fork Planning
+
+**[cardano-ledger Issue #5910 - CIP-181 Implementation](https://github.com/IntersectMBO/cardano-ledger/issues/5910)**
+
+The implementation task documenting the removal of the withdrawal-specific governance-delegation validation checks.
+
+**[cardano-ledger Pull Request #5916 - Remove DRep Requirement for Reward Withdrawals](https://github.com/IntersectMBO/cardano-ledger/pull/5916)**
+
+The implementation merged into the Dijkstra ledger code on July 15, 2026, including changes to the relevant validation rules and tests.
+
+**[Ledger Team Update - July 22, 2026](https://updates.cardano.intersectmbo.org/2026-07-22-ledger/)**
+
+The official development update confirming implementation of CIP-0181 in the Dijkstra ledger work.
+
+**[Dijkstra Hard Fork Planning](https://github.com/IntersectMBO/product-website/blob/master/docs/hardfork-planning/dijkstra.md)**
+
+The published planning documentation identifying CIP-0181 among the changes intended for the Dijkstra era and describing the staged hard fork process.
+
+**[Ogmios - ForbiddenWithdrawal](https://ogmios.dev/typescript/api/interfaces/_cardano_ogmios_schema.SubmitTransactionFailureForbiddenWithdrawal.html)**
+
+Technical documentation for a transaction-submission failure associated with reward withdrawals under the existing rules.
+
+### Beyond-MVG Research
+
+**[State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf)**
+
+The final Beyond-MVG research report examining Cardano governance participation, delegation patterns, structural challenges, and possible improvements.
+
+**[Beyond-MVG - Project Completion Report](https://www.essentialcardano.io/article/beyond-mvg-project-complete)**
+
+The project's completion announcement, including the recommendation to improve wallet-based governance delegation and remove the reward withdrawal barrier.
+
+**[Beyond-MVG - Public Research Repository](https://github.com/input-output-hk/Beyond_MVG)**
+
+Research documentation, governance measurements, workshop records, and other materials produced during the project.
+
+### Related Governance Proposals
+
+**[CPS-0033 - DRep Voting Power Concentration](https://cips.cardano.org/cps/CPS-0033)**
+
+The formal problem statement examining DRep voting-power concentration and identifying CIP-0181 as a proposed partial solution.
+
+**[CPS-0020 - Governance Stakeholder Incentivization](https://cips.cardano.org/cps/CPS-0020)**
+
+A related problem statement concerning incentives, participation, accountability, and the sustainability of decentralized governance.
