@@ -1,0 +1,354 @@
+---
+title: "Beyond-MVG - Priorização Comunitária: Métodos, Dados e Resultados"
+description: "Análise da plataforma de priorização do Beyond-MVG, dos métodos de avaliação nos workshops, dos dados de participação e de sua relação com as recomendações finais."
+sidebar:
+  label: "Beyond-MVG - Priorização Comunitária"
+---
+
+## 1. Introdução e Objetivo
+
+Com base nos resultados da pesquisa sobre governança e nas contribuições da comunidade coletadas anteriormente por meio de surveys, entrevistas e workshops, a fase final do *Beyond Minimum Viable Governance* (Beyond-MVG) concentrou-se em desenvolver, avaliar e priorizar possíveis melhorias para o sistema de governança da Cardano.
+
+Como parte desse trabalho, Tevo Kask desenvolveu a [*Beyond-MVG Community Prioritization Platform*](https://beyond-mvg.vercel.app/), uma aplicação web que permitia aos participantes explorar os resultados da pesquisa, avaliar desafios de governança, propor melhorias e priorizar recomendações coletivamente.
+
+Além de funcionar como uma ferramenta de votação, a aplicação conectava diferentes etapas da pesquisa participativa, permitindo que os usuários passassem da análise de observações sobre o desempenho da governança à avaliação de possíveis respostas.
+
+A plataforma foi utilizada durante a fase de elaboração das recomendações do Beyond-MVG, especialmente nos workshops comunitários realizados em abril e maio de 2026. Ela também oferecia oportunidades de participação assíncrona fora das sessões programadas.
+
+Este artigo examina a metodologia da aplicação, seu uso documentado durante os workshops e as informações preservadas em um dataset exportado em outubro de 2026.
+
+Também analisa a relação entre as avaliações comunitárias registradas e as recomendações posteriormente publicadas no *State of Cardano Governance Report*, distinguindo as conexões documentadas daquelas que não puderam ser reconstruídas de forma independente.
+
+Para conhecer a história mais ampla do projeto, seu financiamento, sua metodologia de pesquisa e seus resultados, consulte o artigo separado da Agora Knowledge Base sobre *Beyond Minimum Viable Governance*.
+
+---
+
+## 2. Plataforma e Fluxo de Participação
+
+### Estrutura da Aplicação
+
+A aplicação organizava suas atividades em sete módulos, combinando recursos educacionais, métricas de governança, contribuições comunitárias e ferramentas de priorização.
+
+| Módulo | Finalidade |
+| --- | --- |
+| [Onboarding](https://beyond-mvg.vercel.app/onboarding) | Apresenta a governança da Cardano, o framework de pesquisa e o processo de participação. |
+| [Overview](https://beyond-mvg.vercel.app/overview) | Apresenta uma visão visual dos desafios de governança, das recomendações e de suas relações. |
+| [Observations](https://beyond-mvg.vercel.app/observations) | Disponibiliza observações sobre governança, métricas e resultados da pesquisa. |
+| [Challenges](https://beyond-mvg.vercel.app/challenges) | Permite examinar e avaliar os problemas identificados pela pesquisa. |
+| [Identify](https://beyond-mvg.vercel.app/identify) | Permite submeter propostas de melhorias associadas aos desafios de governança. |
+| [Prioritisation](https://beyond-mvg.vercel.app/prioritize) | Permite avaliar, classificar e comparar recomendações de forma comunitária. |
+| [Workshops](https://beyond-mvg.vercel.app/workshops) | Disponibiliza sessões dos workshops, materiais de apoio e registros históricos. |
+
+A aplicação apresentava uma sequência que começava pelo exame das evidências sobre governança, passava pela avaliação dos desafios e identificação de melhorias e chegava à priorização das recomendações.
+
+No entanto, essa sequência não era necessariamente rígida. Os participantes podiam revisitar observações existentes, discutir recomendações submetidas anteriormente e refinar suas avaliações à medida que novas informações surgissem.
+
+O módulo *Overview* também distinguia diferentes categorias de registros, incluindo desafios de governança, recomendações da comunidade e recomendações associadas à equipe do Beyond-MVG.
+
+Essa distinção é relevante porque a plataforma reunia tanto contribuições produzidas pela comunidade quanto informações provenientes das atividades de pesquisa e facilitação do projeto.
+
+### Conectando os Resultados da Pesquisa às Recomendações
+
+A aplicação utilizava o *Governance Measurement Framework* (GMF) do projeto, que organizava os indicadores de governança em torno dos detentores de ADA, dos *Delegated Representatives* (DReps), dos *Stake Pool Operators* (SPOs) e do *Constitutional Committee* (CC).
+
+Os participantes podiam examinar resultados relacionados a esses grupos e considerar os problemas apontados pelas evidências.
+
+Por exemplo, observações sobre a concentração de poder de voto entre DReps podiam fundamentar propostas envolvendo mecanismos de delegação, incentivos ou distribuição do poder de voto.
+
+O módulo *Identify* permitia associar recomendações aos desafios em discussão. Essas propostas podiam, posteriormente, ser debatidas e avaliadas por meio das ferramentas de priorização.
+
+O processo conectava, portanto, três elementos distintos:
+
+**Evidências da pesquisa → Desafios de governança → Propostas de melhorias**
+
+Essa estrutura ajudava a preservar a relação entre os problemas examinados e as recomendações apresentadas para enfrentá-los.
+
+---
+
+## 3. Métodos de Avaliação e Priorização
+
+A aplicação incorporava diferentes mecanismos de avaliação dos desafios de governança e das melhorias propostas. Esses mecanismos tinham finalidades relacionadas, mas distintas.
+
+### Avaliação dos Desafios de Governança
+
+No módulo *Challenges*, os participantes podiam avaliar os resultados da pesquisa utilizando três dimensões:
+
+| Dimensão | Finalidade |
+| --- | --- |
+| **Impact** | Avaliar a importância percebida de um desafio de governança. |
+| **Changeability** | Avaliar o grau de dificuldade ou viabilidade de enfrentar o desafio. |
+| **Sentiment** | Registrar a percepção positiva ou negativa do participante sobre a situação. |
+
+A documentação da aplicação descreve uma escala numérica de -1 a +1 para cada dimensão, com opções para expressar incerteza ou fornecer explicações adicionais.
+
+As avaliações individuais podiam ser agregadas para produzir uma visão coletiva sobre um desafio.
+
+Essas avaliações ajudavam a distinguir problemas considerados relevantes daqueles percebidos como mais fáceis ou difíceis de resolver.
+
+É importante destacar que avaliar um problema não equivalia a priorizar uma solução específica. Um desafio poderia ser amplamente reconhecido como importante, mesmo que os participantes discordassem sobre qual intervenção deveria receber atenção.
+
+### Priorização das Recomendações
+
+O módulo *Prioritisation* oferecia dois mecanismos complementares de avaliação: **classificação MoSCoW** e **pontuação numérica multidimensional**.
+
+#### Priorização MoSCoW
+
+O framework MoSCoW classifica as recomendações em quatro categorias:
+
+| Classificação | Significado |
+| --- | --- |
+| **Must** | Uma questão crítica ou de alto risco que exige atenção. |
+| **Should** | Uma melhoria importante, mas que não é considerada imediatamente crítica. |
+| **Could** | Uma melhoria desejável, com prioridade comparativamente menor. |
+| **Won't** | Um item adiado ou excluído do escopo atual. |
+
+A aplicação permitia atribuir uma classificação inicial a cada recomendação, enquanto os participantes da comunidade podiam manifestar suas preferências quanto à prioridade dela.
+
+Essas classificações facilitavam a discussão e a comparação sem exigir que todas as propostas fossem expressas por meio de uma pontuação numérica.
+
+#### Pontuação Multidimensional
+
+Paralelamente, a aplicação implementava um modelo de pontuação descrito em sua documentação como uma adaptação do *RICE*.
+
+Diferentemente do framework RICE convencional, a implementação documentada utilizava dez dimensões agrupadas em critérios de benefícios e de custos.
+
+| Dimensões de benefícios | Dimensões de custos e implementação |
+| --- | --- |
+| Impact | Feasibility and Effort |
+| Urgency | Technical Risk |
+| Community Demand | Cost Estimate |
+| Roadmap Alignment | Legal Risk |
+| Time to Value | Maintainability |
+
+Valores mais altos nas dimensões de benefícios geralmente aumentavam a pontuação de uma recomendação, enquanto avaliações mais altas de custos, esforço ou riscos produziam o efeito contrário.
+
+A aplicação também incorporava indicadores de engajamento à dimensão *Community Demand*, incluindo *upvotes* e comentários nesse componente.
+
+As avaliações individuais eram combinadas em uma pontuação exibida numa escala de **0 a 100**, destinada a auxiliar a comparação entre recomendações.
+
+A categoria MoSCoW e a pontuação numérica eram independentes: uma recomendação classificada como *Must* não necessariamente apresentava a maior pontuação numérica.
+
+Embora a documentação da aplicação descreva as dimensões de pontuação e seu funcionamento geral, os pesos numéricos exatos e as regras completas de agregação não estavam disponíveis nos materiais examinados. Consequentemente, não é possível recalcular de forma independente as pontuações históricas apenas com base nas orientações publicadas.
+
+---
+
+## 4. Workshops e Participação Comunitária
+
+### Uso Documentado Durante a Fase de Recomendações
+
+As atividades anteriores de pesquisa do Beyond-MVG incluíram surveys, entrevistas, workshops e coleta de dados qualitativos. No entanto, as evidências documentais mais sólidas do uso da aplicação para priorização estruturada vêm do **Milestone 4**, durante abril e maio de 2026.
+
+A aplicação mantém um [arquivo dos workshops](https://beyond-mvg.vercel.app/workshops), com sessões datadas, descrições, informações sobre participantes, gravações e links para materiais de apoio, quando disponíveis.
+
+O arquivo lista **11 sessões e 55 contribuidores**. Esses números se referem aos registros do arquivo e não devem ser interpretados como o total de votantes únicos na aplicação.
+
+O comunicado de conclusão do projeto, publicado em julho de 2026, informa separadamente a realização de dez workshops durante o Milestone 4 e quinze workshops ao longo de todo o processo de pesquisa. Esses números se referem a escopos diferentes e não devem ser tratados como equivalentes.
+
+### Exemplos de Atividades de Avaliação Registradas
+
+Diversas sessões oferecem evidências diretas do uso da aplicação em avaliações colaborativas.
+
+**28 de abril de 2026 - Barreiras Linguísticas na Governança**
+
+Os participantes discutiram desafios de acessibilidade e tradução, incluindo os efeitos das diferenças de idioma sobre a participação na governança. Os registros da sessão incluem atividades de classificação MoSCoW e avaliações numéricas de melhorias propostas.
+
+**2 de maio de 2026 - Ferramentas e Incentivos para o Constitutional Committee**
+
+O workshop examinou barreiras operacionais e financeiras que afetavam a participação no Constitutional Committee. As atividades registradas incluíram avaliações de impacto, urgência e custos de implementação.
+
+**15 de maio de 2026 - Preparação para Incidentes de Governança e Incentivos**
+
+Os participantes analisaram recomendações relativas à preparação para incidentes de governança e a incentivos. A sessão incluiu priorização MoSCoW e avaliações numéricas de fatores técnicos, regulatórios e de manutenção.
+
+Esses exemplos demonstram que tanto a priorização por categorias quanto as avaliações multidimensionais foram utilizadas durante sessões facilitadas.
+
+Eles não demonstram, porém, que todas as propostas tenham recebido o mesmo nível de discussão, um número equivalente de avaliações ou um voto independente de cada participante dos workshops.
+
+### Participação Assíncrona
+
+A participação não se limitava aos workshops ao vivo.
+
+As comunicações do projeto convidavam os membros da comunidade a acessar a aplicação, examinar desafios de governança, submeter recomendações pelo módulo *Identify* e contribuir com avaliações fora das sessões programadas.
+
+Isso criou um canal adicional de participação para pessoas que não podiam comparecer aos workshops.
+
+No entanto, os registros disponíveis não apresentam uma discriminação completa entre contribuições síncronas e assíncronas, nem permitem determinar quanto cada grupo contribuiu para os rankings finais.
+
+---
+## 5. Dataset e Resultados
+
+### Visão Geral do Dataset
+
+Uma exportação dos dados da aplicação para Excel, datada de outubro de 2026, foi examinada para este artigo.
+
+O arquivo `beyond-mvg-data-all-2026-10-17.xlsx` contém três planilhas:
+
+| Planilha | Registros | Conteúdo |
+| --- | ---: | --- |
+| **Challenges** | 11 | Desafios e resultados da pesquisa sobre governança, incluindo estatísticas de avaliação e métricas associadas. |
+| **Identification** | 50 | Melhorias propostas, descrições, categorias, classificações MoSCoW, contagens de engajamento e datas de criação. |
+| **Prioritization** | 50 | As mesmas melhorias propostas, acompanhadas de pontuações numéricas e contagens de dados de avaliação. |
+
+As planilhas *Identification* e *Prioritization* contêm os mesmos 50 registros, conforme confirmado pela correspondência de seus identificadores. Portanto, a exportação reúne **11 desafios e 50 recomendações distintas**, e não 111 submissões separadas.
+
+As recomendações foram criadas entre 16 de abril e 15 de maio de 2026. A exportação registra os dados disponíveis em outubro e não necessariamente reproduz o estado da aplicação quando os workshops foram concluídos.
+
+### Distribuição das Recomendações
+
+As 50 recomendações foram categorizadas da seguinte forma:
+
+| Categoria | Propostas |
+| --- | ---: |
+| Governança em Geral | 14 |
+| Métricas de DReps | 14 |
+| Métricas de Detentores de ADA | 9 |
+| Métricas de SPOs | 7 |
+| Métricas do Constitutional Committee | 6 |
+| **Total** | **50** |
+
+A planilha *Challenges*, separadamente, contém cinco resultados relacionados a DReps, três a SPOs, dois a detentores de ADA e um ao Constitutional Committee. As recomendações abrangem um conjunto mais amplo de possíveis intervenções, incluindo alterações no protocolo, incentivos, arranjos institucionais, ferramentas e acessibilidade.
+
+### Classificações MoSCoW
+
+A exportação registra as seguintes classificações de prioridade:
+
+| Classificação | Propostas |
+| --- | ---: |
+| Must | 9 |
+| Should | 13 |
+| Could | 16 |
+| Won't | 2 |
+| Não classificadas | 10 |
+| **Total** | **50** |
+
+A maioria das propostas classificadas ficou nas categorias *Should* ou *Could*. Entretanto, esses números refletem as classificações preservadas na exportação, e não contagens de votos individuais no sistema MoSCoW. O arquivo não mostra quantos participantes apoiaram cada classificação nem como elas podem ter mudado durante os workshops.
+
+### Avaliações Numéricas e Participação
+
+O dataset distingue `score_value_count`, que registra o número de valores de avaliação numérica submetidos para uma recomendação, de `unique_assessor_count`, que registra o número de avaliadores distintos. Uma mesma pessoa podia avaliar várias dimensões, de modo que essas medidas não devem ser tratadas como equivalentes.
+
+A participação nas avaliações numéricas foi limitada:
+
+| Avaliadores únicos por recomendação | Recomendações |
+| --- | ---: |
+| 0 | 9 |
+| 1 | 13 |
+| 2 | 25 |
+| 3 | 1 |
+| 4 | 1 |
+| 5 | 1 |
+| **Total** | **50** |
+
+**Quarenta e sete das 50 recomendações (94%) tiveram menos de três avaliadores registrados.** Essas contagens se referem às avaliações numéricas, não ao número de pessoas que participaram dos workshops ou utilizaram outros recursos da aplicação. Elas também não permitem determinar a quantidade de votos individuais no sistema MoSCoW.
+
+Quarenta e uma recomendações continham pelo menos um valor de avaliação numérica registrado, enquanto nove não apresentavam nenhum. Ainda assim, todas as 50 exibiam uma pontuação numérica. Por exemplo, *Ferramentas de votação para SPOs que não exigem cold keys* apresentava uma pontuação de 50,87, apesar de não ter avaliadores nem valores de avaliação numérica registrados.
+
+A documentação disponível não permite determinar exatamente como foram calculadas as pontuações de propostas sem avaliações registradas. De modo mais amplo, o pequeno número de avaliadores limita a utilidade do ranking como indicador das preferências da comunidade em geral. As pontuações continuam sendo registros informativos do processo de priorização da plataforma, mas precisam ser interpretadas nesse contexto.
+
+### Temas Além das Recomendações Publicadas
+
+O dataset inclui propostas relacionadas à acessibilidade linguística, a alternativas de delegação, a plataformas de discussão sobre governança, à qualidade das justificativas de voto e a mecanismos de reconhecimento das contribuições para a governança, entre outros temas.
+
+Alguns assuntos aparecem em várias propostas com escopos ou abordagens diferentes. A exportação também preserva submissões anteriores ao lado de recomendações posteriormente consolidadas pela equipe do Beyond-MVG. Esses registros não devem ser tratados como evidência independente de que cada ideia semelhante passou pelo mesmo processo de seleção.
+
+O conjunto mais amplo é útil para compreender a variedade de opções discutidas, inclusive quando uma ideia não se tornou uma recomendação numerada separadamente no relatório final.
+
+---
+
+## 6. Relação com as Recomendações Finais
+
+### Das Contribuições Comunitárias às Propostas Consolidadas
+
+Os workshops de elaboração das recomendações produziram um conjunto de ideias mais amplo do que aquele que o projeto poderia abordar em seu relatório final. A [atualização de progresso de maio de 2026](https://www.essentialcardano.io/article/beyond-mvg-project-may-2026-progress-report-milestone-4-in-motion) informou que mais de 100 ideias foram geradas ao longo das atividades do projeto e reduzidas, por meio de análises de impacto e custo, a uma *shortlist* de dez propostas para priorização adicional.
+
+Os [registros dos workshops](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/workshops/ms4-recommendations-prioritisation/transcripts) fornecem mais detalhes sobre uma etapa intermediária. Em 2 de maio, os participantes foram informados de que novas submissões e avaliações seriam encerradas em breve para que a equipe pudesse analisar os dados coletados. Durante a sessão de 11 de maio, Tevo Kask explicou que a equipe havia combinado algumas propostas anteriores e separado outras para produzir **nove recomendações consolidadas**, que os participantes poderiam então discutir e avaliar.
+
+A exportação de outubro contém exatamente nove recomendações com o mesmo registro de data e hora de criação: **8 de maio de 2026**. A quantidade e o período são consistentes com a consolidação descrita no workshop de 11 de maio. A referência posterior a uma *shortlist* de dez propostas na atualização de progresso não pôde ser plenamente conciliada com esses nove registros a partir da documentação disponível.
+
+### As Nove Recomendações Consolidadas
+
+A tabela a seguir apresenta as nove recomendações consolidadas, ordenadas pelas pontuações do dataset de outubro de 2026. A última coluna indica se cada proposta foi incorporada às seis recomendações numeradas do *State of Cardano Governance Report* (junho de 2026).
+
+| Recomendação | Pontuação | Avaliadores | Inclusão no Relatório Final |
+| --- | ---: | ---: | --- |
+| Incorporar informações de governança às wallets e eliminar a exigência de delegar a um DRep para retirar recompensas de staking | 69,57 | 2 | **Incluída - Recomendação 8.3** |
+| Preparação para incidentes de tomada de controle da governança | 68,26 | 2 | **Incluída - Recomendação 8.2** |
+| Sustentabilidade do CC: remuneração, ferramentas e onboarding para o Constitutional Committee | 59,35 | 1 | **Incluída - Recomendação 8.5** |
+| CPS e discussões coordenadas sobre soluções para uma população de DReps mais distribuída (remuneração e limites de poder) | 57,83 | 2 | **Incluída - Recomendação 8.1** |
+| Notificações direcionadas aos SPOs quando uma Governance Action exigir seu voto | 51,30 | 1 | **Incluída - Recomendação 8.6** |
+| Ferramentas de votação para SPOs que não exigem cold keys | 50,87 | 0 | **Incluída - Recomendação 8.4** |
+| Direcionar os DReps a decisões estratégicas e delegar decisões operacionais a órgãos especializados | 48,70 | 0 | Não incluída como recomendação independente |
+| Padrões para ferramentas de governança que reduzam as dificuldades de participação | 45,87 | 1 | Não incluída como recomendação independente |
+| Transferir os debates sobre governança das redes sociais para uma plataforma dedicada e adequada ao uso em produção | 43,70 | 2 | Não incluída como recomendação independente; mencionada no comunicado de conclusão de julho de 2026 |
+
+*Os números das recomendações se referem à Seção 8 do relatório final. As pontuações e quantidades de avaliadores refletem o dataset de outubro de 2026, não um registro histórico verificado do momento da seleção original.*
+
+As **seis propostas com as maiores pontuações nesse conjunto consolidado correspondem às seis recomendações numeradas** do relatório final, embora apareçam nele em outra ordem. Essa correspondência é relevante, mas não comprova que as pontuações de outubro tenham sido utilizadas como base para as decisões da equipe meses antes.
+
+As avaliações numéricas das nove propostas consolidadas tiveram participação especialmente limitada: **cada uma contou com zero a dois avaliadores registrados**. Duas não tiveram nenhum avaliador numérico, incluindo a proposta sobre votação de SPOs sem *cold keys*, que se tornou a Recomendação 8.4 do relatório. Por si só, suas pontuações não permitem identificar uma preferência comunitária consistente entre as alternativas.
+
+O [comunicado de conclusão do projeto, de julho de 2026](https://www.essentialcardano.io/article/beyond-mvg-project-complete), apresenta cinco prioridades principais e identifica as notificações de votação para SPOs e uma plataforma dedicada à discussão de governança como iniciativas adicionais. O relatório final, por sua vez, apresenta as notificações aos SPOs como uma sexta recomendação numerada. Essas são formas diferentes de apresentar os resultados do projeto, e não evidências de uma votação pública separada.
+
+### Julgamento dos Pesquisadores e Rastreabilidade das Decisões
+
+O relatório final explica que suas recomendações se basearam em contribuições da comunidade, resultados da pesquisa, estimativas preliminares de custo-benefício e experiência dos autores. A atualização de progresso de maio também menciona impacto, custo e viabilidade ao descrever a redução do conjunto de ideias. Considerando o número limitado de avaliadores numéricos das propostas consolidadas, era razoável levar esses fatores mais amplos em conta juntamente com as pontuações da plataforma.
+
+Os registros demonstram que a equipe do Beyond-MVG exerceu um papel editorial significativo na consolidação das contribuições anteriores e que as propostas consolidadas foram posteriormente disponibilizadas para novas avaliações comunitárias. O que permanece menos claro é **como as ideias originais foram combinadas, quais alternativas foram deixadas de lado e como as evidências disponíveis foram ponderadas na escolha do conjunto final**.
+
+O projeto preservou uma quantidade considerável de materiais de pesquisa, incluindo transcrições dos workshops, datasets e a própria aplicação. Um registro mais explícito das decisões de consolidação e seleção final teria facilitado a compreensão e a reconstrução dessa etapa específica do processo.
+
+---
+
+## 7. Evidências, Limitações e Recursos
+
+### Limites das Evidências Disponíveis
+
+A exportação de outubro de 2026 é um registro útil dos desafios, recomendações, classificações, pontuações e níveis de participação. Entretanto, ela não contém um histórico de versões da aplicação. Não estão incluídos registros individuais de avaliação, totais de votos MoSCoW, alterações ao longo do tempo nem um mapeamento completo entre as propostas originais e as recomendações consolidadas.
+
+Os 50 registros de recomendações do dataset também não podem ser diretamente equiparados às mais de 100 ideias relatadas ao longo do projeto. Os materiais disponíveis documentam que houve consolidação, mas não permitem acompanhar cada ideia nem conciliar completamente as contagens intermediárias. Da mesma forma, o campo `status` da exportação apresenta todos os 50 registros como *New*, sem identificar seus desdobramentos posteriores.
+
+Por fim, as orientações públicas descrevem as dimensões da pontuação numérica, mas não fornecem todos os detalhes de cálculo necessários para reproduzir os scores registrados, especialmente quando não há valores de avaliação. Essas limitações devem ser consideradas ao reutilizar a exportação em análises independentes.
+
+### Documentação e Recursos de Pesquisa
+
+Os materiais a seguir permitem acessar a plataforma, sua metodologia e o registro histórico mais amplo.
+
+**[Beyond-MVG Community Prioritization Platform](https://beyond-mvg.vercel.app/)**
+
+A aplicação desenvolvida por Tevo Kask para apoiar a avaliação dos desafios de governança e a priorização das melhorias propostas.
+
+**[Onboarding e Metodologia da Aplicação](https://beyond-mvg.vercel.app/onboarding)**
+
+Orientações sobre o fluxo de participação e os mecanismos de avaliação.
+
+**[Módulo Prioritisation](https://beyond-mvg.vercel.app/prioritize)**
+
+A interface para examinar recomendações, classificações MoSCoW e pontuações numéricas.
+
+**[Arquivo de Workshops do Beyond-MVG](https://beyond-mvg.vercel.app/workshops)**
+
+Descrições das sessões, gravações e materiais de apoio, quando disponíveis.
+
+**[Milestone 4 - Registros dos Workshops e da Priorização](https://github.com/input-output-hk/Beyond_MVG/tree/main/data/workshops/ms4-recommendations-prioritisation)**
+
+Transcrições dos workshops e materiais de pesquisa associados, incluindo a [sessão de priorização das recomendações consolidadas de 11 de maio](https://github.com/input-output-hk/Beyond_MVG/blob/main/data/workshops/ms4-recommendations-prioritisation/transcripts/2026-05-11-workshop-13-transcript.md).
+
+**[State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf)**
+
+O relatório de junho de 2026, cuja Seção 8 contém as seis recomendações numeradas.
+
+**[Beyond-MVG - Relatório de Progresso de Maio de 2026](https://www.essentialcardano.io/article/beyond-mvg-project-may-2026-progress-report-milestone-4-in-motion)**
+
+O relato da equipe sobre as ideias geradas, sua consolidação e a priorização posterior.
+
+**[Beyond-MVG - Comunicado de Conclusão do Projeto](https://www.essentialcardano.io/article/beyond-mvg-project-complete)**
+
+A distinção publicada entre cinco prioridades principais e iniciativas adicionais.
+
+**Dataset examinado:** `beyond-mvg-data-all-2026-10-17.xlsx`, exportado em 17 de outubro de 2026. A publicação ou o arquivamento desse arquivo juntamente com o artigo permitiria que os leitores verificassem de forma independente os resultados específicos obtidos a partir do dataset.
+
+### Considerações Finais
+
+A plataforma Beyond-MVG oferece um exemplo documentado de como combinar pesquisa sobre governança, propostas comunitárias, discussões facilitadas e priorização estruturada. Os dados preservados permitem examinar tanto a diversidade das melhorias propostas quanto a participação limitada em suas avaliações numéricas.
+
+A consolidação posterior das ideias em um conjunto menor de recomendações foi uma etapa importante do projeto. Os registros disponíveis esclarecem boa parte desse percurso, embora algumas decisões editoriais não estejam suficientemente documentadas para permitir uma reconstrução histórica completa. Preservar as avaliações originais juntamente com registros mais claros das decisões de consolidação e seleção facilitaria a avaliação e a reprodução de futuras pesquisas participativas sobre governança.
