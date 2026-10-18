@@ -1,0 +1,48 @@
+---
+title: Pesquisa e Análise de Governança
+description: Iniciativas de pesquisa, avaliações empíricas e propostas técnicas relacionadas ao desenvolvimento e aperfeiçoamento da governança Cardano.
+sidebar:
+  label: Visão Geral
+  order: 0
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+A estrutura de governança da Cardano continua evoluindo por meio de pesquisas, avaliações comunitárias e propostas técnicas. Esta seção examina desafios documentados da governança, as evidências utilizadas em sua avaliação e as iniciativas desenvolvidas para investigar possíveis melhorias.
+
+Os artigos distinguem resultados de pesquisas e propostas de mudanças formalmente aprovadas ou implementadas.
+
+## Beyond Minimum Viable Governance (Beyond-MVG)
+
+<CardGrid>
+  <LinkCard
+    title="Beyond-MVG: Origens, pesquisa, resultados e recomendações"
+    href="./beyond-mvg/"
+    description="Conheça as origens do projeto, seu financiamento pelo Tesouro, metodologia, métricas de governança, resultados e recomendações."
+  />
+  <LinkCard
+    title="Beyond-MVG - Priorização Comunitária"
+    href="./beyond-mvg-community-prioritization/"
+    description="Examine a plataforma dos workshops, os métodos de priorização, os dados de participação e a relação entre as avaliações e as recomendações finais."
+  />
+</CardGrid>
+
+## Problemas de Governança e Propostas Técnicas
+
+<CardGrid>
+  <LinkCard
+    title="CPS-0033 - Concentração do Poder de Voto dos DReps"
+    href="./cps-0033/"
+    description="Entenda a concentração do poder de voto delegado, suas métricas e as abordagens propostas para investigação."
+  />
+  <LinkCard
+    title="CIP-0175 - Stake Pool Hot Credentials"
+    href="./cip-0175/"
+    description="Conheça a proposta de autorização de hot credentials para votação de SPOs, suas salvaguardas e implicações operacionais."
+  />
+  <LinkCard
+    title="CIP-0181 - Remove DRep Requirement for Reward Withdrawals"
+    href="./cip-0181/"
+    description="Explore a proposta de remover o requisito de delegação de governança para o saque de recompensas de staking."
+  />
+</CardGrid>
