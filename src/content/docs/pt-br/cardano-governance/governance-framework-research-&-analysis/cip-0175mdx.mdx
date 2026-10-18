@@ -1,0 +1,350 @@
+---
+title: "CIP-0175 - Stake Pool Hot Credentials"
+description: "Understanding the proposal to enable Stake Pool Operators to vote in Cardano governance through authorized hot credentials, its technical safeguards, development history, and implications for participation."
+sidebar:
+  label: "CIP-0175"
+---
+
+**Understanding the proposal to enable Stake Pool Operators to vote in Cardano governance through authorized hot credentials, its technical safeguards, development history, and implications for participation.**
+
+| Field | Details |
+|---|---|
+| Document | [CIP-0175 - Stake Pool Hot Credentials](https://cips.cardano.org/cip/CIP-0175) |
+| Author | Ryan Wiley |
+| Category | Ledger |
+| Status | Proposed |
+| Created | January 22, 2026 |
+| Merged into the CIP repository | July 21, 2026 |
+| Last updated | July 21, 2026 |
+| License | CC BY 4.0 |
+| Related standard | [CIP-0151 - On-Chain Registration - Stake Pools](https://cips.cardano.org/cip/CIP-0151) |
+| Ledger implementation | Not completed |
+| Mainnet activation | Pending a future hard fork |
+| Hard fork planning | Not included in Dijkstra; considered for a later era |
+
+---
+
+## 1. Overview
+
+Stake Pool Operators (SPOs) maintain Cardano's block production infrastructure and participate in its decentralized governance. Under the framework established by [CIP-1694](https://cips.cardano.org/cip/CIP-1694), they form one of three governance bodies alongside Delegated Representatives (DReps) and the Constitutional Committee (CC).
+
+A limitation of the Conway-era governance system is that **SPOs must authorize on-chain governance votes using their stake pool cold keys**. These credentials are intended to remain securely stored offline and are generally accessed only for sensitive administrative operations. Using them for routine voting introduces operational friction and additional security considerations.
+
+**[CIP-0175 - Stake Pool Hot Credentials](https://cips.cardano.org/cip/CIP-0175)** proposes allowing a pool's cold key to authorize a separate *hot credential* for governance voting. The authorized credential could then submit votes on behalf of the pool, while the cold key would retain authority to replace or revoke that credential and to vote directly.
+
+The proposal defines more than an alternative signing method. It introduces ledger-managed authorization, support for key-based and script-based credentials, rules for replacing votes, and safeguards for changes to authorization. It also permits shared credentials across multiple pools, subject to explicit authorization by each pool.
+
+CIP-0175 emerged from discussions about the *Calidus Keys* established by CIP-0151, but its final design uses a separate, ledger-enforced authorization mechanism rather than relying on metadata. The specification was incorporated into the official CIP repository in July 2026. **It remains Proposed and is not active on mainnet.**
+
+## 2. Background: SPO Governance and Key Management
+
+### The SPO governance role
+
+CIP-1694 introduced SPOs as a governance body with voting responsibilities for certain governance actions. These include hard fork initiation, motions of no confidence, Constitutional Committee updates, and changes to security-relevant protocol parameters, subject to the rules applicable to each action type.
+
+This role reflects the responsibility of stake pool operators for network infrastructure and security. However, submitting governance votes involves a different operational workflow from producing blocks.
+
+### Distinct types of pool credentials
+
+Stake pools use several cryptographic credentials with different purposes:
+
+- **Pool cold keys** establish a pool's identity and authorize sensitive administrative operations. The pool ID is derived from the hash of its cold verification key. Cold keys are generally kept offline.
+- **KES keys** (*Key Evolving Signature* keys) are operational signing keys used in block production and periodically rotated.
+- **VRF keys** (*Verifiable Random Function* keys) support the block production process.
+
+The credential proposed by CIP-0175 is **a separate governance authorization**, not simply a reuse of the existing KES or VRF key.
+
+Under the current rules, an SPO typically needs access to its cold key to sign a governance vote. For an operator using an offline signing system, this can require preparing an unsigned transaction, transferring it to a secure environment, generating the signature, and returning the transaction for submission. These procedures protect the cold key but make frequent voting less convenient.
+
+### Calidus Keys and CIP-0151
+
+**[CIP-0151 - On-Chain Registration - Stake Pools](https://cips.cardano.org/cip/CIP-0151)**, authored by Adam Dean and Martin Lang, introduced a way for pools to publish verifiable registration information through transaction metadata, extending the CIP-0088 registration framework.
+
+Its *Calidus Key* mechanism enables an authorized Ed25519 public key to be associated with a pool for authentication and message signing. Applications and services can interpret that metadata to verify an operator's authority without routinely requiring the pool cold key.
+
+However, **metadata-based authentication is not the same as ledger-enforced authorization for governance votes**. A Calidus registration does not, by itself, allow an SPO vote to pass the ledger's authorization checks without the cold key.
+
+This distinction became central to CIP-0175's design.
+
+## 3. Motivation: Participation, Security, and Ledger Authorization
+
+### Reducing operational barriers
+
+The cold-key requirement can discourage routine governance voting, especially among operators who maintain strict offline storage procedures or manage multiple pools. The practical cost of voting may involve more than creating a transaction: it can require a sensitive signing workflow each time.
+
+CIP-0175 seeks to separate **infrequent, high-assurance authorization** from **day-to-day governance voting**. A cold key would establish which hot credential is trusted, and that credential would handle ordinary votes until replaced or revoked.
+
+The proposal does not establish that cold-key requirements are the sole or primary cause of limited SPO participation. It addresses one identifiable operational barrier.
+
+### Preserving security while increasing flexibility
+
+Repeatedly using a highly protected credential can increase opportunities for handling errors or unintended exposure.
+
+A hot governance credential offers operational flexibility, but it also creates a different risk: it may be compromised or used to submit votes that the controller of the pool's cold key did not approve.
+
+The design therefore retains cold-key authority and provides mechanisms to invalidate relevant votes after an authorization change. Those mechanisms are described in Section 4, while their security implications are examined in Section 7.
+
+### Why the ledger cannot simply rely on Calidus metadata
+
+CIP-0175's initial concept considered using existing Calidus registrations as a basis for vote authorization. Technical reviewers objected to making consensus-critical validation depend on metadata interpreted by external applications.
+
+The final approach instead uses an explicit certificate and a ledger-maintained mapping of authorized credentials. This gives the protocol deterministic rules for deciding who may vote on behalf of a registered pool, independently of how third-party services use Calidus registrations.
+
+## 4. Technical Specification
+
+### Hot credential assignment and revocation
+
+CIP-0175 introduces a new certificate:
+
+`AssignStakePoolHotCredential(poolId, hotCredOpt)`
+
+The certificate must identify a currently registered pool, and the transaction containing it must include a valid witness from that pool's cold key. The optional credential field determines its operation:
+
+| Operation | `hotCredOpt` | Result |
+|---|---|---|
+| Assign | A credential | Authorizes the supplied credential |
+| Replace | A different credential | Replaces the existing authorization |
+| Revoke | `null` | Removes any existing hot authorization |
+| Revoke when none exists | `null` | Valid operation with no state change |
+
+Multiple certificates for the same pool may appear in one transaction. They are processed in transaction order, so the final certificate determines the authorization state.
+
+The certificate is separate from ordinary stake pool registration and update certificates. It does not require an operator to re-register a pool to change its governance credential.
+
+### Ledger state and activation timing
+
+The proposal introduces a ledger state mapping:
+
+`poolGovHotCreds : Map PoolId Credential`
+
+This mapping records the authorized hot governance credential for each participating pool. **Assignment, replacement, and revocation take effect as soon as the relevant transaction is applied**, rather than waiting for an epoch boundary as some ordinary stake pool parameter updates do.
+
+A pool with a retirement scheduled but not yet enacted retains its authorized credential. When retirement takes effect, the associated hot-credential entry is removed along with the pool's state.
+
+There is no uniqueness requirement: multiple pools may authorize the same credential, but each pool's authorization must be established separately.
+
+### Explicit cold and hot voting modes
+
+The proposed SPO voter representation is:
+
+`StakePoolVoter !(KeyHash 'StakePool) (Maybe (Credential Hot))`
+
+It distinguishes two authorization paths:
+
+| Mode | Voter representation | Required authorization |
+|---|---|---|
+| Cold | `StakePoolVoter poolId Nothing` | A valid pool cold-key witness |
+| Hot | `StakePoolVoter poolId (Just hotCred)` | A witness satisfying `hotCred`, with the ledger confirming that it matches the pool's currently authorized credential |
+
+The vote itself identifies the authorization mode, rather than requiring the ledger to infer it from the available witnesses.
+
+A hot credential may be a **key hash** or a **script hash**. Key credentials require the appropriate signature; script credentials follow the applicable governance voting-script rules. The proposal supports native scripts and Plutus scripts, using the existing `Voting` script purpose where relevant.
+
+Consequently, pools could use ordinary keys, multisignature arrangements, or other supported script-based custody models without changing the fundamental SPO governance role.
+
+### Vote replacement rules
+
+For each active `(govActionId, poolId)` pair, the ledger maintains the latest SPO vote and records whether it was authorized through the cold or hot mechanism.
+
+| Recorded vote | New vote | May replace it? |
+|---|---|---|
+| Hot | Hot | Yes |
+| Hot | Cold | Yes |
+| Cold | Cold | Yes |
+| Cold | Hot | No |
+
+A **cold-authorized vote takes precedence** for that governance action and pool. Once a cold vote has been recorded, a hot vote cannot replace it. The CIP recommends a predicate failure for an attempted hot-over-cold replacement rather than silently ignoring the transaction.
+
+These rules preserve an override mechanism for the holder of the pool's cold key while allowing ordinary votes to be updated using the authorized hot credential, provided no cold-authorized vote has taken precedence.
+
+### Effect of authorization changes on existing votes
+
+If a pool changes or revokes its hot-credential authorization, the ledger **must exclude its current hot-authorized votes from ratification calculations** for governance actions that remain active. Cold-authorized votes remain valid.
+
+A certificate that leaves the authorization state unchanged does not invalidate votes.
+
+The CIP does not require retaining or deleting superseded votes in ledger state. For each `(govActionId, poolId)`, only the latest vote and its authorization source need to be tracked.
+
+Once a governance action has already been ratified, subsequent changes to credentials or votes during the one-epoch delay before enactment cannot alter its outcome. This follows the broader governance rules applicable to other voting bodies as well.
+
+### Compatibility and implementation requirements
+
+The proposal preserves cold-key SPO voting while extending the voter representation and ledger authorization rules. It does not change SPO vote options, governance action categories, or ratification thresholds established by CIP-1694.
+
+Implementation requires coordinated changes to certificates, ledger state, witness validation, vote tracking, formal specifications, and supporting tooling. Because these are ledger-level changes, **activation requires a future hard fork**.
+
+## 5. Development, Review, and Hard Fork Planning
+
+### Initial proposal and technical redesign
+
+Ryan Wiley submitted [CIP-0175 PR #1140](https://github.com/cardano-foundation/CIPs/pull/1140) on **January 22, 2026**, following discussions with technical governance contributors. The original concept was closely connected to the Calidus system defined in CIP-0151.
+
+During February 2026, reviewers raised concerns about using transaction metadata as a source of authority for ledger validation. The proposal was subsequently rewritten to define a new authorization certificate and state maintained directly by the ledger.
+
+That redesign also broadened the scope from Calidus signing keys to general governance credentials, allowing both keys and scripts. It established CIP-0175 as a distinct technical standard rather than an extension that merely makes Calidus metadata consensus-critical.
+
+### Refinement of the authorization model
+
+Technical discussions during February, March, and July addressed several design decisions:
+
+- **One certificate instead of two:** a single optional-credential certificate handles assignment, replacement, and revocation.
+- **Immediate state changes:** revocation or replacement must not wait for a new epoch.
+- **Cold-key control:** the pool cold key remains the authority for credential assignment and direct voting.
+- **Explicit voter representation:** votes identify whether cold or hot authorization is being used.
+- **Vote precedence and invalidation:** cold votes take priority over hot votes, and changes to hot authorization affect eligible votes on still-active actions.
+- **Flexible custody:** key and script credentials can be used, including arrangements shared by multiple pools.
+
+These points emerged through the [original pull request discussion](https://github.com/cardano-foundation/CIPs/pull/1140), involving CIP editors, ledger developers, and SPO contributors.
+
+CIP-0175 was **merged into the official CIP repository on July 21, 2026**, establishing a formal specification but not implementing the change on mainnet.
+
+### Why Dijkstra did not include CIP-0175
+
+CIP-0175 was considered for the Dijkstra ledger era. Its implementation was judged too complex to fit alongside existing development commitments: it affects certificate processing, pool state, voting authorization, ledger validation, and formal specifications.
+
+During a [July 2026 discussion](https://github.com/cardano-foundation/CIPs/pull/1140#issuecomment-5010449635), ledger developer Alexey Kuleshevich warned that adding it to Dijkstra could substantially delay delivery and would require dedicated development resources.
+
+The published [Dijkstra hard fork plan](https://github.com/IntersectMBO/product-website/blob/master/docs/hardfork-planning/dijkstra.md) subsequently classified CIP-0175 as **considered but not included**, identifying a later era as a more suitable target.
+
+This scheduling decision did not reject the proposal's objective; it concerned implementation complexity and delivery capacity.
+
+### An alternative experiment in September 2026
+
+Two experimental pull requests explored an intermediate approach in which registered BLS credentials associated with Leios-related infrastructure could authorize SPO governance votes:
+
+- [cardano-ledger PR #6050](https://github.com/IntersectMBO/cardano-ledger/pull/6050)
+- [Formal Ledger Specifications PR #1309](https://github.com/IntersectMBO/formal-ledger-specifications/pull/1309)
+
+This approach differed from CIP-0175's general-purpose credential and certificate model. **Both experimental PRs were closed without being merged.** They document an alternative under consideration, not an implemented substitute for CIP-0175.
+
+## 6. Relationship with Beyond Minimum Viable Governance
+
+### Evidence of declining SPO participation
+
+The **Beyond Minimum Viable Governance (Beyond-MVG)** project examined Cardano governance through on-chain measurements, workshops, surveys, and interviews.
+
+Its [State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf) analyzed epochs **537-609**, approximately January 2025 to January 2026, and reported that active SPO voting stake declined from approximately **55% to 37%** during the period. Engagement varied across governance action types and was higher where SPO participation was required.
+
+The qualitative research also identified inadequate voting tools, limited workflow integration, and reluctance to expose cold keys as participation barriers. These findings suggest that reduced voting activity cannot be explained solely by lack of interest, although they do not establish that cold-key requirements alone caused the decline.
+
+### A related research recommendation
+
+One of the project's six principal recommendations was **SPO Voting Tools That Do Not Require Cold Keys**. It proposed implementing CIP-0175 or an equivalent mechanism, alongside appropriate tooling, to reduce the need for cold-key access during governance voting.
+
+The recommendation referred to Calidus Keys, reflecting their role in the earlier technical discussions. However, the final CIP-0175 specification authorizes general ledger-recognized credentials rather than simply treating Calidus metadata as voting authority.
+
+**CIP-0175 predates the publication of Beyond-MVG's final recommendations.** Submitted in January 2026, it developed alongside the research rather than originating as a deliverable of the final report. Beyond-MVG contributor Ken Erik Ølmheim participated in the [CIP discussion](https://github.com/cardano-foundation/CIPs/pull/1140), connecting the proposal to SPO participation findings.
+
+### What the proposal does not solve
+
+CIP-0175 addresses the mechanics of vote authorization. It does not automatically inform operators when votes are needed, explain complex governance actions, or provide the interfaces necessary for convenient participation.
+
+Beyond-MVG also recommended improving governance notifications for SPOs. The two directions are complementary: easier signing reduces one form of operational friction, while notifications and supporting tools address other barriers to participation.
+
+Any measurable participation benefit from CIP-0175 would depend on its activation, compatible tooling, and subsequent operator behavior.
+
+## 7. Security and Governance Tradeoffs
+
+### Compromised credentials and recovery
+
+An authorized hot credential could be compromised, allowing unauthorized votes to be submitted while the credential remains valid. The immediate replacement and revocation mechanisms in Section 4 limit this exposure by preventing superseded hot-authorized votes from affecting still-active governance actions.
+
+Operators can then cast new votes under current authorization or directly with the cold key. The safeguard does **not** reverse governance decisions already ratified, making detection speed and incident procedures important.
+
+Script credentials, including multisignature arrangements, offer alternatives to a single operational key. They can distribute control but also introduce configuration, coordination, and recovery requirements. The CIP permits these models without imposing a particular custody arrangement.
+
+### Shared credentials and operational delegation
+
+A pool may authorize a hot credential controlled by another individual or organization. The same credential may also be authorized by several pools, supporting multi-pool operations and shared governance signing infrastructure.
+
+This does **not** mean that one vote automatically applies to all pools sharing the credential. Each vote identifies a specific `poolId`, which must have authorized that credential, and different pools may cast different votes on the same governance action.
+
+Shared authorization may simplify operations, but it can also concentrate practical voting authority in one operator or service provider. The arrangement is permitted by the specification and does not necessarily indicate misuse. The controller of each pool's cold key retains the authority to revoke that pool's hot credential or override its hot-authorized votes.
+
+### Accountability and participation
+
+CIP-0175 makes SPO governance voting more flexible while introducing choices about custody and the distribution of signing authority. Operators would need to decide whether to retain direct control, use internal multisignature arrangements, or authorize external services.
+
+Those choices could influence the resilience and accountability of SPO participation. **The proposal addresses authorization, not the substantive quality or independence of governance decisions.** It also introduces no limit on how many pools may authorize the same credential.
+
+## 8. Current Status and Significance
+
+As of October 2026, **CIP-0175 remains Proposed**. It has been published in the official CIP repository but has not completed the acceptance criteria for activation.
+
+The criteria include a merged ledger implementation in at least one node client, compatible tools for certificates and voting, inclusion in a hard fork release, and implementation in block-producing nodes representing at least 80% of stake. No mainnet activation has been established, and the published Dijkstra plan places the proposal outside that era's scope.
+
+If adopted, CIP-0175 could reduce the operational burden of SPO governance voting while preserving a higher-assurance authority for credential management and direct intervention. It could also enable more flexible organizational signing arrangements through native and Plutus scripts.
+
+The benefits are conditional. Tooling must support the certificates and extended voter representation, operators must adopt secure credential-management practices, and easier authorization alone does not guarantee greater participation.
+
+The broader significance of CIP-0175 is its attempt to reconcile **routine governance usability, secure authorization, and accountable control** without changing the underlying voting role or weight of Stake Pool Operators.
+
+---
+
+## 9. Documentation & References
+
+### Primary Documents
+
+**[CIP-0175 - Stake Pool Hot Credentials](https://cips.cardano.org/cip/CIP-0175)**
+
+The official specification covering authorization certificates, credential types, voting rules, security considerations, and acceptance criteria.
+
+**[CIP-0175 - Original GitHub Pull Request #1140](https://github.com/cardano-foundation/CIPs/pull/1140)**
+
+The proposal's discussion and revision history, including its transition from a Calidus-related idea to an explicit ledger authorization mechanism.
+
+**[CIP-1694 - A First Step Towards On-Chain Decentralized Governance](https://cips.cardano.org/cip/CIP-1694)**
+
+The underlying governance framework defining SPO voting responsibilities, governance actions, and ratification rules.
+
+### Related Technical Standards
+
+**[CIP-0151 - On-Chain Registration - Stake Pools](https://cips.cardano.org/cip/CIP-0151)**
+
+The metadata-based stake pool registration standard introducing Calidus Keys for authentication and off-chain services.
+
+**[CIP-0151 - Original GitHub Pull Request #999](https://github.com/cardano-foundation/CIPs/pull/999)**
+
+The original development discussion of the Calidus registration standard.
+
+**[Cardano Documentation - Creating Keys and Operational Certificates](https://docs.cardano.org/stake-pool-operators/creating-keys-and-certificates)**
+
+Background on the distinct roles of pool cold keys, KES keys, VRF keys, and operational certificates.
+
+**[Cardano Developer Portal - SPO Governance](https://developers.cardano.org/docs/operate-a-stake-pool/governance/spo-governance/)**
+
+Operational guidance on stake pool governance voting and authorization.
+
+### Implementation and Hard Fork Planning
+
+**[Dijkstra Hard Fork Planning](https://github.com/IntersectMBO/product-website/blob/master/docs/hardfork-planning/dijkstra.md)**
+
+The published plan explicitly identifying CIP-0175 as considered but excluded from the Dijkstra era.
+
+**[cardano-ledger PR #6050 - Pool-Vote Witnesses for BLS-Authorized SPO Governance Votes](https://github.com/IntersectMBO/cardano-ledger/pull/6050)**
+
+A September 2026 experimental alternative closed without being merged.
+
+**[Formal Ledger Specifications PR #1309 - Pool-Vote Witnesses](https://github.com/IntersectMBO/formal-ledger-specifications/pull/1309)**
+
+The corresponding experimental formal specification, also closed without being merged.
+
+### Beyond-MVG Research
+
+**[State of Cardano Governance Report](https://github.com/input-output-hk/Beyond_MVG/blob/main/docs/State%20Of%20Governance%20Report.pdf)**
+
+The project's final research report, including measurements of SPO participation and recommendations to reduce cold-key voting friction.
+
+**[Beyond-MVG - Public Research Repository](https://github.com/input-output-hk/Beyond_MVG)**
+
+Public governance measurements, research materials, and supporting documentation.
+
+**[Beyond-MVG - Project Completion Report](https://www.essentialcardano.io/article/beyond-mvg-project-complete)**
+
+An overview of the project's conclusions and governance recommendations.
+
+### Community Discussions
+
+**[Dijkstra Era Hard Fork CIP Shortlist - Cardano Forum](https://forum.cardano.org/t/dijkstra-era-hard-fork-cip-shortlist/154213)**
+
+Community discussion of proposals considered for the Dijkstra era, including CIP-0175.
