@@ -99,6 +99,20 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: 'Research & Analysis',
+              translations: {
+                'pt-br': 'Pesquisa e Análise',
+              },
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: 'cardano-governance/governance-framework-research-&-analysis',
+                  },
+                },
+              ],
+            },
           ],
         },
         {
