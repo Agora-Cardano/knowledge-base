@@ -25,7 +25,7 @@ Esta seção apresenta esses mecanismos, explica o ciclo de vida de uma Governan
 
 ---
 
-## 1. Visão Geral e Finalidade
+## Visão Geral e Finalidade
 
 As Governance Actions permitem que decisões que afetam a rede Cardano sejam formalmente propostas, submetidas à votação e, quando aplicável, implementadas por meio da blockchain.
 
@@ -42,11 +42,11 @@ Nem todas as Governance Actions produzem mudanças executáveis. As **Info Actio
 - [What Is a Governance Action? - GovTool](https://docs.gov.tools/cardano-govtool/faqs/what-is-a-governance-action/)
 - [Cardano Governance Actions - Visual Guides](https://cardano.org/insights/governance-actions/)
 
-## 2. Tipos de Governance Actions
+## Tipos de Governance Actions
 
 A Cardano define sete tipos de Governance Actions. A lista a seguir respeita a ordem apresentada na CIP-1694, que também é relevante para as regras de precedência que regem a ratificação e o *enactment*.
 
-### 2.1. Motion of No Confidence
+### Motion of No Confidence
 
 Uma **Motion of No Confidence** permite que os participantes da governança retirem sua confiança no Constitutional Committee vigente.
 
@@ -56,7 +56,7 @@ Esse mecanismo oferece uma forma de responder a circunstâncias nas quais o comi
 
 **Aprovação necessária:** DReps e SPOs.
 
-### 2.2. Update Constitutional Committee
+### Update Constitutional Committee
 
 Esta ação modifica a composição ou a configuração do Constitutional Committee.
 
@@ -70,7 +70,7 @@ Os requisitos de ratificação variam conforme o sistema de governança esteja o
 
 **Aprovação necessária:** DReps e SPOs.
 
-### 2.3. New Constitution or Guardrails Script
+### New Constitution or Guardrails Script
 
 Esta ação permite atualizar a estrutura constitucional da Cardano.
 
@@ -80,7 +80,7 @@ A Constituição estabelece princípios, requisitos e restrições que regem as 
 
 **Aprovação necessária:** DReps e Constitutional Committee.
 
-### 2.4. Hard Fork Initiation
+### Hard Fork Initiation
 
 As ações de **Hard Fork Initiation** autorizam mudanças na versão principal do protocolo da rede.
 
@@ -90,7 +90,7 @@ A ratificação é apenas uma parte do processo de atualização. Os participant
 
 **Aprovação necessária:** DReps, SPOs e Constitutional Committee.
 
-### 2.5. Protocol Parameter Changes
+### Protocol Parameter Changes
 
 As ações de **Protocol Parameter Change** modificam parâmetros configuráveis que influenciam o funcionamento da Cardano.
 
@@ -114,7 +114,7 @@ Uma única Governance Action pode propor alterações em múltiplos parâmetros,
 - [Protocol Parameter Changes - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/protocol-parameters-changes/)
 - [Governance Action Charts - Parameter Changes](https://cardano.org/insights/governance-actions/)
 
-### 2.6. Treasury Withdrawals
+### Treasury Withdrawals
 
 As ações de **Treasury Withdrawal** autorizam a transferência de ADA do tesouro *on-chain* da Cardano para *reward accounts* especificadas.
 
@@ -147,7 +147,7 @@ O requisito do NCL, entretanto, permanece em vigor.
 - [Cardano Constitution - Article II, Section 7 and Guardrails TREASURY-01a/02a](https://cardano.org/constitution/)
 - [CIP-173 - Net Change Limit Parameter](https://cips.cardano.org/cip/CIP-0173)
 
-### 2.7. Info Actions
+### Info Actions
 
 As **Info Actions** oferecem um mecanismo *on-chain* para registrar informações, realizar consultas de sinalização ou expressar preferências coletivas.
 
@@ -163,7 +163,7 @@ Elas podem ser utilizadas para subsidiar decisões futuras ou fornecer um regist
 
 - [Info Actions - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/info-action/)
 
-## 3. Votação e Ratificação
+## Votação e Ratificação
 
 As Governance Actions são avaliadas por meio de um sistema de votação ponderado pelo *stake*, envolvendo diferentes órgãos de governança.
 
@@ -217,19 +217,19 @@ Se a ação atingir seu prazo de expiração sem satisfazer as condições de ra
 - [Cardano Governance Action Charts](https://cardano.org/insights/governance-actions/)
 - [Current Protocol Parameters - Cardanoscan](https://cardanoscan.io/protocolparams)
 
-## 4. Ciclo de Vida, Expiração e Enactment
+## Ciclo de Vida, Expiração e Enactment
 
 Uma Governance Action passa por diversas etapas, desde sua submissão inicial até seu resultado final.
 
 <Image src={lifecycleImage} alt="Ciclo de vida de uma Governance Action" loading="lazy" />
 
-### 4.1. Submissão
+### Submissão
 
 Uma Governance Action é registrada no *ledger* quando uma transação válida contendo a proposta é submetida.
 
 A ação passa a ser identificável *on-chain* e recebe um período de votação determinado pelo parâmetro de protocolo `govActionLifetime`.
 
-### 4.2. Votação Ativa
+### Votação Ativa
 
 Durante seu período de atividade, os órgãos de governança elegíveis podem registrar votos.
 
@@ -237,7 +237,7 @@ A atividade de votação e os níveis de aprovação podem ser acompanhados por 
 
 A ação permanece sujeita às regras de ratificação aplicáveis até que seja ratificada, expire ou deixe de ser elegível por outro motivo.
 
-### 4.3. Ratificação
+### Ratificação
 
 Uma Governance Action torna-se elegível à ratificação quando todos os *thresholds* de aprovação aplicáveis são satisfeitos.
 
@@ -249,7 +249,7 @@ Uma vez ratificada, a Governance Action avança em direção ao *enactment*. **A
 
 Uma Governance Action não precisa permanecer ativa durante todo o seu período de seis *epochs*. Se todos os *thresholds* de aprovação e condições de ratificação aplicáveis forem satisfeitos em uma transição de *epoch* anterior, ela poderá ser ratificada naquele momento e avançar para o *enactment*. O período de seis *epochs* representa um limite de expiração, não um prazo obrigatório de espera.
 
-### 4.4. Enactment
+### Enactment
 
 Uma vez ratificada, a Governance Action é preparada para o *enactment*.
 
@@ -261,7 +261,7 @@ Dependendo do tipo de ação, o *enactment* pode alterar parâmetros do protocol
 
 Determinadas Governance Actions podem atrasar a ratificação ou o *enactment* de outras ações devido a regras de precedência e dependência. As ações de Hard Fork Initiation também exigem adoção coordenada de software; o *enactment* no *ledger*, por si só, não garante que todos os participantes da rede tenham realizado a atualização.
 
-### 4.5. Expiração
+### Expiração
 
 Uma Governance Action expira quando seu período de validade permitido termina sem ratificação, sujeito a eventuais extensões ou restrições relacionadas ao estado da governança.
 
@@ -269,7 +269,7 @@ Esse período é controlado pelo parâmetro `govActionLifetime`, que o Developer
 
 Como esse parâmetro pode ser ajustado por meio da governança, os leitores devem consultar os parâmetros atuais do protocolo, em vez de presumir um prazo fixo e permanente.
 
-### 4.6. Dependências e Precedência
+### Dependências e Precedência
 
 As Governance Actions nem sempre são independentes umas das outras. Mesmo quando os *thresholds* de votação exigidos são atingidos, regras adicionais do *ledger* podem impedir ou atrasar a ratificação.
 
@@ -291,7 +291,7 @@ Para consultar as regras técnicas detalhadas, consulte a [CIP-1694](https://cip
 - [Governance Action Charts - Ratification and Enactment](https://cardano.org/insights/governance-actions/)
 - [GovTool - View Governance Actions](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/view-governance-actions/)
 
-## 5. Submissão e Depósito
+## Submissão e Depósito
 
 ### Quem Pode Submeter uma Governance Action?
 
@@ -403,7 +403,7 @@ Outros conceitos também surgiram, refletindo a demanda por depósitos de Govern
 
 Ambos foram submetidos ao Catalyst Fund14, mas **não receberam financiamento**, e nenhuma implementação posterior foi verificada. Eles são incluídos como exemplos de abordagens propostas, e não como serviços disponíveis.
 
-## 6. Referências e Guias Práticos
+## Referências e Guias Práticos
 
 Os recursos a seguir fornecem explicações adicionais, documentação técnica, visualizações interativas e interfaces práticas para explorar Governance Actions.
 
