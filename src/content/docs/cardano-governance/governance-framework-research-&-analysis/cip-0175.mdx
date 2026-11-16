@@ -24,7 +24,7 @@ sidebar:
 
 ---
 
-## 1. Overview
+## Overview
 
 Stake Pool Operators (SPOs) maintain Cardano's block production infrastructure and participate in its decentralized governance. Under the framework established by [CIP-1694](https://cips.cardano.org/cip/CIP-1694), they form one of three governance bodies alongside Delegated Representatives (DReps) and the Constitutional Committee (CC).
 
@@ -36,7 +36,7 @@ The proposal defines more than an alternative signing method. It introduces ledg
 
 CIP-0175 emerged from discussions about the *Calidus Keys* established by CIP-0151, but its final design uses a separate, ledger-enforced authorization mechanism rather than relying on metadata. The specification was incorporated into the official CIP repository in July 2026. **It remains Proposed and is not active on mainnet.**
 
-## 2. Background: SPO Governance and Key Management
+## Background: SPO Governance and Key Management
 
 ### The SPO governance role
 
@@ -66,7 +66,7 @@ However, **metadata-based authentication is not the same as ledger-enforced auth
 
 This distinction became central to CIP-0175's design.
 
-## 3. Motivation: Participation, Security, and Ledger Authorization
+## Motivation: Participation, Security, and Ledger Authorization
 
 ### Reducing operational barriers
 
@@ -90,7 +90,7 @@ CIP-0175's initial concept considered using existing Calidus registrations as a 
 
 The final approach instead uses an explicit certificate and a ledger-maintained mapping of authorized credentials. This gives the protocol deterministic rules for deciding who may vote on behalf of a registered pool, independently of how third-party services use Calidus registrations.
 
-## 4. Technical Specification
+## Technical Specification
 
 ### Hot credential assignment and revocation
 
@@ -173,7 +173,7 @@ The proposal preserves cold-key SPO voting while extending the voter representat
 
 Implementation requires coordinated changes to certificates, ledger state, witness validation, vote tracking, formal specifications, and supporting tooling. Because these are ledger-level changes, **activation requires a future hard fork**.
 
-## 5. Development, Review, and Hard Fork Planning
+## Development, Review, and Hard Fork Planning
 
 ### Initial proposal and technical redesign
 
@@ -217,7 +217,7 @@ Two experimental pull requests explored an intermediate approach in which regist
 
 This approach differed from CIP-0175's general-purpose credential and certificate model. **Both experimental PRs were closed without being merged.** They document an alternative under consideration, not an implemented substitute for CIP-0175.
 
-## 6. Relationship with Beyond Minimum Viable Governance
+## Relationship with Beyond Minimum Viable Governance
 
 ### Evidence of declining SPO participation
 
@@ -243,7 +243,7 @@ Beyond-MVG also recommended improving governance notifications for SPOs. The two
 
 Any measurable participation benefit from CIP-0175 would depend on its activation, compatible tooling, and subsequent operator behavior.
 
-## 7. Security and Governance Tradeoffs
+## Security and Governance Tradeoffs
 
 ### Compromised credentials and recovery
 
@@ -267,7 +267,7 @@ CIP-0175 makes SPO governance voting more flexible while introducing choices abo
 
 Those choices could influence the resilience and accountability of SPO participation. **The proposal addresses authorization, not the substantive quality or independence of governance decisions.** It also introduces no limit on how many pools may authorize the same credential.
 
-## 8. Current Status and Significance
+## Current Status and Significance
 
 As of October 2026, **CIP-0175 remains Proposed**. It has been published in the official CIP repository but has not completed the acceptance criteria for activation.
 
@@ -281,7 +281,7 @@ The broader significance of CIP-0175 is its attempt to reconcile **routine gover
 
 ---
 
-## 9. Documentation & References
+## Documentation & References
 
 ### Primary Documents
 
