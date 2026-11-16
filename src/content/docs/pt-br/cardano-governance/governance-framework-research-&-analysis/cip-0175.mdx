@@ -24,7 +24,7 @@ sidebar:
 
 ---
 
-## 1. Visão geral
+## Visão geral
 
 Os *Stake Pool Operators* (SPOs) mantêm a infraestrutura de produção de blocos da Cardano e participam de sua governança descentralizada. No modelo estabelecido pela [CIP-1694](https://cips.cardano.org/cip/CIP-1694), constituem um dos três corpos de governança, ao lado dos *Delegated Representatives* (DReps) e do *Constitutional Committee* (CC).
 
@@ -36,7 +36,7 @@ A proposta vai além de um método alternativo de assinatura. Ela introduz autor
 
 A CIP-0175 surgiu de discussões sobre as *Calidus Keys* estabelecidas pela CIP-0151, mas sua versão final utiliza um mecanismo de autorização independente, validado pelo *ledger*, em vez de depender de metadados. A especificação foi incorporada ao repositório oficial de CIPs em julho de 2026. **Seu status permanece Proposed, e ela não está ativa na *mainnet*.**
 
-## 2. Contexto: governança dos SPOs e gerenciamento de chaves
+## Contexto: governança dos SPOs e gerenciamento de chaves
 
 ### O papel dos SPOs na governança
 
@@ -66,7 +66,7 @@ Entretanto, **a autenticação baseada em metadados não equivale à autorizaç�
 
 Essa distinção tornou-se central para o desenho da CIP-0175.
 
-## 3. Motivação: participação, segurança e autorização no ledger
+## Motivação: participação, segurança e autorização no ledger
 
 ### Redução das barreiras operacionais
 
@@ -90,7 +90,7 @@ O conceito inicial da CIP-0175 considerava utilizar registros Calidus existentes
 
 A abordagem final utiliza um certificado explícito e um mapeamento de credenciais autorizadas mantido pelo *ledger*. Isso fornece ao protocolo regras determinísticas para decidir quem pode votar em nome de um pool registrado, independentemente de como serviços de terceiros utilizem os registros Calidus.
 
-## 4. Especificação técnica
+## Especificação técnica
 
 ### Atribuição e revogação de hot credentials
 
@@ -173,7 +173,7 @@ A proposta preserva a votação dos SPOs com *cold keys*, ao mesmo tempo que amp
 
 A implementação exige alterações coordenadas em certificados, estado do *ledger*, validação de assinaturas e demais provas de autorização (*witnesses*), registro de votos, especificações formais e ferramentas de suporte. Como essas mudanças ocorrem no nível do *ledger*, **a ativação exige um futuro *hard fork***.
 
-## 5. Desenvolvimento, revisão e planejamento de hard forks
+## Desenvolvimento, revisão e planejamento de hard forks
 
 ### Proposta inicial e reformulação técnica
 
@@ -243,7 +243,7 @@ O Beyond-MVG também recomendou melhorias nas notificações de governança dest
 
 Qualquer benefício mensurável da CIP-0175 para a participação dependeria de sua ativação, da disponibilidade de ferramentas compatíveis e do comportamento posterior dos operadores.
 
-## 7. Compromissos entre segurança e governança
+## Compromissos entre segurança e governança
 
 ### Credenciais comprometidas e recuperação
 
@@ -267,7 +267,7 @@ A CIP-0175 torna a votação de governança dos SPOs mais flexível, ao mesmo te
 
 Essas escolhas podem influenciar a resiliência e a *accountability* da participação dos SPOs. **A proposta trata de autorização, não da qualidade substantiva nem da independência das decisões de governança.** Ela também não estabelece um limite para a quantidade de pools que podem autorizar a mesma credencial.
 
-## 8. Status atual e relevância
+## Status atual e relevância
 
 Em outubro de 2026, **a CIP-0175 permanece com status Proposed**. Ela foi publicada no repositório oficial de CIPs, mas ainda não cumpriu os critérios de aceitação necessários à ativação.
 
@@ -281,7 +281,7 @@ A relevância mais ampla da CIP-0175 está em sua tentativa de conciliar **usabi
 
 ---
 
-## 9. Documentação e referências
+## Documentação e referências
 
 ### Documentos primários
 
