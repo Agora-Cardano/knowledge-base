@@ -25,7 +25,7 @@ This section introduces these mechanisms, explains the lifecycle of a Governance
 
 ---
 
-## 1. Overview & Purpose
+## Overview & Purpose
 
 Governance Actions allow decisions affecting the Cardano network to be formally proposed, voted upon, and, where applicable, enacted through the blockchain.
 
@@ -42,11 +42,11 @@ Not all Governance Actions produce executable changes. **Info Actions**, for exa
 - [What Is a Governance Action? - GovTool](https://docs.gov.tools/cardano-govtool/faqs/what-is-a-governance-action/)
 - [Cardano Governance Actions - Visual Guides](https://cardano.org/insights/governance-actions/)
 
-## 2. Governance Action Types
+## Governance Action Types
 
 Cardano defines seven Governance Action types. The following list follows their order in CIP-1694, which is also relevant to the precedence rules governing ratification and enactment.
 
-### 2.1. Motion of No Confidence
+### Motion of No Confidence
 
 A Motion of No Confidence allows governance participants to withdraw confidence from the current Constitutional Committee.
 
@@ -56,7 +56,7 @@ This mechanism provides a means of responding to circumstances in which the exis
 
 **Required approval:** DReps and SPOs.
 
-### 2.2. Update Constitutional Committee
+### Update Constitutional Committee
 
 This action modifies the composition or configuration of the Constitutional Committee.
 
@@ -70,7 +70,7 @@ The requirements for ratification differ depending on whether the governance sys
 
 **Required approval:** DReps and SPOs.
 
-### 2.3. New Constitution or Guardrails Script
+### New Constitution or Guardrails Script
 
 This action allows Cardano's constitutional framework to be updated.
 
@@ -80,7 +80,7 @@ The Constitution establishes principles, requirements, and restrictions governin
 
 **Required approval:** DReps and the Constitutional Committee.
 
-### 2.4. Hard Fork Initiation
+### Hard Fork Initiation
 
 Hard Fork Initiation actions authorize changes to the network's major protocol version.
 
@@ -90,7 +90,7 @@ Ratification is only one part of the upgrade process. Network participants must 
 
 **Required approval:** DReps, SPOs, and the Constitutional Committee.
 
-### 2.5. Protocol Parameter Changes
+### Protocol Parameter Changes
 
 Protocol Parameter Change actions modify configurable parameters that influence how Cardano operates.
 
@@ -114,7 +114,7 @@ A single Governance Action can propose changes to multiple parameters, including
 - [Protocol Parameter Changes - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/protocol-parameters-changes/)
 - [Governance Action Charts - Parameter Changes](https://cardano.org/insights/governance-actions/)
 
-### 2.6. Treasury Withdrawals
+### Treasury Withdrawals
 
 Treasury Withdrawal actions authorize the transfer of ADA from Cardano's on-chain treasury to specified reward accounts.
 
@@ -147,7 +147,7 @@ The NCL requirement, however, remains in effect.
 - [CIP-173 - Net Change Limit Parameter](https://cips.cardano.org/cip/CIP-0173)
 
 
-### 2.7. Info Actions
+### Info Actions
 
 Info Actions provide an on-chain mechanism for recording information, conducting signaling exercises, or expressing collective preferences.
 
@@ -163,7 +163,7 @@ They may be used to inform future decisions or provide a publicly verifiable rec
 
 - [Info Actions - GovTool](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/types-of-governance-actions/info-action/)
 
-## 3. Voting & Ratification
+## Voting & Ratification
 
 Governance Actions are evaluated through a stake-weighted voting system involving different governance bodies.
 
@@ -219,19 +219,19 @@ If the action reaches its expiration deadline without satisfying the applicable 
 - [Cardano Governance Action Charts](https://cardano.org/insights/governance-actions/)
 - [Current Protocol Parameters - Cardanoscan](https://cardanoscan.io/protocolparams)
 
-## 4. Lifecycle, Expiration & Enactment
+## Lifecycle, Expiration & Enactment
 
 A Governance Action progresses through several stages, from its initial submission to its final outcome.
 
 <Image src={lifecycleImage} alt="Governance Action lifecycle" loading="lazy" />
 
-### 4.1. Submission
+### Submission
 
 A Governance Action enters the ledger when a valid transaction containing the proposal is submitted.
 
 The action becomes identifiable on-chain and is assigned a voting period determined by the `govActionLifetime` protocol parameter.
 
-### 4.2. Active Voting
+### Active Voting
 
 During its active lifetime, eligible governance bodies may submit votes.
 
@@ -239,7 +239,7 @@ Voting activity and approval levels can be monitored through governance interfac
 
 The action remains subject to the applicable ratification rules until it is ratified, expires, or otherwise ceases to be eligible.
 
-### 4.3. Ratification
+### Ratification
 
 A Governance Action becomes eligible for ratification when all applicable approval thresholds have been satisfied.
 
@@ -252,7 +252,7 @@ Once ratified, the Governance Action proceeds toward enactment. **Ratification c
 A Governance Action does not need to remain active for its full six-epoch lifetime. If all applicable approval thresholds and ratification conditions are satisfied at an earlier epoch boundary, it can be ratified at that point and proceed toward enactment. The six-epoch lifetime is an expiration limit, not a mandatory waiting period.
 
 
-### 4.4. Enactment
+### Enactment
 
 Once ratified, a Governance Action is staged for enactment.
 
@@ -264,7 +264,7 @@ Depending on the action type, enactment may change protocol parameters, Constitu
 
 Certain governance actions can delay the ratification or enactment of other actions through precedence and dependency rules. Hard Fork Initiation actions also require coordinated software adoption; ledger enactment alone does not guarantee that every network participant has upgraded.
 
-### 4.5. Expiration
+### Expiration
 
 A Governance Action expires when its permitted lifetime ends without ratification, subject to any applicable extensions or governance-state restrictions.
 
@@ -272,7 +272,7 @@ The lifetime is controlled by `govActionLifetime`, which the Developer Portal do
 
 Because this parameter is adjustable through governance, readers should consult the current protocol parameters rather than assume a permanent fixed deadline.
 
-### 4.6. Dependencies & Precedence
+### Dependencies & Precedence
 
 Governance Actions are not always independent of one another. Even when the required voting thresholds have been reached, additional ledger rules may prevent or delay ratification.
 
@@ -295,7 +295,7 @@ For detailed technical rules, consult [CIP-1694](https://cips.cardano.org/cip/ci
 - [Governance Action Charts - Ratification and Enactment](https://cardano.org/insights/governance-actions/)
 - [GovTool - View Governance Actions](https://docs.gov.tools/cardano-govtool/using-govtool/governance-actions/view-governance-actions/)
 
-## 5. Submission & Deposit
+## Submission & Deposit
 
 ### Who Can Submit a Governance Action?
 
@@ -407,7 +407,7 @@ Other concepts have also emerged, reflecting demand for more accessible Governan
 
 Both were submitted to Catalyst Fund14 but **were not funded**, and no subsequent implementation has been verified. They are included as examples of proposed approaches rather than available services.
 
-## 6. References & Practical Guides
+## References & Practical Guides
 
 The following resources provide additional explanations, technical documentation, interactive visualizations, and practical interfaces for exploring Governance Actions.
 
